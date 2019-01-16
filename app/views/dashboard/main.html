@@ -1,0 +1,191 @@
+<md-progress-linear md-mode="indeterminate" data-ng-show="loading"></md-progress-linear>
+<div data-ng-hide="loading">
+  <div class="p-md-top p-md-left-right" data-ng-cloak data-ng-hide="hideGetStartedSteps()">
+    <md-toolbar class="md-whiteframe-1dp">
+      <div class="md-toolbar-tools">
+        <h2>Let's get started!</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <div layout="row" layout-align="start stretch" layout-wrap class="p-0 m-xs-top dashboard-card-container">
+      <div flex="100" flex-gt-xs="50" flex-gt-sm="25" layout="column" layout-align="start stretch">
+        <md-card flex layout="column" layout-align="start stretch">
+          <md-card-title layout="row" class="p-xs" flex="none">
+            <div class="dashboard-status-indicator" data-ng-class="{ 'complete' : hasCloudProviders, 'not-complete' : !hasCloudProviders }">
+              <ng-md-icon icon="check" size="20" data-ng-show="hasCloudProviders"></ng-md-icon>
+              <ng-md-icon icon="close" size="20" data-ng-show="!hasCloudProviders"></ng-md-icon>
+            </div>
+            <md-card-title-text layout="column" layout-align="center center" flex>
+                <span class="md-subhead p-0">Step 1</span>
+                <label class="md-title">AWS Account</label>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content layout="column" layout-align="start center" class="m-sm-top" flex>
+            <span class="text-align-center">
+              Link your TeemOps Account to your AWS Account
+            </span>
+          </md-card-content>
+          <md-card-actions layout="column" layout-align="center stretch" flex="none">
+            <a class="md-button md-primary" ui-sref="account({ mode: 'edit' })" data-ng-show="!hasCloudProviders">
+              <ng-md-icon icon="account_circle" size="16" style="margin-top: -2px;"></ng-md-icon>
+              Link AWS Account
+            </a>
+            <a class="md-button md-accent" ui-sref="account({ mode: 'edit' })" data-ng-show="hasCloudProviders">
+              Manage Linked AWS Accounts
+            </a>
+          </md-card-actions>
+        </md-card>
+      </div>
+      <div flex="100" flex-gt-xs="50" flex-gt-sm="25" layout="column" layout-align="start stretch">
+        <md-card flex layout="column" layout-align="start stretch">
+          <md-card-title layout="row" flex="none" class="p-xs">
+            <div class="dashboard-status-indicator" data-ng-class="{ 'complete' : hasCredentials, 'not-complete' : !hasCredentials }">
+              <ng-md-icon icon="check" size="20" data-ng-show="hasCredentials"></ng-md-icon>
+              <ng-md-icon icon="close" size="20" data-ng-show="!hasCredentials"></ng-md-icon>
+            </div>
+            <md-card-title-text layout="column" layout-align="center center">
+              <span class="md-subhead p-0">Step 2</span>
+              <label class="md-title">
+                AWS Credential
+              </label>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content layout="column" layout-align="start center" flex class="m-sm-top">
+            <div class="text-align-center">
+              AWS Credentials define the roles and permissions that TeemOps uses to access your AWS Account
+            </div>
+          </md-card-content>
+          <md-card-actions layout="column" layout-align="center stretch" flex="none">
+            <a class="md-button md-primary" ui-sref="credentials.new" data-ng-show="!hasCredentials">
+              <ng-md-icon icon="security" size="16" style="margin-top: -2px;"></ng-md-icon>
+              <span flex>Create Credential</span>
+            </a>
+            <a class="md-button md-accent" ui-sref="credentials" data-ng-show="hasCredentials">Manage Credentials</a>
+          </md-card-actions>
+        </md-card>
+      </div>
+      <div flex="100" flex-gt-xs="50" flex-gt-sm="25" layout="column" layout-align="start stretch">
+        <md-card flex layout="column" layout-align="start stretch">
+          <md-card-title layout="row" flex="none" class="p-xs">
+            <div class="dashboard-status-indicator" data-ng-class="{ 'complete' : hasAWSConfigs, 'not-complete' : !hasAWSConfigs }">
+              <ng-md-icon icon="check" size="20" data-ng-show="hasAWSConfigs"></ng-md-icon>
+              <ng-md-icon icon="close" size="20" data-ng-show="!hasAWSConfigs"></ng-md-icon>
+            </div>
+            <md-card-title-text layout="column" layout-align="center center">
+              <span class="md-subhead p-0">Step 3</span>
+              <label class="md-title">AWS Launch Config</label>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content layout="column" layout-align="start center" flex class="m-sm-top">
+            <span class="text-align-center">
+              AWS Launch Configs define the Infrastructure settings for your servers
+            </span>
+          </md-card-content>
+          <md-card-actions layout="column" layout-align="center stretch" flex="none">
+            <a class="md-button md-primary" ui-sref="awsconfigs.new" data-ng-show="!hasAWSConfigs">
+              <ng-md-icon icon="cloud" size="16" style="margin-top: -2px;"></ng-md-icon>
+              Create Launch Config
+            </a>
+            <a class="md-button md-accent" ui-sref="awsconfigs.list" data-ng-show="hasAWSConfigs">Manage Launch Configs</a>
+          </md-card-actions>
+        </md-card>
+      </div>
+      <div flex="100" flex-gt-xs="50" flex-gt-sm="25" layout="column" layout-align="start stretch">
+        <md-card flex layout="column" layout-align="start stretch">
+          <md-card-title layout="row" flex="none" class="p-xs">
+            <div class="dashboard-status-indicator" data-ng-class="{ 'complete' : hasApps, 'not-complete' : !hasApps }">
+              <ng-md-icon icon="check" size="20" data-ng-show="hasApps"></ng-md-icon>
+              <ng-md-icon icon="close" size="20" data-ng-show="!hasApps"></ng-md-icon>
+            </div>
+            <md-card-title-text layout="column" layout-align="center center">
+              <span class="md-subhead p-0">Step 4</span>
+              <label class="md-title">TeemOps Server</label>
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content layout="column" layout-align="start center" flex class="m-sm-top">
+            <span class="text-align-center">
+              Create, launch and manage your server through TeemOps<br/>
+              Let us look after AWS
+            </span>
+          </md-card-content>
+          <md-card-actions layout="column" layout-align="center center" flex="none">
+            <a class="md-button md-primary" ui-sref="apps.new">
+              Create my first Server
+            </a>
+          </md-card-actions>
+        </md-card>
+      </div>
+    </div>
+  </div>
+  <md-content class="p-sm-left-right m-sm-top" data-ng-show="hasApps">
+    <div layout-padding class="p-0-bottom">
+      <span class="md-title md-text-light">My {{appDisplayName }}s</span>
+      <md-divider class="m-s-top"></md-divider>
+    </div>
+    <div data-ng-show="!loading && (!apps || apps.length === 0)" data-ng-cloak>
+      <div class="layout-padding">
+        <a ui-sref="apps.new">Create a {{ appDisplayName }}</a>to get started
+      </div>
+    </div>
+    <div layout="row" class="p-0-top-bottom" layout-align="start stretch" data-ng-show="apps && apps.length > 0">
+        <md-card data-ng-class="{ 'm-sm-right' : $index < 2 }" data-ng-repeat="app in apps | orderBy: '-timestamp' | limitTo: 3" flex-gt-sm="33" flex-sm="50" flex="100">
+          <div layout="column" layout-align="start stretch">
+          <md-card-title flex="none">
+            <md-card-title-text>
+              <span class="md-title">{{ app.name }}</span>
+              <!--<span class="md-subhead">
+                <a data-ng-href="{{ 'http://' + app.appurl }}" target="_blank" class="md-primary">{{ 'http://' + app.appurl }}</a>
+      			  </span>-->
+            </md-card-title-text>
+          </md-card-title>
+          <md-card-content flex="no-shrink">
+            <div layout="row" class="p-sm-bottom">
+              <label class="md-text-light" flex="40">Status</label>
+              <span data-ng-class="app.statusInfo.textCssClass" flex="30" layout="row">
+                <span data-ng-class="{ 'p-xxs-top-bottom p-xs-left-right' : app.statusInfo.textCssClass !== '' }">{{ app.statusInfo.desc }}</span>
+              </span>
+            </div>
+            <div layout="row" class="p-sm-bottom">
+              <label class="md-text-light" flex="40">AWS Account Id</label>
+              <span flex>{{ app.awsAccountId }}</span>
+            </div>
+            <!--<div layout="row" class="p-sm-bottom">
+              <label class="md-text-light" flex="40">Cloud Provider</label>
+              <span flex>{{ app.cloudProviderName || 'None selected' }}<span>
+            </div>-->
+            <div layout="row" class="p-sm-bottom">
+                <label class="md-text-light" flex="40">{{ appDisplayName }} Stack</label>
+                <div data-ng-bind-html="app.appProviderSummary || 'None selected'" flex></div>
+            </div>
+            <div layout="row" class="p-sm-bottom">
+              <label class="md-text-light" flex="40">Credential</label>
+              <div app-link-credential-panel app="app" refresh-app="getApps()" credentials="credentials"
+                data-ng-show="!app.userDataProviderId" layout="row" flex="40">
+              </div>
+              <span data-ng-show="app.userDataProviderId" class="secondary-link" style="z-index: 1;" flex>
+                <a ui-sref="credentials" class="md-accent text-underline">{{ app.credentialAuthData.name }}</a>
+              </span>
+            </div>
+            <div layout="row" class="p-sm-bottom">
+              <label class="md-text-light" flex="40">Launch Config</label>
+              <div app-link-config-panel app="app" refresh-app="getApps()" aws-configs="awsConfigs"
+                data-ng-show="!app.awsConfigId" layout="row" flex="40">
+              </div>
+              <span data-ng-show="app.awsConfigId" class="secondary-link" style="z-index: 1;">
+                <a ui-sref="awsconfigs" class="md-accent text-underline">{{ app.awsConfigName }}</a>
+              </span>
+            </div>
+          </md-card-content>
+          <md-card-actions flex="none">
+            <div layout="row" layout-align="end center" flex>
+              <md-button class="md-primary icon-and-text-button" data-ng-click="showDetail(app.appId)" aria-label="View Details">
+                <ng-md-icon icon="visibility" size="16"></ng-md-icon>
+                <span>View Details<span>
+              </md-button>
+              <div app-start-stop-panel app="app"></div>
+            </div>
+          </md-card-actions>
+        </div>
+        </md-card>
+  </md-content>
+</div>

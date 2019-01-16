@@ -1,0 +1,6 @@
+<div layout="row" layout-align="center center" class="md-body-2 p-xs-right">
+  <label class="md-text-light">Status:&nbsp;</label>
+  <span>{{ app.statusInfo.desc }}</span>
+  <div app-start-stop-panel app="app"></div>
+  <md-progress-circular data-ng-show="app.processing" md-mode="indeterminate" md-diameter="24" style="margin-right: -24px;"></md-progress-circular>
+</div>

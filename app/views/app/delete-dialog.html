@@ -1,0 +1,35 @@
+<div role="dialog" aria-label="Confirm remove" layout="column"
+  layout-align="start stretch">
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Confirm remove</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <ng-md-icon icon="close" aria-label="Close dialog"></ng-md-icon>
+        </md-button>
+      </div>
+  </md-toolbar>
+  <label class="md-title p-sm-left-right m-sm-top" >
+    Are you sure you wish to remove this server?
+  </label>
+  <form name="appDeleteForm" id="appDeleteForm" novalidate class="p-sm-left-right p-md-top">
+
+    <md-checkbox ng-model="archive" aria-label="Archive">
+      Archive for future use
+    </md-checkbox>
+
+    <div layout="row" layout-padding>
+      <div flex></div>
+      <div class="text-align-right">
+        <md-button class="md-warn icon-and-text-button" ng-click="cancel()" layout-align="center center">
+          <ng-md-icon icon="cancel" size="16"></ng-md-icon>
+          <span>Cancel</span>
+        </md-button>
+        <md-button class="md-primary icon-and-text-button" ng-click="delete()" layout-align="center center">
+          <ng-md-icon icon="save" size="16"></ng-md-icon>
+          <span>{{ archive ? 'Remove & Archive' : 'Remove' }}</span>
+        </md-button>
+      </div>
+    </div>
+  </form>
+</div>

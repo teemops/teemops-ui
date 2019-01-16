@@ -1,0 +1,35 @@
+<md-dialog aria-label="Request Confirmation Email"  ng-cloak>
+  <form name="confirmForm" ng-submit="result(confirmForm.$valid)">
+    <md-toolbar layout="row" layout-align="center center">
+      <div class="md-toolbar-tools">
+        <span class="md-headline">Request Confirmation Email</span>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <ng-md-icon aria-label="Close dialog" icon="close"></ng-md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <p class="md-subhead">Please enter the email address that you used to register</p><br/>
+        <md-input-container class="md-block">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" data-ng-model="email" md-no-asterisk required md-autofocus />
+          <div ng-messages="confirmForm.email.$error">
+            <div ng-message="required">Please enter a valid email address</div>
+            <div ng-message="email">Please enter a valid email address</div>
+          </div>
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" md-padding>
+      <md-button data-ng-click="cancel()">
+        Cancel
+      </md-button>
+      <span flex></span>
+      <md-button type="submit">
+        Send me a new confirmation email
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

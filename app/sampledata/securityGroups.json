@@ -1,0 +1,13 @@
+[{
+  "ID": "sg-1ebd8c78",
+  "Description": "default VPC security group",
+  "VpcId": "vpc-b694b0d2",
+  "Name": "default",
+  "Tags": null
+}, {
+  "ID": "sg-fbfaca9d",
+  "Description": "web",
+  "VpcId": "vpc-b694b0d2",
+  "Name": "web",
+  "Tags": null
+}]

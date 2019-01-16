@@ -1,0 +1,9 @@
+<md-button class="md-accent m-0 md-outline"
+  data-ng-class="{ 'md-icon-button' : ($mdMedia('xs') || $mdMedia('sm')) && shrinkToFit }" layout="row"
+  data-ng-click="goToAddOrEditConfig(app, $event)" flex>
+  <ng-md-icon icon="settings" size="16"></ng-md-icon>
+  <span data-ng-show="$mdMedia('gt-sm') || !shrinkToFit" class="md-caption" flex>Link<br/> Config</span>
+  <md-tooltip>
+    Link an AWS Launch Config to this server
+  </md-tooltip>
+</md-button>

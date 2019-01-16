@@ -1,0 +1,149 @@
+<div class="m-md-bottom">
+  <div class="step-1 thick-border" layout="row" layout-align="start center">
+    <span>Basic Config Settings</span>
+    <span class="md-caption">&nbsp;(required)</span>
+  </div>
+  <md-input-container class="md-block m-sm-right m-md-top" flex-gt-xs="80">
+    <label for="name">AWS Config Name</label>
+    <input type="text" name="name" id="name" data-ng-model="config.name" required maxlength="255"
+      md-no-asterisk/>
+    <div class="hint">Choose a descriptive name for your config e.g. "subnet-1234567 Large"</div>
+    <div ng-messages="awsConfigForm.name.$error" class="m-sm-top">
+      <div ng-message="required">Please fill in an AWS Launch Config name</div>
+    </div>
+  </md-input-container>
+</div>
+<div class="m-md-bottom">
+  <div class="step-2" layout="row" layout-align="start center">
+    <span>Link your AWS Account</span>
+    <span class="md-caption">&nbsp;(required)</span>
+  </div>
+  <v-accordion class="vAccordion--default help-accordion">
+    <v-pane>
+      <v-pane-header class="text-align-right">
+        <span class="m-sm-right">
+          <small>Help</small>
+        </span>
+      </v-pane-header>
+      <v-pane-content class="md-caption text-align-right">
+        <a ui-sref="account" class="md-primary">Manage your linked AWS Accounts</a>
+      </v-pane-content>
+    </v-pane>
+  </v-accordion>
+  <div layout-gt-xs="row" flex-gt-xs="80">
+    <div select-or-add-aws-account app="config" form="awsConfigForm" cloud-providers="cloudProviders" flex-gt-xs="50" flex="100"
+      data-ng-class="{ 'm-sm-right' : $mdMedia('gt-xs') }"
+      tooltip-text="You need to link your TeemOps account with an AWS Account Id before you can create a Launch Config">
+    </div>
+    <md-input-container class="md-block" flex-gt-xs="50">
+      <label for="region">Region</label>
+      <md-select id="region" name="region" data-ng-model="config.region" class="m-0-bottom" md-no-asterisk required
+        data-ng-disabled="!(config.userCloudProviderId || config.awsAccountId)">
+        <md-option ng-repeat="region in regions" ng-value="region.id">
+          {{ region.name }}
+        </md-option>
+      </md-select>
+      <div ng-messages="awsConfigForm.region.$error">
+        <div ng-message="required">Please select a Region</div>
+      </div>
+    </md-input-container>
+  </div>
+  <div layout-gt-xs="row" flex-gt-xs="80">
+    <md-input-container class="md-block" flex data-ng-hide="accountCredentials.length === 0">
+      <label for="credential">AWS Credential</label>
+      <md-select id="credential" name="credential" data-ng-model="config.arn"
+        class="m-0-bottom" md-no-asterisk required data-ng-disabled="!(config.userCloudProviderId || config.awsAccountId)">
+        <md-option ng-repeat="cred in accountCredentials" ng-value="cred.authData.arn">
+          {{ cred.authData.name + " - " + cred.authData.arn }}
+        </md-option>
+      </md-select>
+      <div ng-messages="awsConfigForm.credential.$error">
+        <div ng-message="required">Please select an AWS Credential</div>
+      </div>
+    </md-input-container>
+    <md-input-container class="md-block" flex data-ng-show="accountCredentials.length === 0">
+      <label>AWS Credential</label>
+      <div class="m-lg-top">
+        <a ui-sref="credentials.new( { userCloudProviderId : config.userCloudProviderId })" class="md-accent">
+          Create a new credential linked to your selected AWS Account
+        </a>
+      </div>
+    </md-container>
+  </div>
+</div>
+
+<div>
+  <div class="step-3" layout="row" layout-align="start center">
+    <span>AWS Specific Settings</span>
+    <span class="md-caption">&nbsp;(required)</span>
+  </div>
+  <v-accordion class="vAccordion--default help-accordion">
+    <v-pane>
+      <v-pane-header class="text-align-right">
+        <span class="m-sm-right">
+          <small>Help</small>
+        </span>
+      </v-pane-header>
+      <v-pane-content class="md-caption text-align-right">
+        Find out more about
+        <a target="_blank" href="https://aws.amazon.com/ec2/instance-types/" class="md-primary" aria-label="Instance Types">Instance Types here</a>
+        <br/>
+        VPC, Subnet and Security Group info can be found on your
+        <a target="_blank" href="https://console.aws.amazon.com/vpc/home" class="md-primary" aria-label="VPC Dashboard">VPC Dashboard</a>
+        </v-pane-content>
+    </v-pane>
+  </v-accordion>
+  <div layout-gt-xs="row" flex-gt-xs="80">
+    <div flex-gt-xs="50" flex="100" layout="row" data-ng-class="{ 'm-sm-right' : $mdMedia('gt-xs') }">
+      <md-input-container flex="100">
+        <label for="appInstanceType">Instance Type</label>
+        <md-select id="appInstanceType" name="appInstanceType" data-ng-model="config.appInstanceType"
+          class="m-0-bottom" required md-no-asterisk>
+    			<md-option data-ng-repeat="type in instanceTypes" value="{{ type.val }}">{{ type.name }}</md-option>
+      	</md-select>
+        <div ng-messages="awsConfigForm.appInstanceType.$error">
+          <div ng-message="required">Please select an Instance Type</div>
+        </div>
+      </md-input-container>
+    </div>
+    <md-input-container class="md-block" flex-gt-xs="50" flex="100">
+      <label for="vpc">VPC (Virtual Private Cloud)</label>
+      <md-select id="vpc" name="vpc" data-ng-model="config.vpc" class="m-0-bottom" md-no-asterisk required
+        data-ng-disabled="!config.region || !(config.userCloudProviderId || config.awsAccountId)">
+        <md-option ng-repeat="vpc in vpcs" ng-value="vpc.ID">
+          {{ vpc.ID }} - {{ vpc.IPRange }} - Tags: {{ vpc.Tags[0].Value }}
+        </md-option>
+      </md-select>
+      <div ng-messages="awsConfigForm.vpc.$error">
+        <div ng-message="required">Please select a VPC</div>
+      </div>
+    </md-input-container>
+  </div>
+  <div layout-gt-xs="row" flex-gt-xs="80">
+    <md-input-container class="md-block" flex-gt-xs="50" flex="100" data-ng-class="{ 'm-sm-right' : $mdMedia('gt-xs') }">
+      <label for="appSecurityGroup">Security Group</label>
+      <md-select id="appSecurityGroup" name="appSecurityGroup" data-ng-model="config.appSecurityGroup" class="m-0-bottom" md-no-asterisk required
+        data-ng-disabled="!config.vpc">
+        <md-option ng-repeat="sg in securityGroups | filter: { VpcId : config.vpc }" ng-value="sg.ID">
+          {{ sg.ID }} ({{ sg.Name }})
+        </md-option>
+      </md-select>
+      <div ng-messages="awsConfigForm.appSecurityGroup.$error">
+        <div ng-message="required">Please select a Security Group</div>
+      </div>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-xs="50" flex="100">
+      <label for="appSubnet">Subnet</label>
+      <md-select id="appSubnet" name="appSubnet" data-ng-model="config.appSubnet" class="m-0-bottom" md-no-asterisk required
+        data-ng-disabled="!config.vpc">
+        <md-option ng-repeat="subnet in subnets | filter: { VpcId : config.vpc }" ng-value="subnet.ID">
+          {{ subnet.ID }} {{ subnet.IPRange }} - AZ: {{subnet.AvailabilityZone}}
+        </md-option>
+      </md-select>
+      <div ng-messages="awsConfigForm.appSubnet.$error">
+        <div ng-message="required">Please select a Subnet</div>
+      </div>
+    </md-input-container>
+
+  </div>
+</div>

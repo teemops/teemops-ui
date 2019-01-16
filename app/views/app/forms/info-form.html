@@ -1,0 +1,45 @@
+<div flex-gt-sm="80">
+  <md-input-container class="md-block">
+    <label>{{ displayName }} Name</label>
+    <input type="text" name="name" id="name" data-ng-model="app.name" required maxlength="255" md-no-asterisk autofocus/>
+    <div ng-messages="appForm.name.$error">
+      <div ng-message="required">Please fill in a {{ displayName }} name</div>
+    </div>
+  </md-input-container>
+</div>
+<!-- TEEM001-20 Hide Server URL-->
+<!--<div flex-gt-sm="80">
+  <md-input-container class="md-block">
+    <label for="url">{{ displayName }} Url</label>
+    <input type="text" name="url" id="url" data-ng-model="app.appurl"
+      required data-ng-pattern="/^[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$/" minlength="3" maxlength="255" md-no-asterisk flex="nogrow"/>
+    <span flex="none">{{ appUrlSuffix }}</span>
+    <div ng-messages="appInfoForm.url.$error" class="ng-messages-custom">
+      <div ng-message="required">Please fill in a {{ displayName }} url</div>
+      <div ng-message="pattern">{{ displayName }} Url should only contain letters and numbers</div>
+      <div ng-message-exp="['minlength', 'maxlength']">{{ displayName }} Url should be between 3 and 20 characters</div>
+    </div>
+  </md-input-container>
+</div>-->
+<div class="radio-container">
+  <md-input-container class="layout-fill" flex-gt-xs="80" flex
+    data-ng-class="{ 'md-input-invalid' : appForm.appProvider.$error.required && formSubmitted }">
+    <label>Please choose your {{ displayName }} stack</label>
+    <div data-ng-show="appForm.appProvider.$error.required && formSubmitted"
+        class="md-input-messages-animation md-auto-hide ng-active" aria-live="assertive">
+      <div class="md-input-message-animation">Please select a {{ displayName }} stack</div>
+    </div>
+    <md-radio-group data-ng-model="app.appProviderId" layout="column" name="appProvider" ng-required="true" class="radio-button-list">
+      <md-radio-button data-ng-repeat="ap in appProviderList | filter: { type : 'blank'}" data-ng-value="{{ap.id}}">
+        <div class="text-container" layout-align="center start" layout="column">
+          <span class="md-title">{{ ap.name }}</span>
+          <span class="md-body-1">{{ ap.os }}</span>
+          <span class="md-body-2">{{ ap.description }}</span>
+        </div>
+        <div class="img-container" data-ng-show="ap.logo">
+          <img data-ng-src="/images/{{ap.logo}}" alt="{{ap.name}}"/>
+        </div>
+      </md-radio-button>
+    </md-radio-group>
+  </md-input-container>
+</div>

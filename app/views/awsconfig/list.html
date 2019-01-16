@@ -1,0 +1,48 @@
+<md-content class="layout-padding p-0-top config-list">
+  <div class="p-sm">
+    <div md-whiteframe="2" class="md-whiteframe-2dp p-0">
+      <md-list class="app-list">
+        <md-subheader class="md-primary">
+          <md-list-item layout="row" class="m-0 p-sm-left-right" flex>
+            <div flex="15" class="p-0-left">AWS Account ID</div>
+            <div flex="15">Name</div>
+            <div flex="15">VPC</div>
+            <div flex="15">Subnet</div>
+            <div flex="15">Security Group</div>
+            <div flex="15">Instance Type</div>
+            <div flex="10">Region</div>
+            <div flex="15" class="p-0-right button-panel"></div>
+          </md-list-item>
+        </md-subheader>
+        <md-progress-linear md-mode="indeterminate" data-ng-show="loading"></md-progress-linear>
+        <div class="md-list-body">
+          <md-list-item data-ng-repeat="config in awsConfigs" layout="row" layout-padding class="p-0"
+            layout-align="start start" ng-click="showViewDialog(config)" >
+            <div flex="15" class="p-0-left">{{ config.awsAccountId }}</div>
+            <div flex="15">{{ config.name }}</div>
+            <div flex="15">{{ config.vpc }}</div>
+            <div flex="15">{{ config.appSubnet || 'None' }}</div>
+            <div flex="15">{{ config.appSecurityGroup || 'None' }}</div>
+            <div flex="15">{{ config.appInstanceType || 'None' }}</div>
+            <div flex="10">{{ config.region }}</div>
+            <div flex="15" class="text-align-right p-0-right button-panel">
+              <md-button class="md-icon-button md-accent md-raised" data-ng-click="showEditDialog(config)" aria-label="Edit Config">
+                <ng-md-icon icon="mode_edit"></ng-md-icon>
+              </md-button>
+              <md-button data-ng-show="deleteButtonsEnabled" class="md-icon-button md-warn md-raised" data-ng-click="confirmDelete($event, config.id)" aria-label="Delete Config">
+                <ng-md-icon icon="delete"></ng-md-icon>
+              </md-button>
+            </div>
+          </md-list-item>
+          <div data-ng-show="!awsConfigs || awsConfigs.length === 0">
+            <div class="p-md-top-bottom p-sm-left-right">
+              <label class="md-text-light">
+                  <a ui-sref="awsconfigs.new" class="md-accent text-underline">Create an AWS Launch Config</a>
+              </label>
+            </div>
+          </div>
+        </div>
+      </md-list>
+    </div>
+  </div>
+</md-content>

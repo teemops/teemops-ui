@@ -1,0 +1,39 @@
+<md-list class="app-list" data-ng-show="awsConfigs.length > 0">
+  <md-subheader class="md-primary">
+    <md-list-item layout="row" class="m-0 p-lg-left" flex>
+      <span flex="20">Config Name</span>
+      <span flex="20">Subnet</span>
+      <span flex="15">VPC</span>
+      <span flex="15">Instance Type</span>
+      <span flex="15">Security Group</span>
+      <span flex="15">Region</span>
+    </md-list-item>
+  </md-subheader>
+  <div class="md-list-body" layout="row">
+    <md-input-container class="md-block m-xs-top-bottom" flex>
+        <md-radio-group ng-model="app.awsConfigId" class="credential-radio-group" layout-align="start center">
+          <md-radio-button ng-repeat="config in awsConfigs" data-ng-value="config.id"
+            class="md-primary m-0" flex>
+            <md-list-item layout="row" flex layout-align="start center" class="p-lg-left">
+              <span flex="20">{{ config.name }}</span>
+              <span flex="20">{{ config.appSubnet }}</span>
+              <span flex="15">{{ config.vpc }}</span>
+              <span flex="15">{{ config.appInstanceType }}</span>
+              <span flex="15">{{ config.appSecurityGroup }}</span>
+              <span flex="15">{{ config.region }}</span>
+            </md-list-item>
+          </md-radio-button>
+        </md-radio-group>
+    </md-input-container>
+  </div>
+</md-list>
+<div data-ng-show="awsConfigs.length === 0" class="m-sm-bottom" layout="column">
+  <div layout="row" layout-align="start center" class="m-sm-bottom">
+    <ng-md-icon icon="info" size="20" class="md-accent m-xs-right"></ng-md-icon>
+    <span class="md-body-1" flex>Only Configs that are linked to your Server's AWS Account Id will appear here</span>
+  </div>
+  <label class="md-text-light m-xs-right">
+      <a ui-sref="awsconfigs.new({ appId: app.appId, userCloudProviderId: app.userCloudProviderId })" class="md-accent text-underline">Create an AWS Launch Config</a>
+  </label>
+  <span flex></span>
+</div>

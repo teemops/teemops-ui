@@ -1,0 +1,7 @@
+<md-button class="md-warn m-xs-left-right md-outline"
+  data-ng-class="{ 'md-icon-button' : ($mdMedia('xs') || $mdMedia('sm')) || iconOnly }" layout="row"
+  data-ng-click="showConfirmDeleteDialog(app.appId, app.name, $event)"
+  ng-disabled="app.statusInfo.disabled || app.processing || app.statusInfo.name === 'STARTED'">
+  <ng-md-icon icon="delete" size="16"></ng-md-icon>
+  <span data-ng-show="$mdMedia('gt-sm') && !iconOnly" flex>Remove</span>
+</md-button>

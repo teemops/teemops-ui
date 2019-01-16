@@ -1,0 +1,21 @@
+@import "colors-and-fonts.scss";
+
+.public-container {
+  background: $accent-hue-200;
+}
+
+.login-container, .register-container {
+  border-radius: 4px;
+  background: $form-bg-color;
+
+  .logo-container {
+    text-align: center;
+    padding: 12px 0;
+    border-bottom: Solid 1px $primary-border-color;
+
+    img {
+      width: 150px;
+      height: 55px;
+    }
+  }
+}

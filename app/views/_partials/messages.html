@@ -1,0 +1,10 @@
+<div layout-align="center center" data-ng-class="{
+  'info' : message.status === 'info',
+  'success' : message.status === 'success',
+  'error' : message.status === 'error'}" class="text-align-center">
+  <ng-md-icon data-ng-show="message.status === 'info'" icon="info"></ng-md-icon>
+  <ng-md-icon data-ng-show="message.status === 'success'" icon="check"></ng-md-icon>
+  <ng-md-icon data-ng-show="message.status === 'error'" icon="error"></ng-md-icon>
+  <span data-ng-bind-html="message.content.title"></span>
+  <span data-ng-bind-html="message.content.subtitle" class="md-body-1"></span>
+</div>

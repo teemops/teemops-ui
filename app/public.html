@@ -1,0 +1,5 @@
+<md-content class="message-container site-message-container" layout="row" layout-padding layout-align="left center"
+  data-ng-controller="MessageCtrl" data-ng-show="message.content">
+    <div data-ng-include="'views/_partials/messages.html'" flex-offset-gt-xs="25" flex-gt-xs="50"></div>
+</md-content>
+<md-content ui-view="" layout="column" layout-fill class="public-container"></md-content>

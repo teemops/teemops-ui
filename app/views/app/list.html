@@ -1,0 +1,82 @@
+<md-content class="layout-padding">
+	<div class="md-padding">
+		<div class="layout-padding">
+			<div md-whiteframe="2" class="md-whiteframe-2dp p-0">
+				<md-list class="app-list">
+					<md-subheader class="md-primary">
+						<md-list-item layout="row" class="m-0 p-sm-left-right" flex>
+							<div flex="15" class="p-0-left">{{ displayName }} Name</div>
+							<div flex="15">Status</div>
+							<!-- TEEM001-22 Hide Cloud Provider
+							<div flex="25">Cloud Provider</div>
+							-->
+							<div flex="20">{{ displayName }} Stack</div>
+							<div flex="35" layout="row">
+								<span flex="50" class="m-xs-right">Credential</span>
+								<span flex="50">Launch Config</span>
+							</div>
+							<div flex="20" class="p-0-right"></div>
+						</md-list-item>
+					</md-subheader>
+					<md-progress-linear md-mode="indeterminate" data-ng-show="loading"></md-progress-linear>
+					<div class="md-list-body">
+						<md-list-item ng-repeat="app in apps" layout="row" ng-click="showDetail(app.appId)" ng-disabled="app.processing" flex>
+							<div flex="15" class="p-0-left">
+								<span>{{ app.name }}</span>
+								<!-- TEEM001-20 Hide Server URL
+								<!--<a data-ng-href="{{ 'http://' + app.appurl }}" class="app-url ellipsis md-primary" flex="25" target="_blank"
+									class="word-wrap">
+									{{ 'http://' + app.appurl }}
+								</a>-->
+							</div>
+							<div flex="15" layout="row" class="no-wrap">
+								<span data-ng-class="app.statusInfo.textCssClass" class="p-xxs-top-bottom p-xs-right" flex>{{ app.statusInfo.desc }}</span>
+							</div>
+							<!-- TEEM001-22 Hide Cloud Provider
+							<div flex="15" layout-padding>{{ app.cloudProviderDesc || 'None selected' }}</div>
+							-->
+							<div flex="20" data-ng-bind-html="app.appProviderSummary || 'None selected'" layout-padding></div>
+							<div flex="35" layout="row">
+								<div layout="row" class="m-xs-right" flex="50">
+									<div app-link-credential-panel app="app" refresh-app="getApps()" credentials="credentials" shrink-to-fit="true"
+										data-ng-show="!app.userDataProviderId" layout="row" flex="90">
+									</div>
+									<span data-ng-show="app.userDataProviderId" class="secondary-link" style="z-index: 1;" flex>
+										<a ui-sref="credentials" class="md-accent text-underline">{{ app.credentialAuthData.name }}</a>
+									</span>
+								</div>
+								<div layout="row" flex="50">
+									<div app-link-config-panel app="app" refresh-app="getApps()" aws-configs="awsConfigs" shrink-to-fit="true"
+										data-ng-show="!app.awsConfigId" layout="row" flex="90">
+									</div>
+									<span data-ng-show="app.awsConfigId" class="secondary-link" style="z-index: 1;">
+										<a ui-sref="awsconfigs" class="md-accent text-underline">{{ app.awsConfigName }}</a>
+									</span>
+								</div>
+							</div>
+							<div flex="20" class="text-align-right p-0-right" layout="row" layout-align="end center">
+								<div app-start-stop-panel app="app" raised-button="true"></div>
+								<div app-delete-panel app="app" refresh-app="getApps()" icon-only="true"></div>
+							</div>
+
+							<!--<div class="text-align-right md-secondary" layout="row" layout-align="end center"
+								data-ng-show="!app.userDataProviderId">
+									<ng-md-icon icon="warning" class="md-warn m-xs-right"></ng-md-icon>
+									<span>
+										Link this server to <br/>an <a href="" data-ng-click="goToAddOrEditCredential(app, $event)" class="md-warn">AWS credential</a><br/>to get started
+									</span>
+							</div>-->
+						</md-list-item>
+						<div data-ng-show="!apps || apps.length === 0">
+	            <div class="p-md-top-bottom p-sm-left-right">
+	              <label class="md-text-light">
+	                  <a ui-sref="apps.new" class="md-accent text-underline">Create a server</a> to get started
+	              </label>
+	            </div>
+	          </div>
+					</div>
+				</md-list>
+			</div>
+		</div>
+	</div>
+</md-content>

@@ -1,0 +1,210 @@
+@import "colors-and-fonts.scss";
+@import "mixins.scss";
+
+/*
+  Allow angular.js to be loaded in body, hiding cloaked elements until
+  templates compile.  The !important is important given that there may be
+  other selectors that are more specific or come later and might alter display.
+ */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
+.ng-cloak, .x-ng-cloak,
+.ng-hide {
+    display: none !important;
+}
+
+[data-ng-disabled="disabled"] {
+  * {
+    color: $disabled-text-color;
+  }
+}
+
+/* Layout utilities */
+.inline-block { display: inline-block; }
+.overflow-hidden { overflow: hidden; }
+
+/* Margin & Padding utilities */
+$spacing-xxs: 4px;
+$spacing-xs: 8px;
+$spacing-s: 16px;
+$spacing-md: 24px;
+$spacing-lg: 32px;
+$spacing-xlg: 64px;
+
+.p-xxs { padding: $spacing-xxs !important;}
+.p-xxs-left, .p-xxs-left-right { padding-left: $spacing-xxs !important }
+.p-xxs-left-right, .p-xxs-right { padding-right: $spacing-xs !important }
+.p-xxs-top, .p-xxs-top-bottom { padding-top: $spacing-xxs !important }
+.p-xxs-bottom, .p-xxs-top-bottom { padding-bottom: $spacing-xxs !important}
+.p-xs { padding: $spacing-xs !important;}
+.m-xs { margin: $spacing-xs !important; }
+.p-xs-left, .p-xs-left-right { padding-left: $spacing-xs !important }
+.p-xs-left-right, .p-xs-right { padding-right: $spacing-xs !important }
+.m-xs-left, .m-xs-left-right { margin-left: $spacing-xs !important }
+.m-xs-left-right, .m-xs-right { margin-right: $spacing-xs !important }
+.p-xs-top, .p-xs-top-bottom { padding-top: $spacing-xs !important }
+.p-xs-bottom, .p-xs-top-bottom { padding-bottom: $spacing-xs !important}
+.m-xs-top, .m-xs-top-bottom { margin-top: $spacing-xs !important }
+.m-xs-bottom, .m-xs-top-bottom { margin-bottom: $spacing-xs !important }
+
+.p-sm { padding: $spacing-s !important; }
+.m-sm { margin: $spacing-s !important; }
+.p-sm-left, .p-sm-left-right { padding-left: $spacing-s !important }
+.p-sm-left-right, .p-sm-right { padding-right: $spacing-s !important }
+.m-sm-left, .m-sm-left-right { margin-left: $spacing-s !important }
+.m-sm-left-right, .m-sm-right { margin-right: $spacing-s !important }
+.p-sm-top, .p-sm-top-bottom { padding-top: $spacing-s !important }
+.p-sm-bottom, .p-sm-top-bottom { padding-bottom: $spacing-s !important }
+.m-sm-top, .m-sm-top-bottom { margin-top: $spacing-s !important }
+.m-sm-bottom, .m-sm-top-bottom { margin-bottom: $spacing-s !important }
+
+.p-md { padding: $spacing-md !important; }
+.p-md-left, .p-md-left-right { padding-left: $spacing-md !important }
+.p-md-left-right, .p-md-right { padding-right: $spacing-md !important }
+.m-md-left, .m-md-left-right { margin-left: $spacing-md !important }
+.m-md-left-right, .m-md-right { margin-right: $spacing-md !important }
+.p-md-top, .p-md-top-bottom { padding-top: $spacing-md !important }
+.p-md-bottom, .p-md-top-bottom { padding-bottom: $spacing-md !important }
+.m-md { margin: $spacing-md; }
+.m-md-top, .m-md-top-bottom { margin-top: $spacing-md !important }
+.m-md-bottom, .m-md-top-bottom { margin-bottom: $spacing-md !important }
+
+.p-lg-left, .p-lg-left-right { padding-left: $spacing-lg !important }
+.p-lg-left-right, .p-lg-right { padding-right: $spacing-lg !important }
+.m-lg-left, .m-lg-left-right { margin-left: $spacing-lg !important }
+.m-lg-left-right, .m-lg-right { margin-right: $spacing-lg !important }
+.p-lg-top, .p-lg-top-bottom { padding-top: $spacing-lg !important }
+.p-lg-bottom, .p-lg-top-bottom { padding-bottom: $spacing-lg !important }
+.m-lg-top, .m-lg-top-bottom { margin-top: $spacing-lg !important }
+.m-lg-bottom, .m-lg-top-bottom { margin-bottom: $spacing-lg !important }
+
+.p-xlg-left, .p-xlg-left-right { padding-left: $spacing-xlg !important }
+.p-xlg-left-right, .p-xlg-right { padding-right: $spacing-xlg !important }
+.m-xlg-left, .m-xlg-left-right { margin-left: $spacing-xlg !important }
+.m-xlg-left-right, .m-xlg-right { margin-right: $spacing-xlg !important  }
+.p-xlg-top, .p-xlg-top-bottom { padding-top: $spacing-xlg !important }
+.p-xlg-bottom, .p-xlg-top-bottom { padding-bottom: $spacing-xlg !important }
+.m-xlg-top, .m-xlg-top-bottom { margin-top: $spacing-xlg !important }
+.m-xlg-bottom, .m-xlg-top-bottom { margin-bottom: $spacing-xlg !important }
+
+.m-0 { margin: 0 !important }
+.m-0-left { margin-left: 0 !important; }
+.m-0-right { margin-right: 0 !important; }
+.m-0-left-right { margin-left: 0 !important; margin-right: 0 !important; }
+.m-0-bottom { margin-bottom: 0 !important; }
+.m-0-top { margin-top: 0 !important; }
+.p-0 { padding: 0 !important }
+.p-0-left { padding-left: 0 !important; }
+.p-0-right { padding-right: 0 !important; }
+.p-0-top { padding-top: 0; }
+.p-0-bottom { padding-bottom: 0; }
+.p-0-top-bottom { padding-top: 0; padding-bottom: 0;}
+
+/* Borders */
+.border-right { border-right: Solid 1px $primary-border-color; }
+
+/* Text utilities */
+.text-align-center { text-align: center; }
+.text-align-right { text-align: right; }
+.md-text-light { font-weight: 300; }
+.text-underline { text-decoration: underline; }
+
+.text-success {
+  background-color:$success-color;
+  color: #FFFFFF;
+  border-radius: 3px;
+
+  &.pulse {
+    animation: success-pulse 2s infinite;
+    animation-direction: alternate;
+  }
+}
+
+.text-error {
+  background-color: $error-color;
+  color: #FFFFFF;
+  border-radius: 3px;
+}
+
+.text-warn {
+  background-color: $primary-hue-600;
+  color: #FFFFFF;
+  border-radius: 3px;
+
+  &.pulse {
+    animation: warn-pulse 2s infinite;
+    animation-direction: alternate;
+  }
+}
+
+@keyframes success-pulse {
+  0% {
+    background-color: #81C784;
+  }
+  50% {
+    background-color: #4CAF50;
+  }
+  100% {
+    background-color: $success-color;
+  }
+}
+
+@keyframes warn-pulse {
+  0% {
+    background-color: $primary-hue-300;
+  }
+  50% {
+    background-color: $primary-hue-600;
+  }
+  100% {
+    background-color: $primary-hue-default;
+  }
+}
+
+/* Text overflow/wrap */
+
+
+@mixin ellipsis() {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.word-wrap {
+  @include word-wrap();
+}
+
+.ellipsis {
+  @include ellipsis();
+}
+
+
+/* Icons */
+ng-md-icon {
+  &[size="14"] {
+    height: 14px; width: 14px;
+  }
+
+  &[size="16"] {
+    height: 16px; width: 16px;
+  }
+
+  &[size="20"] {
+    height: 20px; width: 20px;
+  }
+
+  &[size="32"] {
+    height: 32px; width: 32px;
+  }
+
+  &.md-warn {
+    fill: $warn-color;
+  }
+
+  &.md-accent {
+    fill: $accent-hue-default;
+  }
+
+  &.md-primary {
+    fill: $primary-hue-default;
+  }
+}

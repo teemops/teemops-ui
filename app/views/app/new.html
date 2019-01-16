@@ -1,0 +1,259 @@
+<div>
+	<md-subheader class="page-title">
+		<md-toolbar class="md-accent md-hue-1" layout-padding>
+			<div layout="row" layout-padding layout-align="start center">
+				<h4 class="md-headline md-text-light">Create {{ displayName }}</h4>
+			</div>
+		</md-toolbar>
+	</md-subheader>
+
+	<md-content class="md-padding">
+		<div layout="column" layout-padding flex-gt-sm="70" flex>
+			<md-content class="message-container m-xs-bottom" layout="row" layout-padding layout-align="left center"
+				data-ng-controller="MessageCtrl" data-ng-show="message.content">
+					<div data-ng-include="'views/_partials/messages.html'"></div>
+			</md-content>
+			<form name="appForm" ng-submit="submit(appForm.$valid)" novalidate layout="column" class="p-0">
+				<div md-whiteframe="2" class="m-md-bottom">
+					<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+						<span>{{ displayName }} basics</span>
+						<span flex></span>
+						<span class="md-caption">(required)</span>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<md-content class="md-padding form-container">
+						<div data-ng-include="'views/app/forms/info-form.html'"></div>
+					</md-content>
+				</div>
+				<div md-whiteframe="2" class="m-md-bottom">
+					<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+						<span>AWS Settings</span>
+						<span flex></span>
+						<span class="md-caption">(required)</span>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<md-content class="md-padding form-container">
+						<div data-ng-include="'views/app/forms/cloud-form.html'"></div>
+					</md-content>
+				</div>
+				<!-- TEEM001-22 - Hide CLoud Provider
+				<div md-whiteframe="2" class="m-md-bottom">
+					<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+						<span>Cloud Provider</span>
+						<span flex></span>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<md-content class="md-padding form-container">
+						<div class="radio-container">
+							<md-input-container class="layout-fill" flex-gt-xs="80" flex
+								data-ng-class="{ 'md-input-invalid' : appInfoForm.cloudProvider.$error.required && formSubmitted }">
+								<label>Please choose your Cloud Provider</label>
+								<md-radio-group data-ng-model="app.cloud" layout="column" name="appProvider" ng-required="true" class="radio-button-list">
+									<md-radio-button data-ng-repeat="cp in cloudProviderList" data-ng-value="{{cp.id}}">
+										<div class="text-container" layout-align="center center" layout="row">
+											<span class="md-title">{{ cp.description }}</span>
+										</div>
+										<div class="img-container" style="width: 90px;" data-ng-show="cp.logo">
+											<img data-ng-src="/images/{{cp.logo}}" alt="{{cp.name}}"/>
+										</div>
+									</md-radio-button>
+								</md-radio-group>
+							</md-input-container>
+						</div>
+					</md-content>
+						<div class="radio-container">
+								<md-input-container class="layout-fill" flex-gt-xs="80" flex
+									data-ng-class="{ 'md-input-invalid' : appForm.appProvider.$error.required && formSubmitted }">
+									<label>Choose your app stack & environment</label>
+									<div data-ng-show="appForm.appProvider.$error.required && formSubmitted"
+											class="md-input-messages-animation md-auto-hide ng-active" aria-live="assertive">
+										<div class="md-input-message-animation">Please select an app stack or blank environment</div>
+									</div>
+									<md-radio-group data-ng-model="app.appProviderId" layout="column" name="appProvider" ng-required="true" class="radio-button-list">
+							      <md-radio-button data-ng-repeat="ap in appProviderList | filter: { type : 'predefined'}" data-ng-value="{{ap.id}}">
+											<div class="text-container">
+												<span class="md-title">{{ ap.name }}</span>
+												<span class="md-body-1">{{ ap.os }}</span>
+												<span class="md-body-2">{{ ap.description }}</span>
+											</div>
+											<div class="img-container" style="width: 90px;" data-ng-show="ap.logo">
+												<img data-ng-src="/images/{{ap.logo}}" alt="{{ap.name}}"/>
+											</div>
+										</md-radio-button>
+							    </md-radio-group>
+								</md-input-container>
+							</div>
+							<div class="md-title" style="padding-left: 2px;">OR</div>
+
+					</md-content>
+				</div>-->
+ 				<!--<div md-whiteframe="2" class="m-md-bottom">
+					<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+						<span>Cloud Provider</span>
+						<span flex></span>
+						<span class="md-caption">(optional)</span>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<md-content class="md-padding form-container">
+						<md-input-container class="md-block radio-container" flex-gt-xs="80" flex>
+							<label>
+								Select a cloud provider<br/>
+								<span class="md-body-1">(We'll configure the settings later)</span>
+							</label>
+							<md-radio-group data-ng-model="app.cloud" layout="row" name="cloudProvider" class="radio-button-group">
+					      <md-radio-button data-ng-repeat="cloud in cloudProviderList" data-ng-value="'{{cloud.id}}'"
+									ng-disabled="!cloud.enabled" flex>
+									<img data-ng-src="/images/{{cloud.logo}}" alt="{{cloud.description}}"/>
+								</md-radio-button>
+					    </md-radio-group>
+						</md-input-container>
+					</md-content>
+				</div>
+				<div md-whiteframe="2" class="m-md-bottom">
+					<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+						<span>Database(s)</span>
+						<span flex></span>
+						<span class="md-caption">(optional)</span>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<md-content class="md-padding">
+						<div class="check-container">
+							<label>Select database(s)</label>
+							<md-input-container layout="row">
+								<md-checkbox data-ng-repeat="db in dbList" ng-checked="exists(db.id, app.configData.databases)" ng-click="toggle(db.id, app.configData.databases)">
+										{{ db.name }}
+								</md-checkbox>
+							</md-input-container>
+						</div>
+					</md-content>
+				</div>
+				<div md-whiteframe="2" class="m-md-bottom" data-ng-disabled>
+					<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+						<span>Caching</span>
+						<span flex></span>
+						<span class="md-caption">(optional - available soon)</span>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<md-content class="md-padding" layout="row" layout-sm="column">
+						<md-input-container class="md-block" flex>
+							<label>Caching Server</label>
+							<md-select id="cachingServer" name="cachingServer" data-ng-model="app.cachingServer" class="m-md-bottom"
+								disabled>
+									<md-option value="ELASTICACHE">Elasticache</md-option>
+									<md-option value="MEMCACHED">Memcached</md-option>
+							</md-select>
+						</md-input-container>
+						<md-input-container class="md-block" flex>
+							<label>Cache Size</label>
+							<md-select id="cacheSize" name="cacheSize" data-ng-model="app.cacheSize" data-ng-required="app.cachingServer" class="m-md-bottom"
+								disabled>
+									<md-option value="1GB">1GB</md-option>
+									<md-option value="2GB">2GB</md-option>
+									<md-option value="4GB">4GB</md-option>
+							</md-select>
+							<div ng-messages="appForm.cacheSize.$error">
+								<div ng-message="required">Please select a cache size</div>
+							</div>
+						</md-input-container>
+					</md-content>
+				</div>
+				<div md-whiteframe="2" data-ng-disabled>
+					<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+						<span>Source Code</span>
+						<span flex></span>
+						<span class="md-caption">(optional - available soon)</span>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<md-content class="md-padding">
+						<div class="radio-container">
+							<label>Source</label><br/><br/>
+							<md-input-container>
+								<md-radio-group data-ng-model="currentApp.codeSource" layout="row" name="codeSource" disabled>
+									<md-radio-button data-ng-repeat="source in sourceCodeList" data-ng-value="'{{source.val}}'" class="md-align-top-left" disabled="{{!source.enabled}}" flex>
+										{{ source.name }}
+									</md-radio-button>
+								</md-radio-group>
+							</md-input-container>
+						</div>
+					</md-content>
+				</div>-->
+
+				<div class="md-whiteframe-z2 add-app-summary-container p-0" data-ng-class="{ 'fixed' : $mdMedia('gt-sm')}">
+					<md-toolbar class="md-menu-toolbar" layout-padding layout-align="center stretch" layout="row">
+						<span hide-gt-sm flex></span>
+						<md-button type="submit" class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex>
+								Create my {{ displayName }}
+						</md-button>
+					</md-toolbar>
+					<md-divider></md-divider>
+					<div layout-padding layout="column" class="p-0-top-bottom">
+						<md-list class="condensed">
+							<md-list-item class="md-2-line" layout="column">
+								<label class="md-text-light">{{ displayName }} Name</label>
+								<span>{{ app.name || 'not specified' }}</span>
+							</md-list-item>
+							<md-divider></md-divider>
+							<!--<md-list-item class="md-2-line" layout="column">
+								<label class="md-text-light">{{ displayName }} Url</label>
+								<span data-ng-show="app.appurl" class="word-wrap">{{ app.appurl }}</span>
+								<span data-ng-show="!app.appurl">
+										<span>
+											 none
+										 </span><span>{{ appUrlSuffix }}</span>
+								</span>
+							</md-list-item>
+							<md-divider></md-divider>-->
+							<md-list-item class="md-2-line" layout="column">
+								<label class="md-text-light">{{ displayName }} Stack</label>
+								<span data-ng-bind-html="app.appProviderSummary || 'not specified'"></span>
+							</md-list-item>
+							<md-divider></md-divider>
+							<md-list-item class="md-2-line" layout="column">
+								<label class="md-text-light">AWS Account ID</label>
+								<span layout="row" data-ng-bind="getAWSAccountID()">
+								<span>
+							</md-list-item>
+							<md-divider></md-divider>
+							<md-list-item class="md-2-line" layout="column">
+								<label class="md-text-light">Disk Size</label>
+								<span layout="row">
+									{{ app.configData.cloud.diskSize || 'not specified' }}
+									<span data-ng-show="app.configData.cloud.diskSize"> GB</span>
+								<span>
+							</md-list-item>
+							<md-divider></md-divider>
+							<!-- TEEM001-22 Hide CLoud Provider
+							<md-list-item class="md-2-line" layout="column">
+								<label class="md-text-light">Cloud Provider</label>
+								<span>{{ (app.cloudProviderDesc ) || 'none' }}</span>
+							</md-list-item>
+							-->
+							<!--<md-divider></md-divider>
+							<md-list-item class="md-2-line" layout="column">
+								<label class="md-text-light">Databases</label>
+								<span>{{ dbListDesc || 'none' }}</span>
+							</md-list-item>
+							<md-divider></md-divider>
+							<md-list-item class="md-2-line" layout="column">
+								<label class="md-text-light">Caching</label>
+								<span>{{ app.cachingServer || 'none' }}</span>
+							</md-list-item>
+							<md-divider></md-divider>
+							<md-list-item class="md-2-line" layout="column">
+								<label class="md-text-light">Source Code</label>
+								<span>none</span>
+							</md-list-item>-->
+						</md-list>
+					</div>
+					<!--<md-divider></md-divider>
+					<md-toolbar class="md-menu-toolbar" layout-padding layout-align="center stretch" layout="row">
+						<span hide-gt-sm flex></span>
+						<md-button type="submit" class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex>
+								Create my {{ displayName }}
+						</md-button>
+					</md-toolbar>-->
+				</div>
+			</form>
+		</div>
+	</md-content>
+</div>

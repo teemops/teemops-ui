@@ -1,0 +1,8 @@
+{
+  "name": "production",
+  "httpTimeout": 3000,
+  "supportEmail": "support@teemops.com",
+  "apiEndpoint": "https://api.dev.teemops.com/api",
+  "cloudapiEndpoint": "https://cloudapi.dev.teemops.com",
+  "subscribeEndpoint": "https://api.dev.teemops.com"
+}

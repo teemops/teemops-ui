@@ -1,0 +1,16 @@
+<md-toast data-ng-class="{
+  'info' : status === 'info',
+  'success' : status === 'success',
+  'error' : status === 'error'}">
+  <div layout="row" flex>
+    <ng-md-icon data-ng-show="status === 'info'" icon="info"></ng-md-icon>
+    <ng-md-icon data-ng-show="status === 'success'" icon="check"></ng-md-icon>
+    <ng-md-icon data-ng-show="status === 'error'" icon="error"></ng-md-icon>
+    <div layout-align="start center" layout="row" class="p-sm-left" flex>
+      <span class="md-toast-text" flex>{{ message }}</span>
+    </div>
+    <md-button ng-click="close()" class="md-icon-button">
+      <ng-md-icon icon="close" size="16"></ng-md-icon>
+    </md-button>
+  </div>
+</md-toast>

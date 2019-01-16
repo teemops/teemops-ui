@@ -1,0 +1,149 @@
+<div class="page-title" id="top">
+	<!--<md-toolbar class="md-accent md-hue-2" layout-padding>
+		<div layout-padding layout="row" layout-align="start center" class="p-0-right">
+			<h4 class="md-headline md-text-light">{{ pageTitle }}</h4>
+			<span flex></span>
+		</div>
+	</md-toolbar>-->
+	<md-toolbar layout-padding class="md-accent md-hue-1 secondary-toolbar">
+		<div layout="row" layout-align="start center" class="md-body-2 p-sm-left-right">
+			<div layout="row" flex>
+				<div data-ng-show="app.appId > 0" layout="row">
+					<div data-ng-show="!app.userDataProviderId" layout="column" layout-align="start center" class="m-sm-right">
+						<label class="md-text-light m-xs-right" layout="row" layout-align="start center">
+							<ng-md-icon icon="error" size="16" class="m-xs-right"></ng-md-icon>
+							<span flex>AWS Credential not set</span>
+						</label>
+						<a href="" data-ng-click="scrollToSection('credential')" class="md-accent md-hue-3">
+							Set below
+							<ng-md-icon icon="keyboard_arrow_down" size="16"></ng-md-icon>
+						</a>
+					</div>
+					<div data-ng-show="!app.awsConfigId" layout="column" layout-align="start center">
+						<label class="md-text-light m-xs-right" layout="row" layout-align="start center">
+							<ng-md-icon icon="error" size="16" class="m-xs-right"></ng-md-icon>
+							<span flex>AWS Launch Config not set</span>
+						</label>
+						<a href="" data-ng-click="scrollToSection('awsconfig')" class="md-accent md-hue-3">
+							Set below
+							<ng-md-icon icon="keyboard_arrow_down" size="16"></ng-md-icon>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div layout="column" layout-align="center center">
+			  <span data-ng-class="app.statusInfo.textCssClass" class="p-sm-left-right" style="height: 36px;"
+					layout="row" layout-align="center center">
+					{{ app.statusInfo.desc }}
+				</span>
+			</div>
+		  <div app-start-stop-panel app="app" refresh-app="getApp()" app-status-changed="appStatusChanged()"
+				raised-button="true">
+			</div>
+			<div app-delete-panel app="app" refresh-app="goToAppList()" icon-only="true"></div>
+		</div>
+	</md-toolbar>
+	<md-divider></md-divider>
+</div>
+<div layout="column" flex>
+	<md-tabs md-dynamic-height md-border-bottom class="app-detail-tabs">
+      <md-tab label="{{ displayName }} Info">
+				<form name="appForm" id="appForm" novalidate>
+					<div data-ng-include="'views/app/detail-partials/info.html'" flex-gt-sm="80" flex></div>
+					<div data-ng-include="'views/app/detail-partials/cloud.html'" flex-gt-sm="80" flex></div>
+					<div data-ng-include="'views/app/detail-partials/credential.html'" id="credential" flex-gt-sm="80" flex></div>
+					<div data-ng-include="'views/app/detail-partials/aws-config.html'" id="awsconfig" flex-gt-sm="80" flex></div>
+					<!-- TEEM001-22 - Hide Cloud Provider
+					<div data-ng-include="'views/app/detail-partials/cloud-provider.html'" flex="40"></div>
+					-->
+				</form>
+			</md-tab>
+			<md-tab label="{{ displayName }} Infrastructure">
+				<md-content class="app-setup-content md-padding">
+						<md-content layout="column" flex-gt-sm="80" class="layout-padding">
+							<div class="p-0">
+								<div md-whiteframe="2" data-ng-disabled>
+								<md-toolbar class="md-menu-toolbar p-sm-left p-xs-right" layout="row" layout-align="center center">
+									<span class="md-title">{{ displayName }} Infrastructure</span>
+									<span flex></span>
+								</md-toolbar>
+								<md-divider></md-divider>
+								<md-content class="md-padding form-container">
+									<div class=" p-xs-left m-sm-bottom" layout="row" layout-align="start center"
+										data-ng-show="!app.infrastructure || app.infrastructure.error">
+			              <ng-md-icon icon="error" size="20" class="m-xs-right m-0-top md-warn" ></ng-md-icon>
+			              <span class="md-body-1" flex>
+											There was a problem retrieving the infrastructure information for this server. <br/>
+											Please contact <a href="{{ 'mailto:' + supportEmail}}" class="md-primary">{{supportEmail}}</a> for help.
+			              </span>
+			            </div>
+
+									<div class="p-xs-left m-md-bottom" layout="row" layout-align="start center" data-ng-show="app.infrastructure.ec2Url">
+			              <ng-md-icon icon="info" size="20" class="m-xs-right m-0-top md-accent" ></ng-md-icon>
+			              <span class="md-body-1" flex>View your Server Infrastructure details in the
+			                <a target="_blank" ng-href="app.infrastructure.ec2Url" class="md-primary">
+			                  AWS Console <ng-md-icon icon="open_in_new" size="16"></ng-md-icon>
+			                </a>
+			              </span>
+			            </div>
+
+									<md-list>
+										<md-list-item class="p-sm-left p-sm-right">
+								        <label flex="50" flex-gt-sm="30" class="md-text-light">Connect</label>
+												<div layout="column" data-ng-show="app.connectType" class="m-xs-bottom">
+									        <span data-ng-show="app.connectType=='ssh'">ssh -i ~/.ssh/teemops_{{app.userID}} {{ app.connectUser || 'ec2-user' }}@{{ app.infrastructure.PublicDnsName || app.infrastructure.PrivateIpAddress }}</span>
+									        <span data-ng-show="app.connectType=='rdp'">
+														Connect via RDP to: {{ app.infrastructure.PublicDnsName || app.infrastructure.PrivateIpAddress }} with username: {{ app.connectUser || 'Administrator' }}</span>
+													<div data-ng-show="app.connectType=='rdp'">
+														<md-button class="md-raised m-0-left" data-ng-click="togglePasswordVisibility(app)">
+															{{ app.passwordVisible ? 'Hide password' : 'Show password' }}
+														</md-button>
+														<span data-ng-show="app.passwordVisible">{{ app.infrastructure.password }}</span>
+													</div>
+												</div>
+												<span data-ng-show="!app.connectType">Not available</span>
+												<md-divider></md-divider>
+								    </md-list-item>
+								    <md-list-item>
+								        <label flex="50" flex-gt-sm="30" class="md-text-light">Private IP Address / DNS</label>
+								        <span>{{ app.infrastructure.PrivateIpAddress || 'Not available' }} / {{ app.infrastructure.PrivateDnsName || 'Not available' }}</span>
+								        <md-divider></md-divider>
+								    </md-list-item>
+								    <md-list-item>
+								        <label flex="50" flex-gt-sm="30" class="md-text-light">Public IP Address / DNS</label>
+								        <span>{{ app.infrastructure.public_ip || 'Not available' }} / {{ app.infrastructure.PublicDnsName || 'Not available' }}</span>
+								        <md-divider></md-divider>
+								    </md-list-item>
+								    <!--<md-list-item>
+								        <label flex="50" flex-gt-sm="30" class="md-text-light">Database IP/DNS</label>
+								    <span>Not Available</span>
+								        <md-divider></md-divider>
+								    </md-list-item>
+								    <md-list-item>
+								        <label flex="50" flex-gt-sm="30" class="md-text-light">Load Balancer DNS Entries</label>
+								    <span>Not Available</span>
+								        <md-divider></md-divider>
+								    </md-list-item>-->
+								    <md-list-item>
+								        <label flex="50" flex-gt-sm="30" class="md-text-light">VPC Name</label>
+								    <span>{{ app.vpc }}</span>
+								        <md-divider></md-divider>
+								    </md-list-item>
+								    <md-list-item>
+								        <label flex="50" flex-gt-sm="30" class="md-text-light">Security Group</label>
+								    <span>{{ app.appSecurityGroup }}</span>
+								        <md-divider></md-divider>
+								    </md-list-item>
+								    <md-list-item>
+								        <label flex="50" flex-gt-sm="30" class="md-text-light">Subnet</label>
+								        <span>{{ app.appSubnet }}</span>
+								    </md-list-item>
+								</md-list>
+								</md-content>
+							</div>
+						</div>
+					</md-content>
+				</md-content>
+			</md-tab>
+		</md-tabs>
+</div>

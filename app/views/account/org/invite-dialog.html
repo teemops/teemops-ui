@@ -1,0 +1,16 @@
+<div role="dialog" aria-label="Invite User" layout="column"
+  layout-align="top center" class="config-dialog">
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Invite User</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <ng-md-icon icon="close" aria-label="Close dialog"></ng-md-icon>
+        </md-button>
+      </div>
+  </md-toolbar>
+
+  <form id="awsConfigForm" name="awsConfigForm" ng-submit="save(awsConfigForm.$valid)" novalidate>
+    <div data-ng-include="'views/awsconfig/add-edit-config.html'"></div>
+  </form>
+</div>

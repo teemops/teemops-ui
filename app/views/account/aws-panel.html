@@ -1,0 +1,124 @@
+<md-content flex-gt-sm="80" layout-padding>
+    <div class="p-0">
+        <div md-whiteframe="2">
+            <md-toolbar class="md-menu-toolbar p-sm-left p-xs-right" layout="row" layout-align="center center">
+                <span class="md-title">AWS Account Details</span>
+                <span flex></span>
+                <div edit-mode-panel edit-enabled="editModeEnabled" toggle="editModeEnabled = !editModeEnabled;" show-done="true" done="editModeEnabled = !editModeEnabled;"
+                    class="pull-right">
+                </div>
+            </md-toolbar>
+            <md-divider></md-divider>
+            <md-content class="p-xs form-container m-xs-top">
+
+                <!-- Help info -->
+                <div data-ng-show="editModeEnabled">
+                    <div class="p-xs-left m-md-bottom" layout="row" layout-align="start center">
+                        <ng-md-icon icon="info" size="20" class="m-xs-right m-0-top md-accent"></ng-md-icon>
+                        <span class="md-body-1" flex>Your AWS Account ID can be found on your
+                            <a target="_blank" href="https://console.aws.amazon.com/billing/home?#/account" class="md-primary">
+                                AWS 'My Account' page <ng-md-icon icon="open_in_new" size="16"></ng-md-icon>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Table labels -->
+                <div class="p-xs-left m-sm-bottom">
+                    <div flex class="md-text-light" layout="row" data-ng-show="user.cloudProviders && user.cloudProviders.length > 0">
+                        <label flex="35">
+                            AWS Account Id
+                        </label>
+                        <label flex="40">Name</label>
+                        <label flex="10">Default</label>
+                        <span flex></span>
+                    </div>
+                    <span data-ng-show="!user.cloudProviders || user.cloudProviders.length === 0">
+                        No linked accounts yet
+                    </span>
+                </div>
+
+                <!-- Display mode -->
+                <div data-ng-show="!editModeEnabled" class="p-xs-left m-xs-top m-sm-bottom">
+                    <div ng-repeat="cloudProvider in user.cloudProviders track by $index" flex layout="row" class="m-sm-bottom">
+                        <label flex="35">{{ cloudProvider.awsAccountId }}</label>
+                        <label flex="40">{{ cloudProvider.name || '-' }}</label>
+                        <label flex="10">{{ cloudProvider.isDefault ? 'Yes' : 'No' }}</label>
+                        <span flex></span>
+                    </div>
+                </div>
+
+                <!-- Edit mode -->
+                <form name="accountForm" id="accountForm" novalidate class="p-xs-left m-xs-top" data-ng-show="editModeEnabled">
+                    <div ng-repeat="cloudProvider in user.cloudProviders track by $index">
+                        <div flex layout="row" layout-align="start center">
+                            <md-input-container class="account-id-input-container p-xs-right m-0" flex="35" md-no-float>
+                                <input type="text" name="awsAccountId" id="awsAccountId" data-ng-model="cloudProvider.awsAccountId" required md-no-asterisk
+                                    ng-pattern="/^[0-9]{1,15}$/" maxlength="15" data-ng-change="trackChanges(cloudProvider)"
+                                    placeholder="AWS Account Id" />
+                                <div ng-messages="accountForm.awsAccountId.$error" class="ng-messages-custom">
+                                    <div ng-message="required">Please enter your AWS Account Id</div>
+                                    <div ng-message="pattern">AWS Account Id must be a number</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="40" class="p-xs-right m-0" md-no-float>
+                                <input type="text" name="name" id="name" data-ng-model="cloudProvider.name" required md-no-asterisk data-ng-change="trackChanges(cloudProvider)"
+                                    placeholder="Name" />
+                                <div ng-messages="accountForm.name.$error" class="ng-messages-custom">
+                                    <div ng-message="required">Please enter a name for your AWS Account</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex="10" class="m-0">
+                                <md-checkbox ng-model="cloudProvider.isDefault" aria-label="AWS Account default" data-ng-change="trackChanges(cloudProvider)">
+                                </md-checkbox>
+                            </md-input-container>
+                            <div flex class="action-row" layout="row" layout-align="start center">
+                                <md-button class="md-icon-button md-primary md-outline" data-ng-click="removeCloudProviderAccount($event, cloudProvider.id)"
+                                    data-ng-disabled="disableCloudProviderButton(cloudProvider)" data-ng-show="deleteButtonsEnabled && !cloudProvider.saveEnabled">
+                                    <ng-md-icon icon="delete"></ng-md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button md-primary md-outline" data-ng-click="updateCloudProviderAccount(cloudProvider)" data-ng-disabled="!cloudProvider.saveEnabled">
+                                    <ng-md-icon icon="save"></ng-md-icon>
+                                </md-button>
+                                <md-button class="md-icon-button md-warn md-outline" data-ng-click="cancelChanges(cloudProvider)" data-ng-show="cloudProvider.saveEnabled"
+                                    aria-label="Cancel" tooltip="Cancel">
+                                    <ng-md-icon icon="close"></ng-md-icon>
+                                </md-button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div layout-align="start center" layout="row" flex>
+                        <md-input-container class="account-id-input-container p-xs-right" flex="35">
+                            <label for="newAwsAccountId">AWS Account Id</label>
+                            <input type="text" name="newAwsAccountId" id="newAwsAccountId" data-ng-model="newCloudProvider.awsAccountId" required md-no-asterisk
+                                ng-pattern="/^[0-9]{1,15}$/" maxlength="15" />
+                            <div ng-messages="accountForm.newAwsAccountId.$error" class="ng-messages-custom">
+                                <div ng-message="required">Please enter your AWS Account Id</div>
+                                <div ng-message="pattern">AWS Account Id must be a number</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="40" class="p-xs-right">
+                            <label for="newName">Name</label>
+                            <input type="text" name="newName" id="newName" data-ng-model="newCloudProvider.name" required md-no-asterisk />
+                            <div class="hint">e.g. 'My Company' Dev Account</div>
+                            <div ng-messages="accountForm.newName.$error" class="ng-messages-custom">
+                                <div ng-message="required">Please enter a name for your AWS Account</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container flex="10" class="m-0">
+                            <md-checkbox ng-model="newCloudProvider.isDefault" aria-label="AWS Account default" data-ng-disabled="!user.cloudProviders || user.cloudProviders.length === 0">
+                            </md-checkbox>
+                        </md-input-container>
+                        <div flex layout="row" class="action-row" layout-align="start center">
+                            <md-button class="md-icon-button md-primary md-outline" data-ng-click="addCloudProviderAccount(accountForm.$valid)" data-ng-disabled="accountForm.$invalid">
+                                <ng-md-icon icon="add"></ng-md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+                </form>
+
+            </md-content>
+        </div>
+    </div>
+</md-content>

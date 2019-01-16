@@ -1,0 +1,49 @@
+<md-content class="app-setup-content md-padding">
+    <md-content layout="column" class="layout-padding">
+      <div class="p-0">
+        <div md-whiteframe="2">
+          <md-toolbar class="md-menu-toolbar p-sm-left p-xs-right" layout="row" layout-align="center center">
+            <span class="md-title">AWS Settings</span>
+            <span flex></span>
+            <div layout="row">
+              <div class="border-right">
+                <a ui-sref="account" class="md-button md-accent" layout="row" layout-align="center center">
+                  <span>Manage AWS Accounts</span>
+                  <ng-md-icon icon="launch" size="16" class="m-xs-left"></ng-md-icon>
+                </a>
+              </div>
+              <div edit-mode-panel
+              	edit-enabled="editModes.cloud.on"
+                panel-disabled="!editModes.cloud.enabled"
+              	toggle="toggleEditMode('cloud')"
+              	save="saveApp('cloud')">
+              </div>
+            </div>
+          </md-toolbar>
+          <md-divider></md-divider>
+          <md-content class="p-xs-left-right form-container">
+          	<div data-ng-show="!editModes.cloud.on">
+          		<md-list>
+                <md-list-item class="p-xs">
+          				<label flex="50" flex-gt-sm="25" class="md-text-light">AWS Account Id</label>
+          				<span data-ng-cloak>
+          					{{ app.displayAWSAccountId || 'None specified' }}
+          				</span>
+          			</md-list-item>
+          			<md-list-item class="p-xs">
+          				<label flex="50" flex-gt-sm="25" class="md-text-light">Disk Size</label>
+          				<span data-ng-cloak>
+          					{{ app.configData.cloud.diskSize || 'None specified' }}
+                    <span data-ng-show="app.configData.cloud.diskSize"> GB</span>
+          				</span>
+          			</md-list-item>
+          		</md-list>
+          	</div>
+          	<div novalidate data-ng-show="editModes.cloud.on" class="p-xs-left-right p-sm-top">
+          		<div data-ng-include="'views/app/forms/cloud-form.html'"></div>
+          	</div>
+          </md-content>
+        </div>
+      </div>
+    </md-content>
+  </md-content>

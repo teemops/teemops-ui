@@ -1,0 +1,50 @@
+<md-content layout="column" flex-gt-sm="80" class="layout-padding">
+    <div class="p-0">
+        <div md-whiteframe="2">
+            <md-toolbar class="md-menu-toolbar p-sm-left p-xs-right" layout="row" layout-align="center center">
+                <span class="md-title" flex="50">Account Details</span>
+                <span class="md-caption text-align-right" flex="50">
+                    Please email <a href="{{ 'mailto:' + supportEmail}}" class="md-primary">{{supportEmail}}</a><br/>to change
+                    your details
+                </span>
+            </md-toolbar>
+            <md-divider></md-divider>
+            <md-content class="form-container p-xs">
+                <md-list>
+                    <md-list-item class="p-xs-left-right">
+                        <label flex="50" flex-gt-sm="25" class="md-text-light">Full Name</label>
+                        <span>{{ user.first + ' ' + user.last }}</span>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                    <md-list-item class="p-xs-left-right">
+                        <label flex="50" flex-gt-sm="25" class="md-text-light">Username</label>
+                        <span>{{ user.username }}</span>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                    <md-list-item class="p-xs-left-right">
+                        <label flex="50" flex-gt-sm="25" class="md-text-light">Email</label>
+                        <span>{{ user.email }}</span>
+                        <md-divider></md-divider>
+                    </md-list-item>
+                    <md-list-item class="p-xs-left-right">
+                        <label flex="50" flex-gt-sm="25" class="md-text-light">Create Organisation</label>
+                        <span><input type="checkbox" ng-model="enableOrgs">
+
+                        </span>
+
+                        <md-divider></md-divider>
+                    </md-list-item>
+                    <md-list-item class="p-xs-left-right">
+                        <label flex="50" flex-gt-sm="25" class="md-text-light">&nbsp;</label>
+                        <span>
+                            With organisations you can invite users and control permissions.
+
+                        </span>
+
+                        <md-divider></md-divider>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </div>
+    </div>
+</md-content>

@@ -1,0 +1,42 @@
+<div role="dialog" aria-label="Set AWS Launch Config" layout="column"
+  layout-align="start stretch" class="aws-config-dialog">
+  <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>AWS Launch Config</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <ng-md-icon icon="close" aria-label="Close dialog"></ng-md-icon>
+        </md-button>
+      </div>
+  </md-toolbar>
+  <form name="appAWSConfigForm" id="appAWSConfigForm" novalidate class="p-sm-left-right p-md-top"
+    data-ng-show="awsConfigs && awsConfigs.length > 0">
+    <label layout="row" layout-align="start center">
+      <span class="m-xs-right">Please select an AWS Launch Config</span>
+      <ng-md-icon icon="info" size="20" class="md-accent">
+        <md-tooltip md-direction="right">
+          A Launch Config defines the Infrastructure settings for your Server
+        </md-tooltip>
+      </ng-md-icon>
+      <span flex></span>
+    </label>
+    <div data-ng-include="'views/app/forms/aws-config-form.html'" class="m-sm-top"></div>
+    <div layout="row" layout-padding>
+      <div flex></div>
+      <div class="text-align-right">
+        <md-button class="md-warn icon-and-text-button" ng-click="cancel()" layout-align="center center">
+          <ng-md-icon icon="cancel" size="16"></ng-md-icon>
+          <span>Cancel</span>
+        </md-button>
+        <md-button class="md-primary icon-and-text-button" ng-click="save()" layout-align="center center">
+          <ng-md-icon icon="save" size="16"></ng-md-icon>
+          <span>Save</span>
+        </md-button>
+      </div>
+    </div>
+  </form>
+  <div class="md-body-1 p-sm m-xs-bottom" data-ng-show="!awsConfigs || awsConfigs.length === 0" >
+      Please email <a href="{{ 'mailto:' + supportEmail}}" class="md-primary">{{supportEmail}}</a>
+      to create your <strong>AWS Launch Config</strong>.<br/> (You only need to do this once)
+  </div>
+</div>

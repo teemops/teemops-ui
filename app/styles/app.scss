@@ -1,0 +1,168 @@
+@import "colors-and-fonts.scss";
+@import "mixins.scss";
+
+/* App List */
+md-list.app-list {
+  padding: 0;
+
+  .md-subheader {
+    ._md-subheader-inner {
+        padding: 0;
+    }
+
+    md-list-item {
+      border-bottom: Solid 1px $primary-border-color;
+      margin: 0 8px;
+      padding: 0;
+      font-weight: 300;
+
+      > div {
+        padding: 8px;
+        &._md-secondary-container { padding: 0; }
+      }
+    }
+  }
+
+  .md-list-body {
+
+    md-list-item {
+      border-bottom:Solid 1px $primary-border-color;
+      padding: 0;
+      font-size: 13px;
+
+      &[disabled="disabled"] {
+        .md-button {
+          background-color: rgba(158, 158, 158, 0.1);
+        }
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &._md-button-wrap {
+
+        > .md-button {
+
+          padding: 8px 16px 8px 16px;
+
+          ._md-list-item-inner {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+
+            > div {
+              line-height: 18px;
+              padding: 8px;
+              .md-button { margin: auto;}
+
+              &:not[class*="no-wrap"] {
+                @include word-wrap();
+              }
+
+              &[disabled="disabled"] {
+                opacity: 0.5;
+              }
+
+
+            }
+
+            a.app-url {
+              position: absolute;
+              text-decoration: none;
+
+              &:hover { text-decoration: underline; }
+            }
+
+            div:first-child.shift-up {
+              margin-top: -18px;
+              padding-left: 0;
+            }
+          }
+        }
+      }
+
+      ._md-secondary-container {
+        position: absolute;
+        right: 120px;
+
+        span { line-height: 18px; }
+      }
+
+      .secondary-link {
+        z-index: 1;
+      }
+    }
+  }
+
+}
+
+/* App List side bar */
+md-list.condensed {
+  font-size: 14px;
+
+  .md-2-line { min-height: 50px; padding: 4px; }
+}
+
+.aws-config-dialog {
+  min-width: 700px;
+}
+.credential-dialog {
+  min-width: 650px;
+}
+
+
+/* END App List */
+
+/* Add App */
+.appurl-input-container {
+  input { max-width: 60%; padding-right: 0;}
+  span { line-height: 30px; }
+  .ng-messages-custom { height: 24px;}
+}
+
+.disk-size-input-container {
+  .suffix { position: absolute; top: 8px; }
+  span { line-height: 30px; }
+  .ng-messages-custom { height: 24px;}
+}
+
+.add-app-summary-container {
+
+  background: $form-bg-color;
+  margin-top: 24px;
+
+  &.fixed {
+    position: fixed;
+    top: 124px;
+    right: 15px;
+    bottom: 0;
+    width: 24%;
+    margin-top: 0;
+
+    .md-menu-toolbar {
+      padding-top: 17px;
+      padding-bottom: 17px;
+    }
+  }
+}
+/* END Add App */
+
+
+/* App Detail */
+md-tabs.app-detail-tabs {
+
+  min-height: 1032px;
+
+  md-pagination-wrapper {
+      padding-left: 8px;
+  }
+}
+/* END App Detail */
+
+/* App Action Buttons */
+.md-button {
+  md-progress-circular {
+    margin-top: 10px;
+  }
+}

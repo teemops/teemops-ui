@@ -1,0 +1,131 @@
+<div layout-padding md-padding class="margin-top-20">
+  <div flex-offset-gt-sm="25" flex-gt-sm="50">
+    <div md-whiteframe="2" class="register-container">
+      <div class="logo-container">
+        <img src="images/logo.png" alt="Teem Ops logo">
+      </div>
+      <div layout-padding data-ng-cloak data-ng-show="result.status === 'success'">
+        <h1>
+          <span class="md-display-1"><strong>Thank you</strong></span><br/>
+          <span class="md-headline">Your TeemOps account has been created</span>
+        </h1>
+        <p>You are just one step away from deploying your apps to the cloud.</p>
+        <p>
+          We have sent an email to the address you signed up with.<br/>
+          Please check your email inbox and follow the instructions in that email to complete your registration.
+        </p>
+        <p>
+          If you don't receive the email to your inbox please check your spam folder.
+        </p>
+        <div class="text-align-center">
+          <a ui-sref="login" class="md-button md-ink-ripple" aria-label="SignIn">Sign In to TeemOps</a>
+        </div>
+      </div>
+
+      <div layout-padding data-ng-show="result.status !== 'success'">
+        <h1>
+          <span class="md-display-1"><strong>Welcome</strong></span><br/>
+          <span class="md-headline">Register with TeemOps</span>
+        </h1>
+
+        <form name="registerForm" ng-submit="register(registerForm.$valid)" role="form">
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label for="first">First Name</label>
+              <input type="input" name="first" id="first" data-ng-model="user.first" md-no-asterisk required autofocus/>
+              <div ng-messages="registerForm.first.$error">
+                <div ng-message="required">Please enter a first name</div>
+              </div>
+            </md-input-container>
+            <div flex="5" hide-xs hide-sm>
+            <!-- Spacer //-->
+            </div>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label for="last">Surname</label>
+              <input type="input" name="last" id="last" data-ng-model="user.last" md-no-asterisk required/>
+              <div ng-messages="registerForm.last.$error">
+                <div ng-message="required">Please enter a surname</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label for="username">Username</label>
+              <input type="text" name="username" id="username" data-ng-model="user.username" md-no-asterisk required check-unique-user minlength="6" md-maxlength="20"/>
+              <md-progress-circular data-ng-show="processing.username" md-mode="indeterminate" md-diameter="24"></md-progress-circular>
+              <div ng-messages="registerForm.username.$error">
+                <div ng-message="required">Please enter a username</div>
+                <div ng-message="unique">An account with this username already exists - please choose another username</div>
+                <div ng-message="uniqueException">An error occurred checking for this username. Please try again.</div>
+                <div ng-message-exp="['minlength', 'md-maxlength']">Please enter a username of between 6 and 20 characters</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password" data-ng-model="user.password" md-no-asterisk required minlength="6" md-maxlength="12"/>
+              <div ng-messages="registerForm.password.$error">
+                <div ng-message="required">Please enter a password</div>
+                <div ng-message-exp="['minlength', 'md-maxlength']">Please enter a password of between 6 and 20 characters</div>
+              </div>
+            </md-input-container>
+            <div flex="5" hide-xs hide-sm>
+            <!-- Spacer //-->
+            </div>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label for="password2">Confirm Password</label>
+              <input type="password" name="password2" id="password2" data-ng-model="user.password2" md-no-asterisk compare-to="user.password" minlength="6" md-maxlength="12"/>
+              <div ng-messages="registerForm.password2.$error">
+                <div ng-message="compareTo">Please enter the matching password</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" data-ng-model="user.email" required md-no-asterisk check-unique-user/>
+              <md-progress-circular data-ng-show="processing.email" md-mode="indeterminate" md-diameter="40"></md-progress-circular>
+              <div ng-messages="registerForm.email.$error">
+                <div ng-message="required">Please enter a valid email address</div>
+                <div ng-message="email">Please enter a valid email address</div>
+                <div ng-message="unique">An account with this email address already exists - please choose another email address</div>
+                <div ng-message="uniqueException">An error occurred checking for this email address. Please try again.</div>
+              </div>
+            </md-input-container>
+            <div flex="5" hide-xs hide-sm>
+            <!-- Spacer //-->
+            </div>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label for="email2">Confirm Email</label>
+              <input type="text" name="email2" id="email2" data-ng-model="user.email2" required md-no-asterisk compare-to="user.email"/>
+              <div ng-messages="registerForm.email2.$error">
+                <div ng-message="required">Please confirm your email address</div>
+                <div ng-message="compareTo">Please enter the matching email address</div>
+              </div>
+            </md-input-container>
+          </div>
+          <md-input-container class="md-block">
+            <label for="timezone">Preferred Timezone</label>
+            <timezone-selector
+              name="timezone" id="timezone" class="form-control"
+              data-ng-model="user.timezone"
+              display-utc="true"
+              sort-by="offset"
+              show-local="true"
+              set-local="true"
+              width="100%">
+            </timezone-selector>
+          </md-input-container>
+          <div layout="row" layout-align="center center" layout-fill>
+            <md-button type="submit" class="md-raised md-primary" flex-gt-xs="60" flex>Register</md-button>
+          </div>
+        </form>
+        <p class="text-align-center">
+          Already have an account?
+          <a ui-sref="login" class="md-ink-ripple" aria-label="Sign In">Sign in here</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

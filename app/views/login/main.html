@@ -1,0 +1,39 @@
+<div layout-padding md-padding class="margin-top-20">
+  <div flex-offset-gt-sm="35" flex-gt-sm="30">
+    <div md-whiteframe="2" class="login-container">
+      <div class="logo-container">
+        <img src="images/logo.png" alt="Teem Ops logo">
+      </div>
+      <div layout-padding>
+        <h1>
+          <span class="md-display-1"><strong>Welcome</strong></span><br/>
+          <span class="md-headline">Sign In to TeemOps</span>
+        </h1>
+        <form name="loginForm" ng-submit="login(loginForm.$valid)" role="form" novalidate>
+          <md-input-container class="md-block">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" data-ng-model="user.email" required md-no-asterisk autofocus/>
+            <div ng-messages="loginForm.email.$error">
+              <div ng-message="required">Please enter an email address</div>
+              <div ng-message="email">Please enter a valid email address</div>
+            </div>
+          </md-input-container>
+          <md-input-container class="md-block">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" data-ng-model="user.password" md-no-asterisk required/>
+            <div ng-messages="loginForm.password.$error">
+              <div ng-message="required">Please fill in a password</div>
+            </div>
+          </md-input-container>
+          <div layout="row" layout-align="center center" layout-fill>
+            <md-button type="submit" class="md-raised md-primary" flex-gt-xs="60">Sign In</md-button>
+          </div>
+        </form>
+        <p class="text-align-center">
+          Don't have an account?
+          <a ui-sref="register" class="md-ink-ripple" aria-label="Register">Register here</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

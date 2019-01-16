@@ -1,0 +1,47 @@
+<div layout-padding md-padding class="margin-top-20">
+  <div flex-offset-gt-sm="30" flex-gt-sm="40">
+    <div md-whiteframe="2" class="register-container">
+      <div class="logo-container">
+        <img src="images/logo.png" alt="Teem Ops logo">
+      </div>
+      <div layout-padding data-ng-show="!confirmationEmailRequested">
+        <div layout-padding data-ng-show="confirmed">
+          <h1>
+            <span class="md-display-1"><strong>Thank you</strong></span><br/>
+            <span class="md-headline">Your TeemOps registration is confirmed</span>
+          </h1>
+          <p>Just sign in to begin deploying your apps to the cloud.
+            <div class="text-align-center">
+              <a ui-sref="login" class="md-button md-primary md-raised md-ink-ripple" aria-label="SignIn">Sign In to TeemOps</a>
+            </div>
+          </p>
+        </div>
+        <div layout-padding data-ng-show="!confirmed">
+          <h1>
+            <span class="md-display-1"><strong>Sorry</strong></span><br/>
+            <span class="md-headline">We have not been able to confirm your TeemOps registration</span>
+          </h1>
+          <p>Please try the link in your confirmation email again</p>
+          <p>If you haven't received an email please check your spam folder</p>
+          <p> If the problem persists please request a new confirmation email.</p>
+          <div class="text-align-center">
+            <md-button data-ng-click="showRequestConfirmationDialog($event)"
+              class="md-button md-primary md-ink-ripple" aria-label="Request confirmation email">Request a new confirmation email</md-button>
+          </div>
+        </div>
+      </div>
+      <div layout-padding data-ng-show="confirmationEmailRequested">
+        <h1>
+          <span class="md-display-1"><strong>Thank you</strong></span><br/>
+          <span class="md-headline">A confirmation email has been sent to <strong>{{ email }}</strong></span>
+        </h1>
+        <p>
+          Please check your email inbox and follow the instructions in that email to complete your registration.
+        </p>
+        <div class="text-align-center">
+          <a ui-sref="login" class="md-button md-primary md-raised md-ink-ripple" aria-label="SignIn">Sign In to TeemOps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

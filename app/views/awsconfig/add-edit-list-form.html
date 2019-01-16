@@ -1,0 +1,60 @@
+<md-list class="app-list">
+  <md-subheader class="md-primary">
+    <md-list-item layout="row" layout-padding class="p-0 m-0-left-right">
+      <span flex="15">Name</span>
+      <span flex="15">VPC</span>
+      <span flex="20">Subnet</span>
+      <span flex="20">Security Group</span>
+      <span flex="20">Instance Type</span>
+      <span flex="10">Region</span>
+    </md-list-item>
+  </md-subheader>
+  <div class="md-list-body">
+    <md-list-item data-ng-repeat="config in awsConfigs" layout="row" layout-padding class="p-0"
+      layout-align="start start">
+      <span flex="5">{{ config.id }}</span>
+      <md-input-container flex="15">
+        <input type="text" name="name" id="name" data-ng-model="config.name" md-no-asterisk maxlength="45"
+          ng-required/>
+        <div ng-messages="awsConfigForm.name.$error" class="ng-messages-custom">
+          <div ng-message="required">Please enter a name for this AWS Config</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex="15">
+        <input type="text" name="vpc" id="vpc" data-ng-model="config.vpc" md-no-asterisk maxlength="45"
+          ng-required/>
+        <div ng-messages="awsConfigForm.vpc.$error" class="ng-messages-custom">
+          <div ng-message="required">Please enter a VPC</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex="15">
+        <input type="text" name="appSubnet" id="appSubnet" data-ng-model="config.appSubnet" md-no-asterisk maxlength="45"
+          ng-required/>
+        <div ng-messages="awsConfigForm.appSubnet.$error" class="ng-messages-custom">
+          <div ng-message="required">Please enter a subnet</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex="20">
+        <input type="text" name="appSecurityGroup" id="appSecurityGroup" data-ng-model="config.appSecurityGroup" md-no-asterisk maxlength="45"
+          ng-required/>
+        <div ng-messages="awsConfigForm.appSecurityGroup.$error" class="ng-messages-custom">
+          <div ng-message="required">Please enter a Security Group</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex="20">
+        <input type="text" name="appInstanceType" id="appInstanceType" data-ng-model="config.appInstanceType" md-no-asterisk maxlength="45"
+          ng-required/>
+        <div ng-messages="awsConfigForm.appInstanceType.$error" class="ng-messages-custom">
+          <div ng-message="required">Please enter an Instance Type</div>
+        </div>
+      </md-input-container>
+      <md-input-container flex="10">
+        <input type="text" name="region" id="region" data-ng-model="config.region" md-no-asterisk maxlength="45"
+          ng-required/>
+        <div ng-messages="awsConfigForm.region.$error" class="ng-messages-custom">
+          <div ng-message="required">Please enter a Region</div>
+        </div>
+      </md-input-container>
+    </md-list-item>
+  </div>
+</md-list>
