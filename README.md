@@ -25,4 +25,4 @@ Feel free to update this Readme with any useful information.
   grunt build
   npm start -> http://localhost:5000
 
-Copyright 2015 Teem Software Limited (NZ)
+Copyright 2015 - 2019 Teem Cloud Ops, Inc
