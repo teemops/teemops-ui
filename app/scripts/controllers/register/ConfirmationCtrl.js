@@ -6,6 +6,7 @@
  * @description
  * # ConfirmationCtrl
  * Confirms a user's registration via a query string param 'code'
+ * calls UserService.confirmRegistration(code)
  */
 angular.module('teemOpsApp')
   .controller('ConfirmationCtrl', ['$scope', '$state', '$mdDialog', 'UserService',
@@ -14,7 +15,6 @@ angular.module('teemOpsApp')
       var self = this;
 
       $scope.confirmed = null;
-
 
       this.init = function(){
         var code = $state.params.code;

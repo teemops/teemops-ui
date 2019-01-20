@@ -6,6 +6,7 @@
  * @description
  * # UserService
  * UserService of the teemOpsApp
+ * HTTP endpoint: /api/users
  */
 
 angular.module('teemOpsApp')
