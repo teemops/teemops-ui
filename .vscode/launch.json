@@ -7,9 +7,15 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Teemops UI",
             "url": "http://localhost:9000",
             "webRoot": "${workspaceFolder}"
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach by Process ID",
+            "processId": "${command:PickProcess}"
         }
     ]
 }
