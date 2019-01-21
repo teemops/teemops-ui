@@ -14,7 +14,7 @@
  * node ../ui/scripts/setup.js teemops-app/teemops-serverless/conf/output.json ../ui/config/dev.json
  * 
  */
-const DEBUG_TIMEOUT=15000;
+const DEBUG_TIMEOUT=0;
 /**
  * Fields to update
  */
