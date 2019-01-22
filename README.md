@@ -1,5 +1,11 @@
 # TeemOps UI #
 
+Simplified AWS Operations
+
+Join Slack Channel: http://bit.ly/topslack
+
+This is the UI AngularJS part of https://github.com/teemops/teemops
+
 Any issues with the repo or code, please email ben@teem.nz. Enjoy :)
 
 Feel free to update this Readme with any useful information.
