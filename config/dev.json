@@ -1,7 +1,7 @@
 {
     "name": "development",
     "apiEndpoint": "http://localhost:8080/api",
-    "cloudapiEndpoint": "https://r0bu9wqjz8.execute-api.us-west-2.amazonaws.com/dev",
+    "cloudapiEndpoint": "http://localhost:8080/api",
     "subscribeEndpoint": "http://localhost:8080",
     "useSampleData": false,
     "deleteButtonsEnabled": false,

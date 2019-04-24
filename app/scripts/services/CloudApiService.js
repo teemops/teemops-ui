@@ -18,14 +18,19 @@ angular.module('teemOpsApp')
          * @description
          * task is required as an api path eg. /vpcs/list
          */
-        getVPCData: function(task, arn, region){
+        getVPCData: function(task, awsAccountId, params, region, filter=null){
           var deferred = $q.defer();
           var data = {
-            RoleArn: arn,
+            awsAccountId: awsAccountId,
+            task: task,
+            params: params,
             region: region
           };
+          if(filter!=null){
+            data['filter']=filter;
+          }
 
-          var endpoint = ENV.cloudapiEndpoint + task;
+          var endpoint = ENV.apiEndpoint + '/apps/ec2';
           var method = 'POST';
 
           if(ENV.useSampleData) {

@@ -180,6 +180,10 @@ angular.module('teemOpsApp')
         }
       });
 
+      $scope.$watch(function(){ return $scope.config.vpc; }, function(){
+
+      });
+
       self.resetFormAndCloudAPIOptions = function(){
         self.clearVPC();
         self.clearAppSG();
@@ -206,10 +210,13 @@ angular.module('teemOpsApp')
       };
 
       self.getVPCs = function(){
-
-        CloudApiService.getVPCData('/vpcs/list', $scope.config.arn, $scope.config.region)
+        console.log('AWS Account ID' + self.getSelectedAccountId());
+        CloudApiService.getVPCData('describeVpcs', self.getSelectedAccountId(), {}, $scope.config.region, 'Vpcs[].{ID: VpcId, IPRange: CidrBlock, Tags: Tags[*]}')
           .then(function(result){
-            $scope.vpcs = result;
+            if(result.data!=null){
+              $scope.vpcs = result.data;
+            }
+            
           })
           .catch(function(err){
             //TODO handle error
@@ -220,9 +227,11 @@ angular.module('teemOpsApp')
       };
 
       self.getSubnets = function() {
-        CloudApiService.getVPCData('/vpcs/listSubnets', $scope.config.arn, $scope.config.region)
+        CloudApiService.getVPCData('describeSubnets', self.getSelectedAccountId(), {}, $scope.config.region, 'Subnets[].{ID: SubnetId, IPRange: CidrBlock, VpcId: VpcId, AvailabilityZone: AvailabilityZone, Tags: Tags[*]}')
           .then(function(result){
-            $scope.subnets = result;
+            if(result.data!=null){
+              $scope.subnets = result.data;
+            }
           })
           .catch(function(err){
             //TODO handle error
@@ -234,9 +243,11 @@ angular.module('teemOpsApp')
       };
 
       self.getSecurityGroups = function() {
-        CloudApiService.getVPCData('/vpcs/listSGs', $scope.config.arn, $scope.config.region)
+        CloudApiService.getVPCData('describeSecurityGroups', self.getSelectedAccountId(), {}, $scope.config.region, 'SecurityGroups[].{ID: GroupId, Description: Description, VpcId: VpcId, Name: GroupName, Tags: Tags[*]}')
           .then(function(result){
-            $scope.securityGroups = result;
+            if(result.data!=null){
+              $scope.securityGroups = result.data;
+            }
           })
           .catch(function(err){
             //TODO handle error

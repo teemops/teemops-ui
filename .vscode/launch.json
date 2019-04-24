@@ -7,15 +7,19 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Teemops UI",
+            "name": "Launch Chrome",
             "url": "http://localhost:9000",
+            "sourceMaps": true,
             "webRoot": "${workspaceFolder}"
         },
         {
-            "type": "node",
+            "name": "Attach to Chrome, with sourcemaps",
+            "type": "chrome",
             "request": "attach",
-            "name": "Attach by Process ID",
-            "processId": "${command:PickProcess}"
+            "port": 9222,
+            "sourceMaps": true,
+            "webRoot": "${workspaceRoot}"
         }
+    
     ]
 }
