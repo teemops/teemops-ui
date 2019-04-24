@@ -1,6 +1,9 @@
 {
-  "name": "teemops",
-  "version": "0.0.0",
+  "name": "teemops-ui",
+  "author": "Ben Fellows <kiwifellows@gmail.com>",
+  "description": "Teemops - AWS Cloud Ops Simplified",
+  "license": "gpl-3.0",
+  "version": "0.0.1",
   "dependencies": {
     "asyncawait": "",
     "express": "^4.13.3",

@@ -30,6 +30,25 @@ angular.module('teemOpsApp')
       return deferred.promise;
     }
 
+    function launchApp(userId, appId, action, task="ec2"){
+      var deferred = $q.defer();
+
+      $http.post(ENV.apiEndpoint + '/apps/launch', { userid : userId, appid: appId, action: action, task: task })
+        .then(function(response){
+          if(response.data) {
+            deferred.resolve(response.data);
+          }
+          else {
+            deferred.reject(null);
+          }
+        })
+        .catch(function(response){
+          deferred.reject(response.data);
+        });
+
+      return deferred.promise;
+    }
+
     return {
 
       displayName: 'App',
@@ -92,7 +111,7 @@ angular.module('teemOpsApp')
 
         $http.get(ENV.apiEndpoint + '/apps/infra/' + appId)
           .then(function(response) {
-            console.log(JSON.stringify(response));
+            console.log(JSON.stringify(response.data.result));
             if(response.data && response.data.result) {
               deferred.resolve(angular.fromJson(response.data.result));
             }
@@ -178,7 +197,12 @@ angular.module('teemOpsApp')
         //we need to check status of app
         console.log("App Status is: "+ app.status);
         var action=(app.status==1 || app.status==0 ? 'ec2.launch' : 'ec2.start');
-        return sendToJobQueue(userId, app.appId, action);
+        if(action=='ec2.launch'){
+          return launchApp(userId, app.appId, action);
+        }else{
+          return sendToJobQueue(userId, app.appId, action);
+        }
+        
       },
 
       stopApp: function(userId, app){
