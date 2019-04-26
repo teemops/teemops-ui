@@ -17,12 +17,13 @@ angular.module('teemOpsApp')
         $scope.credentialList = credentials;
 
         $scope.save = function(){
-
+          console.log("Saving Credential Dialog");
           AppService.saveApp($scope.app)
             .then(function(success){
-
+              console.log('Sucess? ' + JSON.stringify(success));
               if(success) {
                 $mdDialog.hide($scope.app.userDataProviderId);
+                
               }
 
             })

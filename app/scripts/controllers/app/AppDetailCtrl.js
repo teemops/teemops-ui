@@ -300,7 +300,18 @@ angular.module('teemOpsApp')
     self.getAWSConfigs = function(){
       UserCloudConfigService.getAllByUserId($rootScope.currentUser.userid, $scope.app.userCloudProviderId)
         .then(function(results){
-          $scope.awsConfigs = results;
+          //This will filter based on the app details including if app is stopped status.
+          //if an app is stopped the AWS configs can be changed, but only within the same VPC
+          console.log("getAWSConfigs");
+          console.log(JSON.stringify(results, null, 4));
+          console.log("VPC: "+$scope.app.vpc);
+          if($scope.app.statusInfo.name === 'STOPPED'){
+            //filter awsConfigs to only ones in the desired VPC
+            $scope.awsConfigs = $filter('filter')(results, {vpc: $scope.app.vpc});
+          }else{
+            $scope.awsConfigs = results;
+          }
+          
         });
     };
 
@@ -328,8 +339,7 @@ angular.module('teemOpsApp')
     };
 
     self.setEditEnabled = function() {
-      var enabled = $scope.app.statusInfo.name === 'STOPPED' ||
-        $scope.app.statusInfo.name === 'INITIALISING' ||
+      var enabled = $scope.app.statusInfo.name === 'INITIALISING' ||
         $scope.app.statusInfo.name === 'READY';
 
       $scope.editModes.info.enabled = enabled;

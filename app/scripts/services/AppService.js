@@ -96,12 +96,12 @@ angular.module('teemOpsApp')
         };
 
         $http.get(ENV.apiEndpoint + '/apps/' + appId)
-          .then(function(response) {
-            successCallback(response);
-          })
-          .catch(function(response){
-            deferred.reject(response);
-          });
+        .then(function(response) {
+          successCallback(response);
+        })
+        .catch(function(response){
+          deferred.reject(response);
+        });
 
         return deferred.promise;
       },
@@ -143,20 +143,20 @@ angular.module('teemOpsApp')
         var deferred = $q.defer();
 
         $http.post(ENV.apiEndpoint + '/apps/update', app)
-          .then(function(response){
+        .then(function(response){
+          console.log(JSON.stringify(response.data));
+          if(response.data.result){
+            deferred.resolve(response.data.result === true);
+          }
+          else if(response.data.error){
+            deferred.reject(response.data);
+          }
+        })
+        .catch(function(response){
+          deferred.reject(response);
+        });
 
-            if(response.data.result){
-              deferred.resolve(response.data.result === 'true');
-            }
-            else if(response.data.error){
-              deferred.reject(response.data);
-            }
-          })
-          .catch(function(response){
-            deferred.reject(response);
-          });
-
-          return deferred.promise;
+        return deferred.promise;
       },
 
   	  allApps: function(){
@@ -197,6 +197,7 @@ angular.module('teemOpsApp')
         //we need to check status of app
         console.log("App Status is: "+ app.status);
         var action=(app.status==1 || app.status==0 ? 'ec2.launch' : 'ec2.start');
+        console.log('Action is: ' +action);
         if(action=='ec2.launch'){
           return launchApp(userId, app.appId, action);
         }else{

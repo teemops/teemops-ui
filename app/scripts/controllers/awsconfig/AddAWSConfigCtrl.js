@@ -179,10 +179,16 @@ angular.module('teemOpsApp')
           }
         }
       });
-
-      $scope.$watch(function(){ return $scope.config.vpc; }, function(){
-
-      });
+      // /**
+      //  * 
+      //  */
+      // $scope.$watch(function(){ return $scope.config.vpc; }, function(newVal, oldVal){
+      //   console.log(newVal+' oldVal'+oldVal+ ' Subnets:'+JSON.stringify($scope.subnets));
+      //   // if(newVal && newVal !== oldVal) {
+      //     var subnets=$scope.subnets;
+      //     $scope.subnets = $filter('filter')(subnets, { VpcId: newVal });
+      //   // }
+      // });
 
       self.resetFormAndCloudAPIOptions = function(){
         self.clearVPC();

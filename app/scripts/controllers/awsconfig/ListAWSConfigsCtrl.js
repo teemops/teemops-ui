@@ -63,7 +63,7 @@ angular.module('teemOpsApp')
           self.getAllAWSConfigs();
           self.getCloudProviderList();
           self.initDialog();
-
+        
       }
 
       self.getAllAWSConfigs = function(){

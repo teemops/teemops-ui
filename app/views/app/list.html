@@ -12,7 +12,7 @@
 							-->
 							<div flex="20">{{ displayName }} Stack</div>
 							<div flex="35" layout="row">
-								<span flex="50" class="m-xs-right">Credential</span>
+								<span flex="50" class="m-xs-right">Account</span>
 								<span flex="50">Launch Config</span>
 							</div>
 							<div flex="20" class="p-0-right"></div>
@@ -24,7 +24,7 @@
 							<div flex="15" class="p-0-left">
 								<span>{{ app.name }}</span>
 								<!-- TEEM001-20 Hide Server URL
-								<!--<a data-ng-href="{{ 'http://' + app.appurl }}" class="app-url ellipsis md-primary" flex="25" target="_blank"
+								<a data-ng-href="{{ 'http://' + app.appurl }}" class="app-url ellipsis md-primary" flex="25" target="_blank"
 									class="word-wrap">
 									{{ 'http://' + app.appurl }}
 								</a>-->
@@ -42,15 +42,15 @@
 										data-ng-show="!app.userDataProviderId" layout="row" flex="90">
 									</div>
 									<span data-ng-show="app.userDataProviderId" class="secondary-link" style="z-index: 1;" flex>
-										<a ui-sref="credentials" class="md-accent text-underline">{{ app.credentialAuthData.name }}</a>
+										<a ui-sref="credentials" class="md-accent text-underline">{{ app.accountName }}</a>
 									</span>
 								</div>
 								<div layout="row" flex="50">
 									<div app-link-config-panel app="app" refresh-app="getApps()" aws-configs="awsConfigs" shrink-to-fit="true"
-										data-ng-show="!app.awsConfigId" layout="row" flex="90">
+										data-ng-show="(!app.awsConfigId && app.userDataProviderId)" layout="row" flex="90">
 									</div>
 									<span data-ng-show="app.awsConfigId" class="secondary-link" style="z-index: 1;">
-										<a ui-sref="awsconfigs" class="md-accent text-underline">{{ app.awsConfigName }}</a>
+										<a ui-sref="awsconfigs" class="md-accent text-underline">{{ app.awsConfigName }} ({{ app.region}})</a>
 									</span>
 								</div>
 							</div>

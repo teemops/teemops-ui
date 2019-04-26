@@ -110,7 +110,7 @@ angular
         parent: 'apps.list'
       },
       data: {
-        pageTitle: ''
+        pageTitle: 'Create App'
       }
     })
     .state('apps.list', {

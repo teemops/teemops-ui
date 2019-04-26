@@ -8,15 +8,16 @@
  * Allow's a user to specify an AWS Launch Config for an app
  */
 angular.module('teemOpsApp')
-  .controller('SetAWSConfigDialogCtrl', ['$scope', '$rootScope', 'AppService', 'UserCloudConfigService',
+  .controller('SetAWSConfigDialogCtrl', ['$scope', '$rootScope', '$filter', 'AppService', 'UserCloudConfigService',
       '$mdDialog', 'app', 'awsConfigs', 'ENV',
-    function ($scope, $rootScope, AppService, UserCloudConfigService,
+    function ($scope, $rootScope, $filter, AppService, UserCloudConfigService,
       $mdDialog, app, awsConfigs, ENV) {
 
+        var appsConfigs=$filter('filter')(awsConfigs, {awsAccountId: app.awsAccountId});
         $scope.app = app;
-        $scope.awsConfigs = awsConfigs;
+        $scope.awsConfigs = appsConfigs;
         $scope.supportEmail = ENV.supportEmail;
-
+        
         $scope.save = function(){
           AppService.saveApp($scope.app)
             .then(function(success){
