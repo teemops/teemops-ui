@@ -54,4 +54,12 @@
  "id": "us-west-2",
  "name": "US West (Oregon)",
  "ec2Endpoint": "ec2.us-west-2.amazonaws.com"
+}, {
+"id": "eu-north-1",
+"name": "EU (Stockholm)",
+"ec2Endpoint": "ec2.eu-north-1.amazonaws.com"
+}, {
+"id": "eu-west-3",
+"name": "EU (Paris)",
+"ec2Endpoint": "ec2.eu-west-3.amazonaws.com"
 }]
