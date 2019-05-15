@@ -107,16 +107,26 @@ angular.module('teemOpsApp')
         return deferred.promise;
       },
 
-      getInstanceTypeList: function(){
-        return [
-          { val: 't2.nano', name: 't2.nano' },
-           { val: 't2.micro', name: 't2.micro' },
-          { val: 't2.medium', name: 't2.medium' },
-          { val: 't2.large', name: 't2.large' },
-          { val: 'm3.medium', name: 'm3.medium' },
-          { val: 'm3.large', name: 'm3.large' },
-          { val: 'm4.xlarge', name: 'm4.xlarge' }
-        ];
+      getInstanceTypeList: function(region){
+        var deferred = $q.defer();
+        var data={
+          region:region
+        }
+        $http.post(ENV.apiEndpoint + '/pricing/instance_types', data)
+          .then(function(response){
+
+            if(response && response.data) {
+              deferred.resolve(response.data);
+            }
+            else {
+              deferred.reject({ status: 'error' });
+            }
+          })
+          .catch(function(error){
+            deferred.reject({ status: 'error', error: error });
+          });
+
+        return deferred.promise;
       }
     };
   }]);

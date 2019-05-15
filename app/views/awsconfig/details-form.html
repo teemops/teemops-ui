@@ -99,7 +99,7 @@
         <label for="appInstanceType">Instance Type</label>
         <md-select id="appInstanceType" name="appInstanceType" data-ng-model="config.appInstanceType"
           class="m-0-bottom" required md-no-asterisk>
-    			<md-option data-ng-repeat="type in instanceTypes" value="{{ type.val }}">{{ type.name }}</md-option>
+    			<md-option data-ng-repeat="type in instanceTypes" value="{{ type.vm_size }}">{{ type.vm_size }}</md-option>
       	</md-select>
         <div ng-messages="awsConfigForm.appInstanceType.$error">
           <div ng-message="required">Please select an Instance Type</div>

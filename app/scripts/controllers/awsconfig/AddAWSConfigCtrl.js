@@ -18,7 +18,7 @@ angular.module('teemOpsApp')
 
       $scope.selected = 0;
 
-      $scope.instanceTypes = UserCloudConfigService.getInstanceTypeList();
+      $scope.instanceTypes = null;
       $scope.vpcs = [];
       $scope.securityGroups = [];
       $scope.subnets = [];
@@ -171,12 +171,13 @@ angular.module('teemOpsApp')
         if(newVal && newVal !== oldVal) {
 
           self.resetFormAndCloudAPIOptions();
-
+          self.getInstanceTypes();
           if($scope.config.arn) {
             self.getVPCs();
             self.getSubnets();
             self.getSecurityGroups();
           }
+          
         }
       });
       // /**
@@ -214,6 +215,21 @@ angular.module('teemOpsApp')
       self.getSelectedAccountId = function(){
         return $scope.config.userCloudProviderId ? $scope.config.userCloudProviderId : $scope.config.awsAccountId;
       };
+
+      self.getInstanceTypes= function(){
+        UserCloudConfigService.getInstanceTypeList($scope.config.region)
+          .then(function(result){
+            if(result.data!=null){
+              $scope.instanceTypes=result.data;
+            }
+          })
+          .catch(function(err){
+            //TODO handle error
+            if(ENV.name === 'development') {
+              console.log(err);
+            }
+          });
+      }
 
       self.getVPCs = function(){
         console.log('AWS Account ID' + self.getSelectedAccountId());
