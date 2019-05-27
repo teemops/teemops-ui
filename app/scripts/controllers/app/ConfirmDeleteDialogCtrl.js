@@ -30,6 +30,20 @@ angular.module('teemOpsApp')
 
             });
         };
+        $scope.terminate = function(){
+
+          AppService.terminateApp(app.id, $scope.archive)
+            .then(function(result) {
+
+              if(result.data) {
+                $mdDialog.hide({ success: result.data.success, archive : $scope.archive });
+              }
+              else {
+                $mdDialog.hide({ success: false });
+              }
+
+            });
+        };
 
         $scope.cancel = function(){
           $mdDialog.hide();

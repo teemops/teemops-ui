@@ -1,4 +1,5 @@
 <div class="page-title" id="top">
+	
 	<!--<md-toolbar class="md-accent md-hue-2" layout-padding>
 		<div layout-padding layout="row" layout-align="start center" class="p-0-right">
 			<h4 class="md-headline md-text-light">{{ pageTitle }}</h4>
@@ -7,8 +8,19 @@
 	</md-toolbar>-->
 	<md-toolbar layout-padding class="md-accent md-hue-1 secondary-toolbar">
 		<div layout="row" layout-align="start center" class="md-body-2 p-sm-left-right">
+			
 			<div layout="row" flex>
 				<div data-ng-show="app.appId > 0" layout="row">
+						
+					<div data-ng-show="app.hasNotification" layout="column" layout-align="start center" class="m-sm-right">
+							<div shrink-to-fit="true"
+							data-ng-show="app.hasNotification" flex="90">
+							<ng-md-icon icon="error" size="24" style="color:red;font:bold;" class="m-xs-right" ></ng-md-icon>
+							There was an error launching your app, due to an internal AWS error, 
+							<a href="" data-ng-click="scrollToSection('notify')" class="md-accent md-hue-3">please see details below:</a>
+							
+						</div>
+					</div>
 					<div data-ng-show="!app.userDataProviderId" layout="column" layout-align="start center" class="m-sm-right">
 						<label class="md-text-light m-xs-right" layout="row" layout-align="start center">
 							<ng-md-icon icon="error" size="16" class="m-xs-right"></ng-md-icon>
@@ -31,12 +43,18 @@
 					</div>
 				</div>
 			</div>
+			
 			<div layout="column" layout-align="center center">
+				
 			  <span data-ng-class="app.statusInfo.textCssClass" class="p-sm-left-right" style="height: 36px;"
 					layout="row" layout-align="center center">
 					{{ app.statusInfo.desc }}
 				</span>
 			</div>
+			<div layout="column" layout-align="center right">
+					<div app-tools-panel app="app" raised-button="true" data-ng-show="app.statusInfo.name!='READY'"></div>
+			</div>
+			
 		  <div app-start-stop-panel app="app" refresh-app="getApp()" app-status-changed="appStatusChanged()"
 				raised-button="true">
 			</div>
@@ -49,6 +67,7 @@
 	<md-tabs md-dynamic-height md-border-bottom class="app-detail-tabs">
       <md-tab label="{{ displayName }} Info">
 				<form name="appForm" id="appForm" novalidate>
+					<div data-ng-include="'views/app/detail-partials/notify.html'" id="notify" flex-gt-sm="80" flex></div>
 					<div data-ng-include="'views/app/detail-partials/info.html'" flex-gt-sm="80" flex></div>
 					<div data-ng-include="'views/app/detail-partials/cloud.html'" flex-gt-sm="80" flex></div>
 					<div data-ng-include="'views/app/detail-partials/credential.html'" id="credential" flex-gt-sm="80" flex></div>

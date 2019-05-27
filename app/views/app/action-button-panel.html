@@ -1,7 +1,7 @@
 <md-button class="m-0-right"
   data-ng-class="{ 'md-icon-button' : $mdMedia('xs') || $mdMedia('sm'), 'md-primary' : app.statusInfo.name !== 'STARTED',
     'md-warn' : app.statusInfo.name === 'STARTED', 'md-outline' : raisedButton }"
-  layout="row" layout-align="end center" data-ng-click="toggleAppStatus($event)"
+  layout="row" layout-align="center" data-ng-click="toggleAppStatus($event)"
   ng-disabled="app.statusInfo.disabled || app.processing || !app.userCloudProviderId || !app.awsConfigId" data-ng-cloak>
     <ng-md-icon icon="{{ app.statusInfo.actionIcon }}" data-ng-show="!app.processing" size="16"></ng-md-icon>
     <md-progress-circular data-ng-show="app.processing" md-mode="indeterminate" md-diameter="16"></md-progress-circular>
@@ -9,3 +9,4 @@
       {{ app.statusInfo.action }}
     </span>
 </md-button>
+

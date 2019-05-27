@@ -22,6 +22,7 @@
 					<div class="md-list-body">
 						<md-list-item ng-repeat="app in apps" layout="row" ng-click="showDetail(app.appId)" ng-disabled="app.processing" flex>
 							<div flex="15" class="p-0-left">
+								
 								<span>{{ app.name }}</span>
 								<!-- TEEM001-20 Hide Server URL
 								<a data-ng-href="{{ 'http://' + app.appurl }}" class="app-url ellipsis md-primary" flex="25" target="_blank"
@@ -30,7 +31,12 @@
 								</a>-->
 							</div>
 							<div flex="15" layout="row" class="no-wrap">
-								<span data-ng-class="app.statusInfo.textCssClass" class="p-xxs-top-bottom p-xs-right" flex>{{ app.statusInfo.desc }}</span>
+								<span data-ng-class="app.statusInfo.textCssClass" class="p-xxs-top-bottom p-xs-right" flex>{{ app.statusInfo.desc }}
+										<div shrink-to-fit="true"
+										data-ng-show="app.hasNotification" flex="90">
+										<ng-md-icon icon="error" size="24" style="color:red;font:bold;" ></ng-md-icon>
+									</div>
+								</span>
 							</div>
 							<!-- TEEM001-22 Hide Cloud Provider
 							<div flex="15" layout-padding>{{ app.cloudProviderDesc || 'None selected' }}</div>
@@ -55,6 +61,7 @@
 								</div>
 							</div>
 							<div flex="20" class="text-align-right p-0-right" layout="row" layout-align="end center">
+								<div app-tools-panel app="app" raised-button="true" data-ng-show="app.statusInfo.name!='READY'"></div>
 								<div app-start-stop-panel app="app" raised-button="true"></div>
 								<div app-delete-panel app="app" refresh-app="getApps()" icon-only="true"></div>
 							</div>

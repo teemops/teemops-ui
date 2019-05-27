@@ -84,6 +84,7 @@ angular.module('teemOpsApp')
             var app =   response.data.result[0];
             app.configData = angular.fromJson(app.configData);
             app.authData = angular.fromJson(app.authData);
+            app.hasNotification=(app.notify!=null);
             self.updateStatusInfo(app);
             deferred.resolve(app);
           }
@@ -128,6 +129,9 @@ angular.module('teemOpsApp')
 
   	  removeApp: function (appId, archive){
   		  return $http.delete(ENV.apiEndpoint + '/apps/' + appId + '?archive=' + archive);
+      },
+      terminateApp: function (appId, archive){
+  		  return $http.delete(ENV.apiEndpoint + '/apps/terminate/' + appId + '?archive=' + archive);
   	  },
 
   	  saveApp: function(app){
@@ -174,6 +178,7 @@ angular.module('teemOpsApp')
                 app.appProviderSummary = self.formatAppProviderSummary(app.appProviderName, app.os, app.appProviderDesc);
                 app.credentialAuthData = angular.fromJson(app.credentialAuthData);
                 app.configData = angular.fromJson(app.configData);
+                app.hasNotification=(app.notify!=null);
 
                 self.updateStatusInfo(app);
               }

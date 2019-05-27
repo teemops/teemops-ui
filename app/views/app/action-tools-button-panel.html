@@ -1,0 +1,40 @@
+<md-menu-bar data-ng-class="{ 'xs' : $mdMedia('xs'), 'sm' : $mdMedia('sm'), 'gt-sm' : $mdMedia('gt-sm') }" style="padding:0;">
+    <md-menu flex layout-fill>
+
+        <button aria-label="Tasks" class="md-button md-ink-ripple md-default-theme" md-menu-origin
+            ng-click="$mdOpenMenu()" layout="row" layout-align="space-around center"
+            data-ng-class="{ 'md-icon-button' : $mdMedia('xs') || $mdMedia('sm'), 'md-primary' : true }">
+            <!-- <ng-md-icon icon="blank"></ng-md-icon> -->
+            <span>Actions</span>
+            <ng-md-icon size="16" icon="more_vert"></ng-md-icon>
+        </button>
+        <md-menu-content width="3" md-menu-align-target>
+            <md-menu-item>
+                <md-button aria-label="Restart" data-ng-click="restartApp($event)">
+                    <ng-md-icon icon="autorenew"></ng-md-icon>
+                    <span>Restart</span>
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button aria-label="Terminate" data-ng-click="showConfirmTerminateDialog(app, $event)">
+                    <ng-md-icon icon="clear"></ng-md-icon>
+                    <span>Terminate</span>
+                </md-button>
+            </md-menu-item>
+            <md-menu-divider></md-menu-divider>
+            <md-menu-item>
+                <md-button aria-label="Backup" data-ng-click="backupApp($event)">
+                    <ng-md-icon icon="archive"></ng-md-icon>
+                    <span>Backup</span>
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                    <md-button aria-label="Backup" data-ng-click="backupApp($event)">
+                        <ng-md-icon icon="link"></ng-md-icon>
+                        <span><a target="_blank" href="https://console.aws.amazon.com/ec2/v2/home?region={{app.region}}#Instances:tag:topsid={{app.appId}};sort=instanceId">AWS Console</a></span>
+                    </md-button>
+                </md-menu-item>
+
+        </md-menu-content>
+    </md-menu>
+</md-menu-bar>
