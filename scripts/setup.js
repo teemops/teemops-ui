@@ -27,12 +27,6 @@ const fields=[
 
 var file=require("./lib/file");
 
-if (typeof Promise === 'undefined') {
-    var async = require('asyncawait/async');
-    var await = require('asyncawait/await');
-    var Promise = require('bluebird');
-}
-
 if (process.argv.length<3){
     console.log("Arguments need to be supplied as follows");
     help();
@@ -101,7 +95,3 @@ setTimeout(function(){
     })
     
 }, DEBUG_TIMEOUT);
-
-
-
-

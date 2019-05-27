@@ -1,8 +1,3 @@
-if (typeof Promise === 'undefined') {
-    var async = require('asyncawait/async');
-    var await = require('asyncawait/await');
-    var Promise = require('bluebird');
-} 
 const fs=require("fs");
 
 function init(){
