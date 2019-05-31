@@ -18,7 +18,7 @@ angular.module('teemOpsApp')
          * @description
          * task is required as an api path eg. /vpcs/list
          */
-        getVPCData: function(task, awsAccountId, params, region, filter=null){
+        getVPCData: function(task, awsAccountId, params, region, filter){
           var deferred = $q.defer();
           var data = {
             awsAccountId: awsAccountId,

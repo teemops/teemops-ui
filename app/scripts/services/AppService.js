@@ -11,7 +11,8 @@
 angular.module('teemOpsApp')
   .service('AppService', function($http, $cacheFactory, $timeout, $q, $filter, $rootScope, AppStatusService, ENV){
 
-    function sendToJobQueue(userId, appId, action, task="ec2") {
+    function sendToJobQueue(userId, appId, action) {
+      var task="ec2";
       var deferred = $q.defer();
 
       $http.put(ENV.apiEndpoint + '/apps/job', { userid : userId, appid: appId, action: action, task: task })
@@ -30,7 +31,8 @@ angular.module('teemOpsApp')
       return deferred.promise;
     }
 
-    function launchApp(userId, appId, action, task="ec2"){
+    function launchApp(userId, appId, action){
+      var task="ec2";
       var deferred = $q.defer();
 
       $http.post(ENV.apiEndpoint + '/apps/launch', { userid : userId, appid: appId, action: action, task: task })
