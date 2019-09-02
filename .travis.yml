@@ -7,3 +7,10 @@ before_script:
   - 'bower install'
 # install:
 #   - grunt build
+deploy:
+  provider: releases
+  api_key: '$GITHUB_API_KEY'
+  file: teemops-ui.zip
+  skip_cleanup: true
+  on:
+    tags: true

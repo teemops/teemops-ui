@@ -7,7 +7,8 @@
   "dependencies": {
     "express": "^4.13.3",
     "gzippo": "^0.2.0",
-    "morgan": "^1.6.1"
+    "morgan": "^1.6.1",
+    "lodash": ">=4.17.13"
   },
   "repository": {},
   "devDependencies": {
@@ -43,7 +44,8 @@
     "load-grunt-tasks": "^3.1.0",
     "phantomjs": "^2.1.1",
     "serve-static": "^1.14.1",
-    "time-grunt": "^1.0.0"
+    "time-grunt": "^1.0.0",
+    "lodash": ">=4.17.13"
   },
   "engines": {
     "node": ">=0.10.0"
