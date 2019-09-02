@@ -1,0 +1,40 @@
+<md-content class="app-setup-content md-padding" data-ng-show="app.hasSecurity">
+    <md-content layout="column" class="layout-padding">
+      <div class="p-0">
+        <div md-whiteframe="2">
+          <md-toolbar class="md-menu-toolbar p-sm-left p-xs-right" layout="row" layout-align="center center">
+            <ng-md-icon icon="error" size="24" style="color:red;font:bold;" class="m-xs-right"></ng-md-icon>
+            <span class="md-title">Secure My App</span>
+            <span flex></span>
+  
+          </md-toolbar>
+          <md-divider></md-divider>
+          <md-content class="p-xs-left-right form-container">
+            <md-list data-ng-show="!editModes.info.on">
+              <md-list-item class="p-xs">
+                <label flex="50" flex-gt-sm="25" class="md-text-light">Details</label>
+                <span flex><i>Currently your app is not 100% secure, change settings below or use our Ops Bot to optimize.</i>
+                </span>
+                <md-divider></md-divider>
+              </md-list-item>
+              <md-list-item class="p-xs">
+                    <label flex="50" flex-gt-sm="25" class="md-text-light">Ops Bot</label>
+                    <span flex></span>
+                    <md-button class=" md-primary md-button md-outline"
+                    
+                    layout="row" layout-align="center" data-ng-click="toggleAppStatus($event)"
+                    data-ng-cloak>
+                        <ng-md-icon icon="security" size="16"></ng-md-icon>
+                        <span data-ng-show="$mdMedia('gt-sm')" flex>
+                        Optimize Security with OpsBot
+                        </span>
+                    </md-button>
+                    <md-divider></md-divider>
+                  </md-list-item>
+            </md-list>
+  
+          </md-content>
+        </div>
+      </div>
+    </md-content>
+  </md-content>

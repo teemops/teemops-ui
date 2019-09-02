@@ -2,6 +2,6 @@
 
  angular.module('envConfig', [])
 
-.constant('ENV', {name:'production',httpTimeout:3000,supportEmail:'support@teemops.com',apiEndpoint:'https://api.dev.teemops.com/api',cloudapiEndpoint:'https://api.dev.teemops.com/api',subscribeEndpoint:'https://api.dev.teemops.com'})
+.constant('ENV', {name:'development',apiEndpoint:'http://localhost:8080/api',cloudapiEndpoint:'http://localhost:8080/api',subscribeEndpoint:'http://localhost:8080',useSampleData:false,deleteButtonsEnabled:false,httpTimeout:15000,supportEmail:'support@teemops.com'})
 
 ;

@@ -1,0 +1,76 @@
+<md-content class="layout-padding">
+    <div class="md-padding">
+        <div class="layout-padding">
+            <div md-whiteframe="2" class="md-whiteframe-2dp p-0">
+                <md-list class="app-list">
+                    <md-subheader class="md-primary">
+                        <md-list-item layout="row" class="m-0 p-sm-left-right" flex>
+                            <div flex="15" class="p-0-left">Severity</div>
+                            <div flex="15">Type</div>
+
+                            <div flex="20">Resource</div>
+                            <div flex="35" layout="row">
+                                <span flex="50" class="m-xs-right">Issue</span>
+                                <span flex="50">Recommend</span>
+                            </div>
+                            <div flex="20" class="p-0-right"></div>
+                        </md-list-item>
+                    </md-subheader>
+                    <md-progress-linear md-mode="indeterminate" data-ng-show="loading"></md-progress-linear>
+                    <div class="md-list-body">
+                        <md-list-item ng-repeat="app in apps" layout="row"
+                             flex>
+                            <div flex="15" class="p-0-left">
+
+                                <span>{{ risk.severity }}</span>
+
+                            </div>
+                            <div flex="15" layout="row" class="no-wrap">
+                                <span data-ng-class="app.statusInfo.textCssClass" class="p-xxs-top-bottom p-xs-right"
+                                    flex>{{ risk.type }}
+                                    <div shrink-to-fit="true" data-ng-show="app.hasNotification" flex="90">
+                                        <ng-md-icon icon="error" size="24" style="color:red;font:bold;"></ng-md-icon>
+                                    </div>
+                                </span>
+                            </div>
+
+                            <div flex="20" data-ng-bind-html="app.appProviderSummary || 'None selected'" layout-padding>
+                            </div>
+                            <div flex="35" layout="row">
+                                <div layout="row" class="m-xs-right" flex="50">
+                                    {{risk.resource}}
+                                </div>
+                                <div layout="row" flex="50">
+                                    <div app-link-config-panel app="app" refresh-app="getApps()"
+                                        aws-configs="awsConfigs" shrink-to-fit="true"
+                                        data-ng-show="(!app.awsConfigId && app.userDataProviderId)" layout="row"
+                                        flex="90">
+                                    </div>
+                                    <span data-ng-show="app.awsConfigId" class="secondary-link" style="z-index: 1;">
+                                            {{risk.issue}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div flex="20" class="text-align-right p-0-right" layout="row" layout-align="end center">
+                                <div app-tools-panel app="app" raised-button="true"
+                                    data-ng-show="app.statusInfo.name!='READY'"></div>
+                                <div app-start-stop-panel app="app" raised-button="true"></div>
+                                <div app-delete-panel app="app" refresh-app="getApps()" icon-only="true"></div>
+                            </div>
+
+                          
+                        </md-list-item>
+                        <div data-ng-show="!apps || apps.length === 0">
+                            <div class="p-md-top-bottom p-sm-left-right">
+                                <label class="md-text-light">
+                                    <a ui-sref="apps.new" class="md-accent text-underline">Create a server</a> to get
+                                    started
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </md-list>
+            </div>
+        </div>
+    </div>
+</md-content>

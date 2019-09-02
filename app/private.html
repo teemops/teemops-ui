@@ -24,13 +24,19 @@
         <md-list-item ui-sref-active="active">
             <a ui-sref="apps.new" class="md-button md-ink-ripple" layout="space-around center">
               <ng-md-icon icon="create"></ng-md-icon>
-              <span>Create a {{ appDisplayName }}</span>
+              <span>Create an {{ appDisplayName }}</span>
+            </a>
+        </md-list-item>
+        <md-list-item ui-sref-active="active">
+            <a ui-sref="opsbot" class="md-button md-ink-ripple" layout="space-around center">
+                <ng-md-icon icon="security"></ng-md-icon>
+                <span>Ops Bot</span>
             </a>
         </md-list-item>
         <md-divider></md-divider>
         <md-list-item ui-sref-active="active">
             <a ui-sref="credentials" class="md-button md-ink-ripple" layout="space-around center">
-              <ng-md-icon icon="security"></ng-md-icon>
+              <ng-md-icon icon="supervisor_account"></ng-md-icon>
               <span>AWS Credentials</span>
             </a>
         </md-list-item>

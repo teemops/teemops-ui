@@ -39,6 +39,10 @@ angular.module('teemOpsApp')
       awsconfig : {
         on: false,
         enabled: true
+      },
+      secgeneral : {
+        on: false,
+        enabled: true
       }
     };
 
@@ -346,6 +350,10 @@ angular.module('teemOpsApp')
       $scope.editModes.cloud.enabled = enabled;
       $scope.editModes.credential.enabled = enabled;
       $scope.editModes.awsconfig.enabled = enabled;
+
+      var secEnabled= $scope.app.statusInfo.name != 'INITIALISING' &&
+      $scope.app.statusInfo.name != 'READY';
+      $scope.editModes.secgeneral.enabled = true;
     };
 
     self.initWatches = function() {

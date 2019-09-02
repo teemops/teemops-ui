@@ -87,6 +87,8 @@ angular.module('teemOpsApp')
             app.configData = angular.fromJson(app.configData);
             app.authData = angular.fromJson(app.authData);
             app.hasNotification=(app.notify!=null);
+            //default value of security
+            app.hasSecurity=(true);
             self.updateStatusInfo(app);
             deferred.resolve(app);
           }

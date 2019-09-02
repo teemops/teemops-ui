@@ -225,6 +225,21 @@ angular
         pageTitle: 'AWS Launch Configs'
       }
     })
+    .state('opsbot', {
+      url: 'opsbot',
+      parent: '/',
+      templateUrl: 'views/opsbot/list.html',
+      controller: 'ListOpsBotCtrl',
+      access: {
+        authenticationRequired: true
+      },
+      ncyBreadcrumb: {
+        label: 'Ops Bot'
+      },
+      data: {
+        pageTitle: 'Ops Bot'
+      }
+    })
     .state('awsconfigs.new', {
       url: 'awsconfigs/new?appId&userCloudProviderId',
       parent: '/',
