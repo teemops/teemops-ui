@@ -10,5 +10,10 @@
         <div data-ng-include="'views/account/org-tab.html'" flex-gt-sm="80" flex></div>
       </form>
     </md-tab>
+    <md-tab label="Integrations" ng-show="enableOrgs">
+      <form name="appForm" id="appForm" novalidate>
+        <div data-ng-include="'views/account/integrations-tab.html'" flex-gt-sm="80" flex></div>
+      </form>
+    </md-tab>
   </md-tabs>
 </md-content>

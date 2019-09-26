@@ -26,7 +26,7 @@
             <div flex="15">{{ config.appInstanceType || 'None' }}</div>
             <div flex="10">{{ config.region }}</div>
             <div flex="15" class="text-align-right p-0-right button-panel">
-              <md-button class="md-icon-button md-accent md-raised" data-ng-click="showEditDialog(config)" aria-label="Edit Config">
+              <md-button data-ng-show="editButtonsEnabled" class="md-icon-button md-accent md-raised" data-ng-click="showEditDialog(config)" aria-label="Edit Config">
                 <ng-md-icon icon="mode_edit"></ng-md-icon>
               </md-button>
               <md-button data-ng-show="deleteButtonsEnabled" class="md-icon-button md-warn md-raised" data-ng-click="confirmDelete($event, config.id)" aria-label="Delete Config">

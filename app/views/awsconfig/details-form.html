@@ -4,7 +4,7 @@
     <span class="md-caption">&nbsp;(required)</span>
   </div>
   <md-input-container class="md-block m-sm-right m-md-top" flex-gt-xs="80">
-    <label for="name">AWS Config Name</label>
+    <label for="name">Launch Config Name</label>
     <input type="text" name="name" id="name" data-ng-model="config.name" required maxlength="255"
       md-no-asterisk/>
     <div class="hint">Choose a descriptive name for your config e.g. "subnet-1234567 Large"</div>
@@ -53,8 +53,8 @@
       <label for="credential">AWS Credential</label>
       <md-select id="credential" name="credential" data-ng-model="config.arn"
         class="m-0-bottom" md-no-asterisk required data-ng-disabled="!(config.userCloudProviderId || config.awsAccountId)">
-        <md-option ng-repeat="cred in accountCredentials" ng-value="cred.authData.arn">
-          {{ cred.authData.name + " - " + cred.authData.arn }}
+        <md-option ng-repeat="cred in accountCredentials" ng-value="cred.authData.arn" ng-selected="$first">
+          {{ cred.authData.name + " (" + cred.authData.arn +")" }}
         </md-option>
       </md-select>
       <div ng-messages="awsConfigForm.credential.$error">

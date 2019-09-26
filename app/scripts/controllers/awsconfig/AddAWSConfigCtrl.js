@@ -145,7 +145,11 @@ angular.module('teemOpsApp')
 
           CredentialService.getAllByUserId($scope.currentUser.userid)
             .then(function(result){
-              $scope.accountCredentials = $filter('filter')(result, { userCloudProviderId: newVal });
+              var filteredCreds=$filter('filter')(result, { userCloudProviderId: newVal });
+              $scope.accountCredentials = filteredCreds;
+              //select 1st credentials
+              console.log(JSON.stringify(filteredCreds));
+              $scope.config.arn=null;
             });
 
           self.resetFormAndCloudAPIOptions();

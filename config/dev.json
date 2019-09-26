@@ -4,7 +4,7 @@
     "cloudapiEndpoint": "http://localhost:8080/api",
     "subscribeEndpoint": "http://localhost:8080",
     "useSampleData": false,
-    "deleteButtonsEnabled": false,
+    "deleteButtonsEnabled": true,
     "httpTimeout": 15000,
     "supportEmail": "support@teemops.com"
 }

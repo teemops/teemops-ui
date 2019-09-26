@@ -1,0 +1,11 @@
+<md-list>
+    <md-list-item class="p-xs">
+        <label flex="50" flex-gt-sm="25" class="md-text-light">Sumo Logic</label>
+        <input type="checkbox" name="diskencryption" id="diskencryption" data-ng-model="app.security.diskencryption"
+            required maxlength="255" md-no-asterisk autofocus />
+        <div ng-messages="appForm.diskencryption.$error">
+            <div ng-message="required">Check this to use Sumo Logic agent with this app.</div>
+        </div>
+        <md-divider></md-divider>
+    </md-list-item>
+</md-list>

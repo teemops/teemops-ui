@@ -31,4 +31,13 @@ Feel free to update this Readme with any useful information.
   grunt build
   npm start -> http://localhost:5000
 
+### releases ###
+Tag as appropriate
+e.g 
+```
+git tag v0.1
+git push origin v0.1
+```
+
 Copyright 2015 - 2019 Teem Cloud Ops, Inc
+

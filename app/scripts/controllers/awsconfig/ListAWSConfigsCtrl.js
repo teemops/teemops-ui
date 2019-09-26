@@ -15,7 +15,8 @@ angular.module('teemOpsApp')
 
       var self = this;
       self._mdPanel = $mdPanel;
-      $scope.deleteButtonsEnabled = ENV.deleteButtonsEnabled;
+      $scope.deleteButtonsEnabled = true;
+      $scope.editButtonsEnabled = false;
       $scope.loading = true;
 
       $scope.showEditDialog = function(config) {
