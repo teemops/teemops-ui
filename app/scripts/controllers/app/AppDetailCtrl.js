@@ -9,9 +9,9 @@
  */
 angular.module('teemOpsApp')
   .controller('AppDetailCtrl', ['$scope', '$rootScope', '$timeout', '$state', '$stateParams', '$filter', '$mdDialog',
-      '$document', '$uiViewScroll', 'AppService', 'CredentialService', 'UserCloudConfigService', 'UserService', 'UserCloudProviderService', 'ENV',
+      '$document', '$uiViewScroll', 'AppService', 'CredentialService', 'UserCloudConfigService', 'UserService', 'UserCloudProviderService', 'CloudApiService', 'ENV',
     function ($scope, $rootScope, $timeout, $state, $stateParams, $filter, $mdDialog,
-      $document, $uiViewScroll, AppService, CredentialService, UserCloudConfigService, UserService, UserCloudProviderService, ENV) {
+      $document, $uiViewScroll, AppService, CredentialService, UserCloudConfigService, UserService, UserCloudProviderService, CloudApiService, ENV) {
 
     var self = this;
     var awsCloudProviderId = 1; //TODO read from DB
@@ -43,10 +43,16 @@ angular.module('teemOpsApp')
       secgeneral : {
         on: false,
         enabled: true
+      },
+      loadbalancer: {
+        on: false,
+        enabled: false
       }
     };
 
-  	$scope.app = {};
+    $scope.app = {};
+    $scope.subnets = [];
+    $scope.subnetsContent='This is a Subnet Content stuff yaya';
     $scope.processing = false;
 
     $scope.getApp = function(init){
@@ -71,6 +77,7 @@ angular.module('teemOpsApp')
             self.getCredentials();
             self.getAWSConfigs();
             self.setEditEnabled();
+            self.getSubnets();
             self.initWatches();
 
           }
@@ -332,6 +339,10 @@ angular.module('teemOpsApp')
         });
     };
 
+    self.getAvailableSubnets = function(){
+      
+    }
+
     $scope.scrollToSection = function(scrollTo){
 
       var section = angular.element($document[0].getElementById(scrollTo));
@@ -342,6 +353,10 @@ angular.module('teemOpsApp')
       }
     };
 
+    /**
+     * Sets editing of tabs and panels either to enabled or disabled
+     * based on values from the App
+     */
     self.setEditEnabled = function() {
       var enabled = $scope.app.statusInfo.name === 'INITIALISING' ||
         $scope.app.statusInfo.name === 'READY';
@@ -354,6 +369,9 @@ angular.module('teemOpsApp')
       var secEnabled= $scope.app.statusInfo.name != 'INITIALISING' &&
       $scope.app.statusInfo.name != 'READY';
       $scope.editModes.secgeneral.enabled = true;
+
+      //Load Balancer settings
+      $scope.editModes.loadbalancer.enabled=$scope.app.hasALB; 
     };
 
     self.initWatches = function() {
@@ -364,6 +382,22 @@ angular.module('teemOpsApp')
           $scope.app.cloudProvider = selectedCloud;
         }
       }, true);
+    };
+
+    self.getSubnets = function() {
+      CloudApiService.getVPCData('describeSubnets', $scope.app.userCloudProviderId, {}, $scope.app.region, 'Subnets[].{ID: SubnetId, IPRange: CidrBlock, VpcId: VpcId, AvailabilityZone: AvailabilityZone, Tags: Tags[*]}')
+        .then(function(result){
+          if(result.data!=null){
+            $scope.subnets = $filter('filter')(result.data, {VpcId: $scope.app.vpc});
+          }
+        })
+        .catch(function(err){
+          //TODO handle error
+          if(ENV.name === 'development') {
+            console.log(err);
+          }
+        });
+
     };
 
     self.init();

@@ -1,0 +1,91 @@
+<div layout="column" layout-padding flex-gt-sm="70" flex>
+    <div md-whiteframe="2" class="m-md-bottom">
+        <form name="vpcForm" ng-submit="submit(vpcForm.$valid)" novalidate layout="column" class="p-0">
+            <md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+                <span>Add new VPC</span>
+                <span flex></span>
+                <span class="md-caption">(adds a new VPC)</span>
+            </md-toolbar>
+            <div select-or-add-aws-account app="config" form="vpcForm" cloud-providers="cloudProviders" flex-gt-xs="50"
+                flex="100" data-ng-class="{ 'm-sm-right' : $mdMedia('gt-xs') }"
+                tooltip-text="You need to link your TeemOps account with an AWS Account Id before you can create a VPC">
+            </div>
+            <md-input-container class="md-block" flex-gt-xs="50">
+                <label for="region">Region</label>
+                <md-select id="region" name="region" data-ng-model="newvpc.region" class="m-0-bottom" md-no-asterisk
+                    required>
+                    <md-option ng-repeat="region in regions" ng-value="region.id">
+                        {{ region.name }}
+                    </md-option>
+                </md-select>
+                <div ng-messages="vpcForm.region.$error">
+                    <div ng-message="required">Please select a Region</div>
+                </div>
+            </md-input-container>
+            <div flex-gt-sm="80">
+                <md-input-container >
+                    <label>VPC Name</label>
+                    <input type="text" name="name" id="name" data-ng-model="newvpc.name" required maxlength="50"
+                        md-no-asterisk autofocus />
+                    <div ng-messages="vpcForm.name.$error">
+                        <div ng-message="required">Please fill in a VPC name</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div flex-gt-sm="80">
+                <md-input-container >
+                    <label>CIDR (IP Address Range)</label>
+                    <input type="text" name="cidr" id="cidr" data-ng-model="newvpc.cidr" required maxlength="50"
+                        md-no-asterisk autofocus />
+                    <div ng-messages="vpcForm.cidr.$error">
+                        <div ng-message="required">Please fill in an IP address range e.g. 10.0.0.0/16
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div flex-gt-sm="80">
+                    <label>NAT Service</label>
+            </div>
+            <div flex-gt-sm="80">
+                <md-input-container class="md-block">
+                    <md-checkbox data-ng-model="newvpc.nat"
+                        data-ng-disabled="(newvpc.template===1 || newvpc.template===3) ">
+                        NAT - Selecting this will incur AWS charges - only required if you want your private subnets to have Internet access.
+                    </md-checkbox>
+                </md-input-container>
+            </div>
+
+
+            <md-content class="md-padding form-container">
+                <div class="radio-container">
+                    <md-input-container class="layout-fill" flex-gt-xs="80" flex
+                        data-ng-class="{ 'md-input-invalid' : vpcForm.vpcTemplate.$error.required && formSubmitted }">
+                        <label>Pre-defined template</label>
+                        <div class="md-input-messages-animation md-auto-hide ng-active" aria-live="assertive">
+                            <div class="md-input-message-animation">
+                                Please select a predefined template
+                            </div>
+                        </div>
+
+                        <md-radio-group data-ng-model="newvpc.template" layout="column" name="vpcTemplate"
+                            ng-required="false" class="radio-button-list">
+                            <md-radio-button data-ng-repeat="tl in vpcTemplates" data-ng-value="{{tl.id}}">
+                                <div class="text-container" layout-align="center start" layout="column">
+                                    <span class="md-title">{{ tl.name }}</span>
+                                    <span class="md-body-2">{{ tl.description }}</span>
+                                </div>
+                            </md-radio-button>
+                        </md-radio-group>
+                    </md-input-container>
+                </div>
+                <md-button type="button" class="p-0" flex-xs="50" flex-sm="30" flex ng-click="setTask('list')">
+                    Cancel
+                </md-button>
+                <md-button type="submit" class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex>
+                    Save
+                </md-button>
+            </md-content>
+        </form>
+    </div>
+
+</div>

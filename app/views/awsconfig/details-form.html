@@ -135,7 +135,7 @@
     <md-input-container class="md-block" flex-gt-xs="50" flex="100">
       <label for="appSubnet">Subnet</label>
       <md-select id="appSubnet" name="appSubnet" data-ng-model="config.appSubnet" class="m-0-bottom" md-no-asterisk required
-        data-ng-disabled="!config.vpc">
+        data-ng-disabled="!config.vpc" multiple>
         <md-option ng-repeat="subnet in subnets | filter: { VpcId : config.vpc }" ng-value="subnet.ID">
           {{ subnet.ID }} {{ subnet.IPRange }} - AZ: {{subnet.AvailabilityZone}}
         </md-option>

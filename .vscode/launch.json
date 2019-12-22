@@ -8,18 +8,23 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome",
-            "url": "http://localhost:9000/",
+            "url": "http://localhost:9000",
+            "runtimeArgs": [
+                "--disable-session-crashed-bubble"
+             ],
+            "webRoot": "${workspaceFolder}",
             "sourceMaps": true,
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "name": "Attach to Chrome, with sourcemaps",
+            "sourceMapPathOverrides": {
+                "/source/*":"${workspaceRoot}/*"
+            },
+            "userDataDir": "${workspaceRoot}/.vscode/chrome"
+        },{
             "type": "chrome",
             "request": "attach",
+            "name": "Attach to Chrome",
             "port": 9222,
-            "sourceMaps": true,
-            "webRoot": "${workspaceRoot}"
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": true
         }
-    
     ]
 }

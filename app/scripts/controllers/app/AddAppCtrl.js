@@ -15,7 +15,15 @@ angular.module('teemOpsApp')
 
     var self = this;
     var awsCloudProviderId = 1; //TODO read from DB
-
+    //used for Autoscaling min and maximum defaults.
+    $scope.minASG=1;
+    $scope.minASGMax=5;
+    $scope.maxASG=10;
+      /*
+        Selected tab
+      */
+    $scope.selectedTab=0;
+    
     /* Reference data */
     $scope.displayName = AppService.displayName;
 
@@ -24,6 +32,25 @@ angular.module('teemOpsApp')
     $scope.cloudProviderList = [];
     $scope.dbList = [];
     $scope.sourceCodeList = [];
+
+    //when this changes later it will need to use AppService
+    $scope.platformList = [
+      {
+        id: 1,
+        name: 'Servers (Amazon EC2)',
+        description: 'Use Servers for standard workloads including Autoscaling, single servers and initial cloud migrations.'
+      },
+      {
+        id: 2,
+        name: 'Containers (Amazon ECS)',
+        description: 'Containers are launched into an ECS environment configured by Teem Ops in your AWS Account.'
+      },
+      {
+        id: 3,
+        name: 'Serverless (AWS Lambda)',
+        description: 'You can launch your own serverless apps. These require a code base developed using the Serverless Framework - See https://serverless.com'
+      } 
+    ];
 
     $scope.formSubmitted = false;
     $scope.processing = false;
@@ -44,7 +71,14 @@ angular.module('teemOpsApp')
     		source: null,
     		authenticated: null,
     		path: null
-    	}
+      },
+      asg: {
+        enabled: false,
+        groupsize: 1,
+        groupmax: 3,
+        loadbalancer: false
+      },
+      platformId: 1
     };
 
     self.init = function(){
@@ -69,11 +103,14 @@ angular.module('teemOpsApp')
 
       self.initWatches();
     };
+    
+    $scope.stepper= function(tab){
+      $scope.selectedTab=tab;
+    };
 
-    $scope.submit = function(isValid){
-
+    $scope.submit = function(form){
       $scope.formSubmitted = true;
-
+      const isValid=form.$valid;
       if(isValid) {
         $scope.processing = true;
 
@@ -89,7 +126,17 @@ angular.module('teemOpsApp')
         else {
           self.addApp();
         }
-    	}
+    	}else{
+        console.log("Form isn't valid");
+        const invalid = [];
+        var thisForm=$scope.appForm;
+        angular.forEach(thisForm, function(value, key){
+          if(typeof value==='object' && value.hasOwnProperty('$modelValue') && value.$invalid)
+            console.log("This item invalid: " + key + value.$dirty);
+        });
+        
+        
+      }
     };
 
     self.addApp = function(){
@@ -97,7 +144,10 @@ angular.module('teemOpsApp')
         .then(function(result){
 
           if(result.appid){
-            $state.go('apps.list');
+            //$state.go('apps.list');
+            $state.go('apps.detail', {
+              id: result.appid
+            });
           }
 
         })

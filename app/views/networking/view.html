@@ -1,0 +1,36 @@
+<div>
+
+    <md-button type="button" class="md-primary" flex-xs="50" flex-sm="30" flex ng-click="setTask('vpc')">
+        + VPC
+    </md-button>
+    <md-button type="button" class="md-primary" flex-xs="50" flex-sm="30" flex>
+        + Subnet
+    </md-button>
+    <md-button type="button" class="md-primary" flex>
+        + Security Group
+    </md-button>
+    <md-button type="button" class="md-primary" flex ng-ref>
+        <ng-md-icon icon="link"></ng-md-icon>
+        <span class="ng-scope">
+            <a target="_blank" href="https://console.aws.amazon.com/ec2/v2/home?region=us-west-2#Instances:tag:topsid=21;sort=instanceId">View VPCs in AWS Console</a>
+        </span>
+    </md-button>
+    <md-content>
+        <div data-ng-include="'views/networking/add-vpc.html'" layout-padding data-ng-show="task==='vpc'"></div>
+    </md-content>
+
+    <md-tabs class="md-primary" md-stretch-tabs="never" md-dynamic-height md-selected="selectedTab"
+        data-ng-show="task==='list'">
+        <md-tab label="VPCs">
+
+        </md-tab>
+        <md-tab label="Subnets">
+
+
+
+        </md-tab>
+        <md-tab label="Security Groups">
+
+        </md-tab>
+    </md-tabs>
+</div>

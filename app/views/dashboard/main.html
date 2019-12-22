@@ -3,12 +3,12 @@
   <div class="p-md-top p-md-left-right" data-ng-cloak data-ng-hide="hideGetStartedSteps()">
     <md-toolbar class="md-whiteframe-1dp">
       <div class="md-toolbar-tools">
-        <h2>Let's get started!</h2>
+        <h2>Let's get started with Teem Ops!</h2>
         <span flex></span>
       </div>
     </md-toolbar>
     <div layout="row" layout-align="start stretch" layout-wrap class="p-0 m-xs-top dashboard-card-container">
-      <div flex="100" flex-gt-xs="50" flex-gt-sm="25" layout="column" layout-align="start stretch">
+      <!-- <div flex="100" flex-gt-xs="50" flex-gt-sm="25" layout="column" layout-align="start stretch">
         <md-card flex layout="column" layout-align="start stretch">
           <md-card-title layout="row" class="p-xs" flex="none">
             <div class="dashboard-status-indicator" data-ng-class="{ 'complete' : hasCloudProviders, 'not-complete' : !hasCloudProviders }">
@@ -35,7 +35,7 @@
             </a>
           </md-card-actions>
         </md-card>
-      </div>
+      </div> -->
       <div flex="100" flex-gt-xs="50" flex-gt-sm="25" layout="column" layout-align="start stretch">
         <md-card flex layout="column" layout-align="start stretch">
           <md-card-title layout="row" flex="none" class="p-xs">
@@ -44,23 +44,23 @@
               <ng-md-icon icon="close" size="20" data-ng-show="!hasCredentials"></ng-md-icon>
             </div>
             <md-card-title-text layout="column" layout-align="center center">
-              <span class="md-subhead p-0">Step 2</span>
+              <span class="md-subhead p-0">Step 1</span>
               <label class="md-title">
-                AWS Credential
+                Link an AWS Account
               </label>
             </md-card-title-text>
           </md-card-title>
           <md-card-content layout="column" layout-align="start center" flex class="m-sm-top">
             <div class="text-align-center">
-              AWS Credentials define the roles and permissions that TeemOps uses to access your AWS Account
+              Link an AWS Account to get started
             </div>
           </md-card-content>
           <md-card-actions layout="column" layout-align="center stretch" flex="none">
             <a class="md-button md-primary" ui-sref="credentials.new" data-ng-show="!hasCredentials">
               <ng-md-icon icon="security" size="16" style="margin-top: -2px;"></ng-md-icon>
-              <span flex>Create Credential</span>
+              <span flex>Link AWS Account</span>
             </a>
-            <a class="md-button md-accent" ui-sref="credentials" data-ng-show="hasCredentials">Manage Credentials</a>
+            <a class="md-button md-accent" ui-sref="credentials" data-ng-show="hasCredentials">View AWS Accounts</a>
           </md-card-actions>
         </md-card>
       </div>
@@ -72,13 +72,13 @@
               <ng-md-icon icon="close" size="20" data-ng-show="!hasAWSConfigs"></ng-md-icon>
             </div>
             <md-card-title-text layout="column" layout-align="center center">
-              <span class="md-subhead p-0">Step 3</span>
+              <span class="md-subhead p-0">Step 2</span>
               <label class="md-title">AWS Launch Config</label>
             </md-card-title-text>
           </md-card-title>
           <md-card-content layout="column" layout-align="start center" flex class="m-sm-top">
             <span class="text-align-center">
-              AWS Launch Configs define the Infrastructure settings for your servers
+              Launch Configs are used for server's account, region and networking.
             </span>
           </md-card-content>
           <md-card-actions layout="column" layout-align="center stretch" flex="none">
@@ -98,19 +98,18 @@
               <ng-md-icon icon="close" size="20" data-ng-show="!hasApps"></ng-md-icon>
             </div>
             <md-card-title-text layout="column" layout-align="center center">
-              <span class="md-subhead p-0">Step 4</span>
-              <label class="md-title">TeemOps Server</label>
+              <span class="md-subhead p-0">Step 3</span>
+              <label class="md-title">Teem Ops App</label>
             </md-card-title-text>
           </md-card-title>
           <md-card-content layout="column" layout-align="start center" flex class="m-sm-top">
             <span class="text-align-center">
-              Create, launch and manage your server through TeemOps<br/>
-              Let us look after AWS
+              Create, launch and manage your apps and servers through Teem Ops
             </span>
           </md-card-content>
           <md-card-actions layout="column" layout-align="center center" flex="none">
             <a class="md-button md-primary" ui-sref="apps.new">
-              Create my first Server
+              Create my first App or Server
             </a>
           </md-card-actions>
         </md-card>

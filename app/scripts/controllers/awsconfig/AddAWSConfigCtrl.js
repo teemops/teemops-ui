@@ -23,6 +23,7 @@ angular.module('teemOpsApp')
       $scope.securityGroups = [];
       $scope.subnets = [];
       $scope.accountCredentials = null;
+      $scope.regions=[];
 
       $scope.config = {
         id : 0,
@@ -77,6 +78,9 @@ angular.module('teemOpsApp')
       };
 
       self.createAWSConfig = function(){
+        var subnetsArray=[];
+        subnetsArray=$scope.config.appSubnet;
+        $scope.config.appSubnet=subnetsArray.join(',');
         UserCloudConfigService.create($rootScope.currentUser.userid, $scope.config)
           .then(function(result){
 

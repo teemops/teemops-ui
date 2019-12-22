@@ -162,10 +162,10 @@ angular
         authenticationRequired: true
       },
       ncyBreadcrumb: {
-        label: 'Credentials'
+        label: 'AWS Accounts'
       },
       data: {
-        pageTitle: 'Credentials'
+        pageTitle: 'AWS Accounts'
       }
     })
     .state('credentials.new', {
@@ -177,11 +177,11 @@ angular
         authenticationRequired: true
       },
       ncyBreadcrumb: {
-        label: 'Create new credential',
+        label: 'Link an AWS Account',
         parent: 'credentials'
       },
       data: {
-        pageTitle: 'Create new credential'
+        pageTitle: 'Link an AWS Account'
       }
     })
     .state('credentials.new.stepper', {
@@ -193,7 +193,7 @@ angular
       },
       templateUrl: 'views/credentials/new-steppers.html',
       ncyBreadcrumb: {
-        label: 'Create new credential',
+        label: 'Link an AWS Account',
         parent: 'credentials'
       },
     })
@@ -206,7 +206,7 @@ angular
       },
       templateUrl: 'views/credentials/new-simple.html',
       ncyBreadcrumb: {
-        label: 'Create new credential',
+        label: 'Link an AWS Account',
         parent: 'credentials'
       }
     })
@@ -238,6 +238,21 @@ angular
       },
       data: {
         pageTitle: 'Ops Bot'
+      }
+    })
+    .state('vpc', {
+      url: 'vpc',
+      parent: '/',
+      templateUrl: 'views/networking/view.html',
+      controller: 'NetworkingCtrl',
+      access: {
+        authenticationRequired: true
+      },
+      ncyBreadcrumb: {
+        label: 'Networking'
+      },
+      data: {
+        pageTitle: 'Networking'
       }
     })
     .state('awsconfigs.new', {

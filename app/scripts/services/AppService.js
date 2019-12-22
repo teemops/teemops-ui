@@ -277,7 +277,9 @@ angular.module('teemOpsApp')
       getSourceCodeList: function() {
         return [
           { val: 'github', name: 'GitHub', enabled: true },
-          { val: 'svn', name: 'Subversion', enabled: false }
+          { val: 'bitbucket', name: 'BitBucket', enabled: false },
+          { val: 'S3', name: 'S3', enabled: false },
+          { val: 'Upload', name: 'Upload Zip', enabled: false }
         ];
       },
 

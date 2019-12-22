@@ -82,6 +82,11 @@
 					-->
 			</form>
 		</md-tab>
+		<md-tab   label="{{ displayName }} Scaling">
+			<div data-ng-include="'views/app/detail-partials/scaling.html'" flex-gt-sm="80" flex></div>
+			<div data-ng-show="app.hasALB" data-ng-include="'views/app/detail-partials/scaling-aws-config.html'" flex-gt-sm="80" flex></div>
+		</md-tab>
+		
 		<md-tab label="{{ displayName }} Infrastructure">
 			<md-content class="app-setup-content md-padding">
 				<md-content layout="column" flex-gt-sm="80" class="layout-padding">

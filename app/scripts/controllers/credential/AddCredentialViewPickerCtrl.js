@@ -28,13 +28,13 @@ angular.module('teemOpsApp')
                 $scope.simpleView = true;
               }
               else {
-                $state.go('credentials.new.stepper');
-                $scope.simpleView = false;
+                $state.go('credentials.new.simple');
+                $scope.simpleView = true;
               }
             })
             .catch(function(){
-              $state.go('credentials.new.stepper');
-              $scope.simpleView = false;
+              $state.go('credentials.new.simple');
+              $scope.simpleView = true;
             });
         }
         else {
