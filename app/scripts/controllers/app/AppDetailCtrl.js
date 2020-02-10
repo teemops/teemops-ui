@@ -51,8 +51,14 @@ angular.module('teemOpsApp')
     };
 
     $scope.app = {};
+    $scope.alb = {
+      subnets: [],
+      listeners: []
+    };
     $scope.subnets = [];
-    $scope.subnetsContent='This is a Subnet Content stuff yaya';
+    
+    $scope.acmCerts=[];
+    $scope.subnetsContent='TODO: This is a Subnet Content stuff yaya';
     $scope.processing = false;
 
     $scope.getApp = function(init){
@@ -78,6 +84,7 @@ angular.module('teemOpsApp')
             self.getAWSConfigs();
             self.setEditEnabled();
             self.getSubnets();
+            self.getCertificates();
             self.initWatches();
 
           }
@@ -102,6 +109,7 @@ angular.module('teemOpsApp')
       var credentialChanged = $scope.appBeforeEdit.userDataProviderId != $scope.app.userDataProviderId;
       var appProviderChanged = $scope.appBeforeEdit.appProviderId != $scope.app.appProviderId;
       var configChanged = $scope.appBeforeEdit.userCloudProviderId !== $scope.app.userCloudProviderId;
+      var loadbalancerChanged=$scope.appBeforeEdit.albSubnet!==$scope.app.albSubnet;
 
       if(section === 'credential') {
         if(credentialChanged && $scope.app.statusInfo.name === 'STOPPED') {
@@ -117,6 +125,10 @@ angular.module('teemOpsApp')
         goToSave = false;
         self.showConfirmCloudDialog(section, $event);
       }
+      // else if (section === 'loadbalancer' && loadbalancerChanged) {
+      //   goToSave = false;
+      //   self.showConfirmCloudDialog(section, $event);
+      // }
 
       if(goToSave){
         self.saveApp(section);
@@ -265,13 +277,30 @@ angular.module('teemOpsApp')
         };
 
         self.createNewCloudProviderAccount(onSuccess);
-      }
-      else {
+      }else if(section==='loadbalancer'){
+        //TODO: Add or update loadbalancer details
+        self.updateLoadBalancer(section);
+      }else {
         self.updateApp(section);
       }
 
       self.updateApp(section);
     };
+
+    self.updateLoadBalancer=function(section){
+      //TODO: Update or add initial loadbalancer details:
+      //SSL Cert, ALB Subnet
+      var albSubnetsArray=$scope.alb.subnets;
+      $scope.app.albSubnets=albSubnetsArray.join(',');
+      AppService.updateALB($scope.app)
+        .then(function(success){
+          $scope.editModes[section].on = !success;
+          $scope.getApp();
+        })
+        .finally(function(){
+            $scope.processing = false;
+        });
+    }
 
     self.createNewCloudProviderAccount = function(onSuccess){
       var data = {
@@ -289,6 +318,7 @@ angular.module('teemOpsApp')
           //TODO
         });
     };
+
 
     self.updateApp = function(section){
       AppService.saveApp($scope.app)
@@ -396,6 +426,21 @@ angular.module('teemOpsApp')
           if(ENV.name === 'development') {
             console.log(err);
           }
+        });
+
+    };
+
+    self.getCertificates=function(){
+
+      CloudApiService.generic('ACM', 'listCertificates', $scope.app.userCloudProviderId, {}, $scope.app.region, 'CertificateSummaryList[].{Name: DomainName, Arn: CertificateArn }')
+        .then(function(result){
+          if(result.data!=null){
+            $scope.acmCerts = result.data;
+          }
+        })
+        .catch(function(err){
+          //TODO handle error
+          console.debug(err);
         });
 
     };

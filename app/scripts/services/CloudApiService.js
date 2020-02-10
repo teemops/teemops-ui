@@ -50,6 +50,41 @@ angular.module('teemOpsApp')
             deferred.reject(err);
           });
           return deferred.promise;
-        }
+        },
+        /**
+         * @name Generic AWS API Task
+         * @description
+         * task is required as an api path eg. /vpcs/list
+         */
+        generic: function(service, task, awsAccountId, params, region, filter){
+          var deferred = $q.defer();
+          var data = {
+            awsAccountId: awsAccountId,
+            className: service,
+            task: task,
+            params: params,
+            region: region
+          };
+          if(filter!=null){
+            data['filter']=filter;
+          }
+
+          var endpoint = ENV.apiEndpoint + '/apps/general';
+          var method = 'POST';
+
+          $http({
+            method: method,
+            url: endpoint,
+            data: data
+          })
+          .then(function(response){
+            deferred.resolve(response.data);
+          })
+          .catch(function(err) {
+            deferred.reject(err);
+          });
+          return deferred.promise;
+        },
+        
       };
   }]);

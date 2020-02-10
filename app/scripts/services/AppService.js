@@ -10,6 +10,9 @@
 
 angular.module('teemOpsApp')
   .service('AppService', function($http, $cacheFactory, $timeout, $q, $filter, $rootScope, AppStatusService, ENV){
+    
+    
+
 
     function sendToJobQueue(userId, appId, action) {
       var task="ec2";
@@ -309,7 +312,33 @@ angular.module('teemOpsApp')
 
       updateStatusInfo: function(app){
         app.statusInfo = AppStatusService.getAppStatusMetadata(app.status);
+      },
+      /**
+       * Updates ALB settings for an App with AppID
+       * Calls API endpoint
+       * 
+       * @param {*} appId Appid
+       * @param {*} alb Settings for ALB
+       */
+      updateALB: function(app){
+        var deferred = $q.defer();
+
+        $http.post(ENV.apiEndpoint + '/apps/alb', app)
+          .then(function(response){
+            if(response.data) {
+              deferred.resolve(response.data);
+            }
+            else {
+              deferred.reject(null);
+            }
+          })
+          .catch(function(response){
+            deferred.reject(response.data);
+          });
+
+        return deferred.promise;
       }
+
 
     };
 });
