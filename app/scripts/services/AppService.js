@@ -177,7 +177,7 @@ angular.module('teemOpsApp')
 
         $http.get(ENV.apiEndpoint + '/apps/list/')
           .then(function(response){
-
+            console.log(JSON.stringify(response, null, 4));
             if(response.data && angular.isArray(response.data.results) && response.data.results.length > 0) {
 
               for(var i = 0;i<response.data.results.length;i++){
@@ -216,6 +216,10 @@ angular.module('teemOpsApp')
           return sendToJobQueue(userId, app.appId, action);
         }
         
+      },
+      relaunchApp: function(userId, app){
+        var action='ec2.update';
+        return launchApp(userId, app.appId, action);
       },
 
       stopApp: function(userId, app){
@@ -280,7 +284,7 @@ angular.module('teemOpsApp')
       getSourceCodeList: function() {
         return [
           { val: 'github', name: 'GitHub', enabled: true },
-          { val: 'bitbucket', name: 'BitBucket', enabled: false },
+          { val: 'bitbucket', name: 'BitBucket', enabled: true },
           { val: 'S3', name: 'S3', enabled: false },
           { val: 'Upload', name: 'Upload Zip', enabled: false }
         ];
@@ -320,7 +324,7 @@ angular.module('teemOpsApp')
        * @param {*} appId Appid
        * @param {*} alb Settings for ALB
        */
-      updateALB: function(app){
+      updateALB: function(userId, app){
         var deferred = $q.defer();
 
         $http.post(ENV.apiEndpoint + '/apps/alb', app)

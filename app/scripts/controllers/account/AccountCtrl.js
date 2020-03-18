@@ -22,6 +22,7 @@ angular.module('teemOpsApp')
       name: null,
       owner: null
     };
+    $scope.newCloudProvider;
 
     var awsCloudProviderId = 1; //TODO: Read from DB
 
@@ -42,6 +43,8 @@ angular.module('teemOpsApp')
           
           if(!$scope.user.cloudProviders || $scope.user.cloudProviders.length === 0) {
             $scope.newCloudProvider = { isDefault : true };
+          }else{
+            $scope.newCloudProvider = { isDefault : false };
           }
 
           angular.forEach($scope.user.cloudProviders, function(cloudProvider){

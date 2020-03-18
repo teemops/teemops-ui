@@ -86,6 +86,7 @@ angular.module('teemOpsApp')
             self.getSubnets();
             self.getCertificates();
             self.initWatches();
+            self.getSelectedSubnets();
 
           }
           else {
@@ -292,14 +293,23 @@ angular.module('teemOpsApp')
       //SSL Cert, ALB Subnet
       var albSubnetsArray=$scope.alb.subnets;
       $scope.app.albSubnets=albSubnetsArray.join(',');
-      AppService.updateALB($scope.app)
+      AppService.updateALB($rootScope.currentUser.userid, $scope.app)
         .then(function(success){
-          $scope.editModes[section].on = !success;
-          $scope.getApp();
+          console.log('Now Running Launch App with ec2.update action');
+          if($scope.app.status==3){
+            AppService.relaunchApp($rootScope.currentUser.userid, $scope.app)
+              .then(function(){
+                $scope.editModes[section].on = !success;
+                $scope.getApp();
+              });
+          }
         })
         .finally(function(){
             $scope.processing = false;
         });
+
+        
+        
     }
 
     self.createNewCloudProviderAccount = function(onSuccess){
@@ -318,7 +328,6 @@ angular.module('teemOpsApp')
           //TODO
         });
     };
-
 
     self.updateApp = function(section){
       AppService.saveApp($scope.app)
@@ -369,7 +378,10 @@ angular.module('teemOpsApp')
         });
     };
 
-    self.getAvailableSubnets = function(){
+    self.getSelectedSubnets = function(){
+      if($scope.app.albSubnets){
+        $scope.alb.subnets=$scope.app.albSubnets.split(',');
+      }
       
     }
 

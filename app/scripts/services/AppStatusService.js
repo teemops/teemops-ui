@@ -18,6 +18,18 @@ angular.module('teemOpsApp')
       });
 
     function getAppStatusMetadata(statusId){
+      if(appStatusList==undefined){
+        $http.get(ENV.apiEndpoint + '/appstatus/list', { cache: true })
+        .then(function (response) {
+          appStatusList = response.data.results;
+          return getAppStatus(statusId);
+        });
+      }else{
+        return getAppStatus(statusId);
+      }
+    }
+
+    function getAppStatus(statusId){
       var status = $filter('filter')(appStatusList, { id: statusId })[0];
       var action = '', disabled = true, actionIcon = '', desc = '', textCssClass = '';
       console.log("StatusID: "+statusId);
@@ -64,6 +76,13 @@ angular.module('teemOpsApp')
             desc = 'Running';
             textCssClass = 'text-success';
             break;
+          case 'UPDATING':
+            disabled = true;
+            action = 'Stop';
+            actionIcon = 'stop';
+            desc = 'UPDATING';
+            textCssClass = 'text-warn pulse';
+            break;
           default:
             disabled = true;
             action = 'Start';
@@ -93,7 +112,6 @@ angular.module('teemOpsApp')
           textCssClass: textCssClass
         };
       }
-      
       
     }
 

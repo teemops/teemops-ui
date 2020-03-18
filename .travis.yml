@@ -4,9 +4,9 @@ node_js:
   - "10"
 before_script:
   - 'npm install -g bower grunt-cli'
-  - 'bower install'
-# install:
-#   - grunt build
+  # - 'bower install'
+install:
+  - grunt build
 deploy:
   provider: releases
   api_key: '$GITHUB_API_KEY'

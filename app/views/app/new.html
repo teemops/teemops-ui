@@ -83,9 +83,8 @@
 								<span class="md-caption">(required)</span>
 							</md-toolbar>
 							<md-divider></md-divider>
-							<md-content class="md-padding form-container">
-								<div data-ng-include="'views/app/forms/info-form.html'"></div>
-							</md-content>
+							<div data-ng-include="'views/app/forms/info-form.html'"></div>
+							
 							<md-content class="md-padding form-container">
 								
 								<md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex
@@ -278,30 +277,46 @@
 		</div>
 	</md-content>
 </md-tab> -->
-			<!-- <md-tab label="Code">
+			<md-tab label="Code">
 	<md-content class="md-padding">
 		<div layout="column" layout-padding flex-gt-sm="70" flex>
-			<div md-whiteframe="2" data-ng-disabled>
+			<div md-whiteframe="2">
 				<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
 					<span>Source Code</span>
 					<span flex></span>
-					<span class="md-caption">(optional - available soon)</span>
+					<span class="md-caption">Choose code build and deployment options</span>
 				</md-toolbar>
 				<md-divider></md-divider>
 				<md-content class="md-padding">
 					<div class="radio-container">
 						<label>Source</label><br /><br />
 						<md-input-container>
-							<md-radio-group data-ng-model="currentApp.codeSource" layout="row" name="codeSource"
-								disabled>
+							<md-radio-group data-ng-model="app.sourceCode.source" layout="row" name="codeSource"
+								>
 								<md-radio-button data-ng-repeat="source in sourceCodeList"
 									data-ng-value="'{{source.val}}'" class="md-align-top-left"
-									disabled="{{!source.enabled}}" flex>
+									 flex>
 									{{ source.name }}
 								</md-radio-button>
 							</md-radio-group>
 						</md-input-container>
 					</div>
+				</md-content>
+				<md-content class="md-padding">
+					<md-input-container>
+						<label>GIT URL</label>
+						<input type="text" name="codePath" id="codePath" data-ng-model="app.sourceCode.path"
+							md-no-asterisk autofocus
+							 />
+						<div ng-messages="appForm.codePaths.$error">
+							<div ng-message="required">
+								To use the Code feature in Teem Ops you first need to 
+								Authorise your GIT provider in Code Build.
+								See <a href="https://console.aws.amazon.com/codesuite/codebuild/project/new">
+								Code Build - Add New Project</a>
+							</div>
+						</div>
+					</md-input-container>
 				</md-content>
 				<md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex ng-click="stepper(5);">
 					Previous
@@ -313,7 +328,7 @@
 
 		</div>
 	</md-content>
-</md-tab> -->
+</md-tab>
 		</md-tabs>
 	</form>
 </div>
