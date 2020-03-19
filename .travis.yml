@@ -2,11 +2,13 @@ sudo: false
 language: node_js
 node_js:
   - "12"
-before_script:
-  - 'npm install grunt-cli'
-  - 'bower install'
+before_install: 
+  - npm install -g grunt-cli
+  - bower install
 install:
-  - grunt build
+  - npm install
+before_script:
+  - 'grunt build'
 deploy:
   provider: releases
   api_key: '$GITHUB_API_KEY'
