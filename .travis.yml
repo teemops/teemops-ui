@@ -2,7 +2,8 @@ sudo: false
 language: node_js
 node_js:
   - "10"
-before_install: 
+before_install:
+  - curl -sSL https://get.rvm.io | bash -s stable --ruby
   - npm install -g grunt-cli yarn
 install:
   - yarn
