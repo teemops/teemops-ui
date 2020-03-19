@@ -4,9 +4,9 @@ node_js:
   - "12"
 before_install: 
   - npm install -g grunt-cli bower
-  - bower install
 install:
-  - npm install
+  - npm install    
+  - bower install
 before_script:
   - 'grunt build'
 deploy:
