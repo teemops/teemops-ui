@@ -110,7 +110,7 @@ angular.module('teemOpsApp')
 
     $scope.submit = function(form){
       $scope.formSubmitted = true;
-      const isValid=form.$valid;
+      var isValid=form.$valid;
       if(isValid) {
         $scope.processing = true;
 
@@ -128,7 +128,7 @@ angular.module('teemOpsApp')
         }
     	}else{
         console.log("Form isn't valid");
-        const invalid = [];
+        var invalid = [];
         var thisForm=$scope.appForm;
         angular.forEach(thisForm, function(value, key){
           if(typeof value==='object' && value.hasOwnProperty('$modelValue') && value.$invalid)
