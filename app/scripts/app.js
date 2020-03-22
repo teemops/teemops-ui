@@ -1,5 +1,5 @@
 'use strict';
-
+var angular=require('angular');
 /**
  * @ngdoc overview
  * @name teemOpsApp
@@ -13,7 +13,7 @@ angular
     'ngAnimate',
     'ngCookies',
     'ui.router',
-    'ngSanitize',
+    //'ngSanitize',
     //'ngTouch',
     'ngStorage',
     'envConfig',

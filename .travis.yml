@@ -9,7 +9,7 @@ install:
   - yarn
 before_script:
   - 'grunt build'
-before_deploy: zip -r teemops-ui.zip dist/ 
+before_deploy: cd dist && zip -r ../teemops-ui.zip . && cd ../
 deploy:
   provider: releases
   api_key: '$GITHUB_API_KEY'
