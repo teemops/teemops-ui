@@ -1,111 +1,103 @@
 <div>
-	<form name="appForm" ng-submit="submit(appForm)" novalidate layout="column" class="p-0">
-		<md-tabs class="md-primary" md-stretch-tabs="never" md-dynamic-height md-selected="selectedTab">
-			<md-tab label="Choose Platform">
-				<md-content class="md-padding">
-					<div layout="column" layout-padding flex-gt-sm="70" flex>
-						<div md-whiteframe="2" class="m-md-bottom">
+  <form name="appForm" ng-submit="submit(appForm)" novalidate layout="column" class="p-0">
+    <md-tabs class="md-primary" md-stretch-tabs="never" md-dynamic-height md-selected="selectedTab">
+      <md-tab label="Choose Platform">
+        <md-content class="md-padding">
+          <div layout="column" layout-padding flex-gt-sm="70" flex>
+            <div md-whiteframe="2" class="m-md-bottom">
 
-							
-							<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center"
-								layout-padding>
-								<span>Platform selection</span>
-								<span flex></span>
-								<span class="md-caption">(available soon)</span>
-							</md-toolbar>
-							<md-divider></md-divider>
-							<md-content class="md-padding form-container">
-								<div class="radio-container">
-									<md-input-container class="layout-fill" flex-gt-xs="80" flex
-										data-ng-class="{ 'md-input-invalid' : appForm.appPlatform.$error.required && formSubmitted }">
-										<label>Platform</label>
-										<div data-ng-disabled="true"
-											class="md-input-messages-animation md-auto-hide ng-active"
-											aria-live="assertive">
-											<div class="md-input-message-animation">Please choose how you want to run
-												your app.
-											</div>
-										</div>
 
-										<md-radio-group data-ng-model="app.platformId" layout="column"
-											name="appPlatform" ng-required="false" class="radio-button-list"
-											data-ng-disabled="true">
-											<md-radio-button data-ng-disabled="true" data-ng-repeat="pl in platformList"
-												data-ng-value="{{pl.id}}">
-												<div class="text-container" layout-align="center start" layout="column">
-													<span class="md-title">{{ pl.name }}</span>
-													<span class="md-body-2">{{ pl.description }}</span>
-												</div>
-											</md-radio-button>
-										</md-radio-group>
-									</md-input-container>
-								</div>
+              <md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+                <span>Platform selection</span>
+                <span flex></span>
+                <span class="md-caption">(available soon)</span>
+              </md-toolbar>
+              <md-divider></md-divider>
+              <md-content class="md-padding form-container">
+                <div class="radio-container">
+                  <md-input-container class="layout-fill" flex-gt-xs="80" flex
+                    data-ng-class="{ 'md-input-invalid' : appForm.appPlatform.$error.required && formSubmitted }">
+                    <label>Platform</label>
+                    <div data-ng-disabled="true" class="md-input-messages-animation md-auto-hide ng-active"
+                      aria-live="assertive">
+                      <div class="md-input-message-animation">Please choose how you want to run
+                        your app.
+                      </div>
+                    </div>
 
-								<md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex
-									ng-click="stepper(1);">
-									Configure
-								</md-button>
-							</md-content>
+                    <md-radio-group data-ng-model="app.platformId" layout="column" name="appPlatform"
+                      ng-required="false" class="radio-button-list" data-ng-disabled="true">
+                      <md-radio-button data-ng-disabled="true" data-ng-repeat="pl in platformList"
+                        data-ng-value="{{pl.id}}">
+                        <div class="text-container" layout-align="center start" layout="column">
+                          <span class="md-title">{{ pl.name }}</span>
+                          <span class="md-body-2">{{ pl.description }}</span>
+                        </div>
+                      </md-radio-button>
+                    </md-radio-group>
+                  </md-input-container>
+                </div>
 
-						</div>
-					</div>
-				</md-content>
-			</md-tab>
-			<md-tab label="App Environment">
-				<md-content class="md-padding">
-					<div layout="column" layout-padding flex-gt-sm="70" flex>
-						<div md-whiteframe="2" class="m-md-bottom">
+                <md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex ng-click="stepper(1);">
+                  Configure
+                </md-button>
+              </md-content>
 
-							<div flex-gt-sm="80">
-								<md-input-container class="md-block">
-									<label>{{ displayName }} Name</label>
-									<input type="text" name="name" id="name" data-ng-model="app.name" required
-										maxlength="255" md-no-asterisk autofocus />
-									<div ng-messages="appForm.name.$error">
-										<div ng-message="required">Please fill in a {{ displayName }} name</div>
-									</div>
-								</md-input-container>
-							</div>
-							<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center"
-								layout-padding>
-								<span>AWS Settings</span>
-								<span flex></span>
-								<span class="md-caption">(required)</span>
-							</md-toolbar>
-							<md-divider></md-divider>
-							<md-content class="md-padding form-container">
-								<div data-ng-include="'views/app/forms/cloud-form.html'"></div>
-							</md-content>
-							<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center"
-								layout-padding>
-								<span>{{ displayName }} Environment</span>
-								<span flex></span>
-								<span class="md-caption">(required)</span>
-							</md-toolbar>
-							<md-divider></md-divider>
-							<div data-ng-include="'views/app/forms/info-form.html'"></div>
-							
-							<md-content class="md-padding form-container">
-								
-								<md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex
-									ng-click="stepper(2);">
-									Next
-								</md-button>
-								<md-button type="submit" class="md-primary md-raised p-0" flex-xs="50" flex-sm="30"
-									flex>
-									Finish
-								</md-button>
-								<div data-ng-show="appForm.$invalid && formSubmitted" ng-messages="appForm.name.$error">
-									<div ng-message="required"><b>App was not added, some invalid details.</b></div>
-								</div>
-							</md-content>
+            </div>
+          </div>
+        </md-content>
+      </md-tab>
+      <md-tab label="App Environment">
+        <md-content class="md-padding">
+          <div layout="column" layout-padding flex-gt-sm="70" flex>
+            <div md-whiteframe="2" class="m-md-bottom">
 
-						</div>
-					</div>
-				</md-content>
+              <div flex-gt-sm="80">
+                <md-input-container class="md-block">
+                  <label>{{ displayName }} Name</label>
+                  <input type="text" name="name" id="name" data-ng-model="app.name" required maxlength="255"
+                    md-no-asterisk autofocus />
+                  <div ng-messages="appForm.name.$error">
+                    <div ng-message="required">Please fill in a {{ displayName }} name</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+                <span>Cloud Account & Disk Space</span>
+                <span flex></span>
+                <span class="md-caption">(required)</span>
+              </md-toolbar>
+              <md-divider></md-divider>
+              <md-content class="md-padding form-container">
+                <div data-ng-include="'views/app/forms/cloud-form.html'"></div>
+              </md-content>
+              <md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+                <span>{{ displayName }} Environment</span>
+                <span flex></span>
+                <span class="md-caption">(required)</span>
+              </md-toolbar>
+              <md-divider></md-divider>
+              <div data-ng-include="'views/app/forms/info-form.html'"></div>
 
-			</md-tab>
-			<!-- <md-tab label="Integrations">
+              <md-content class="md-padding form-container">
+
+                <md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex ng-click="stepper(2);">
+                  Next
+                </md-button>
+                <md-button type="submit" class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex>
+                  Finish
+                </md-button>
+                <div data-ng-show="appForm.$invalid && formSubmitted" ng-messages="appForm.name.$error">
+                  <div ng-message="required"><b>App was not added, some invalid details.</b></div>
+                </div>
+              </md-content>
+
+            </div>
+          </div>
+        </md-content>
+
+      </md-tab>
+      <!-- <md-tab label="Integrations">
 	<md-content class="md-padding">
 		<div layout="column" layout-padding flex-gt-sm="70" flex>
 				<div md-whiteframe="2" class="m-md-bottom">
@@ -130,75 +122,71 @@
 				</div>
 		</div>
 </md-tab> -->
-			<md-tab label="Scaling">
-				<md-content class="md-padding">
-					<div layout="column" layout-padding flex-gt-sm="70" flex>
-						<div md-whiteframe="2" class="m-md-bottom">
-							<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center"
-								layout-padding>
-								<span>Scaling and Load Balancers</span>
-								<span flex></span>
-								<span class="md-caption">(optional - available soon)</span>
-							</md-toolbar>
-							<md-divider></md-divider>
-							<md-content class="md-padding">
-								<div class="check-container">
-									<label>Choose these options to make your app scale</label>
-									<md-input-container layout="row">
-										<md-checkbox name="isautoscaling" id="isautoscaling"
-											data-ng-model="app.asg.enabled">
-											Autoscaling
-										</md-checkbox>
-										<md-checkbox data-ng-disabled="!app.asg.enabled" name="isasgloadbalancer"
-											id="isasgloadbalancer" data-ng-model="app.asg.loadbalancer">
-											Load Balancer
-										</md-checkbox>
-									</md-input-container>
-								</div>
-							</md-content>
+      <md-tab label="Scaling">
+        <md-content class="md-padding">
+          <div layout="column" layout-padding flex-gt-sm="70" flex>
+            <div md-whiteframe="2" class="m-md-bottom">
+              <md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+                <span>Scaling and Load Balancers</span>
+                <span flex></span>
+                <span class="md-caption">(optional - available soon)</span>
+              </md-toolbar>
+              <md-divider></md-divider>
+              <md-content class="md-padding">
+                <div class="check-container">
+                  <label>Choose these options to make your app scale</label>
+                  <md-input-container layout="row">
+                    <md-checkbox name="isautoscaling" id="isautoscaling" data-ng-model="app.asg.enabled">
+                      Autoscaling
+                    </md-checkbox>
+                    <md-checkbox data-ng-disabled="!app.asg.enabled" name="isasgloadbalancer" id="isasgloadbalancer"
+                      data-ng-model="app.asg.loadbalancer">
+                      Load Balancer
+                    </md-checkbox>
+                  </md-input-container>
+                </div>
+              </md-content>
 
 
-							<md-divider></md-divider>
-							<md-content class="md-padding">
-								<md-input-container>
-									<label>Minimum</label>
-									<input type="text" name="groupMin" id="groupMin" data-ng-model="app.asg.groupsize"
-										ng-required="app.asg.enabled" maxlength="1" md-no-asterisk autofocus
-										data-ng-disabled="!app.asg.enabled" min="{{minASG}}" max="{{minASGMax}}" />
-									<div ng-messages="appForm.groupMin.$error">
-										<div ng-message="required">Please provide a default number of servers for your
-											auto
-											scaling group.</div>
-									</div>
-								</md-input-container>
-								<md-input-container>
-									<label>Maximum</label>
-									<input type="text" name="groupMax" id="groupMax" data-ng-model="app.asg.groupmax"
-										ng-required="app.asg.enabled" maxlength="2" md-no-asterisk autofocus
-										data-ng-disabled="!app.asg.enabled" min="{{app.asg.groupsize}}"
-										max="{{maxASG}}" />
-									<div ng-messages="appForm.groupMax.$error">
-										<div ng-message="required">Please provide a maximum number of servers your app
-											can scale to.</div>
-									</div>
-								</md-input-container>
-							</md-content>
-							<md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex
-								ng-click="stepper(1);">
-								Previous
-							</md-button>
-							<!-- <md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex
+              <md-divider></md-divider>
+              <md-content class="md-padding">
+                <md-input-container>
+                  <label>Minimum</label>
+                  <input type="text" name="groupMin" id="groupMin" data-ng-model="app.asg.groupsize"
+                    ng-required="app.asg.enabled" maxlength="1" md-no-asterisk autofocus
+                    data-ng-disabled="!app.asg.enabled" min="{{minASG}}" max="{{minASGMax}}" />
+                  <div ng-messages="appForm.groupMin.$error">
+                    <div ng-message="required">Please provide a default number of servers for your
+                      auto
+                      scaling group.</div>
+                  </div>
+                </md-input-container>
+                <md-input-container>
+                  <label>Maximum</label>
+                  <input type="text" name="groupMax" id="groupMax" data-ng-model="app.asg.groupmax"
+                    ng-required="app.asg.enabled" maxlength="2" md-no-asterisk autofocus
+                    data-ng-disabled="!app.asg.enabled" min="{{app.asg.groupsize}}" max="{{maxASG}}" />
+                  <div ng-messages="appForm.groupMax.$error">
+                    <div ng-message="required">Please provide a maximum number of servers your app
+                      can scale to.</div>
+                  </div>
+                </md-input-container>
+              </md-content>
+              <md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex ng-click="stepper(1);">
+                Previous
+              </md-button>
+              <!-- <md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex
 								ng-click="stepper(4);">
 								Next
 							</md-button> -->
-							<md-button type="submit" class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex>
-								Finish
-							</md-button>
-						</div>
-					</div>
-				</md-content>
-			</md-tab>
-			<!-- <md-tab label="Data">
+              <md-button type="submit" class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex>
+                Finish
+              </md-button>
+            </div>
+          </div>
+        </md-content>
+      </md-tab>
+      <!-- <md-tab label="Data">
 	<md-content class="md-padding">
 		<div layout="column" layout-padding flex-gt-sm="70" flex>
 			<div md-whiteframe="2" class="m-md-bottom" data-ng-disabled="true">
@@ -277,103 +265,100 @@
 		</div>
 	</md-content>
 </md-tab> -->
-			<md-tab label="Code">
-	<md-content class="md-padding">
-		<div layout="column" layout-padding flex-gt-sm="70" flex>
-			<div md-whiteframe="2">
-				<md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
-					<span>Source Code</span>
-					<span flex></span>
-					<span class="md-caption">Choose code build and deployment options</span>
-				</md-toolbar>
-				<md-divider></md-divider>
-				<md-content class="md-padding">
-					<div class="radio-container">
-						<label>Source</label><br /><br />
-						<md-input-container>
-							<md-radio-group data-ng-model="app.sourceCode.source" layout="row" name="codeSource"
-								>
-								<md-radio-button data-ng-repeat="source in sourceCodeList"
-									data-ng-value="'{{source.val}}'" class="md-align-top-left"
-									 flex>
-									{{ source.name }}
-								</md-radio-button>
-							</md-radio-group>
-						</md-input-container>
-					</div>
-				</md-content>
-				<md-content class="md-padding">
-					<md-input-container>
-						<label>GIT URL</label>
-						<input type="text" name="codePath" id="codePath" data-ng-model="app.sourceCode.path"
-							md-no-asterisk autofocus
-							 />
-						<div ng-messages="appForm.codePaths.$error">
-							<div ng-message="required">
-								To use the Code feature in Teem Ops you first need to 
-								Authorise your GIT provider in Code Build.
-								See <a href="https://console.aws.amazon.com/codesuite/codebuild/project/new">
-								Code Build - Add New Project</a>
-							</div>
-						</div>
-					</md-input-container>
-				</md-content>
-				<md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex ng-click="stepper(5);">
-					Previous
-				</md-button>
-				<md-button type="submit" class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex>
-					Finish
-				</md-button>
-			</div>
+      <md-tab label="Code">
+        <md-content class="md-padding">
+          <div layout="column" layout-padding flex-gt-sm="70" flex>
+            <div md-whiteframe="2">
+              <md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+                <span>Source Code</span>
+                <span flex></span>
+                <span class="md-caption">Choose code build and deployment options</span>
+              </md-toolbar>
+              <md-divider></md-divider>
+              <md-content class="md-padding">
+                <div class="radio-container">
+                  <label>Source</label><br /><br />
+                  <md-input-container>
+                    <md-radio-group data-ng-model="app.sourceCode.source" layout="row" name="codeSource">
+                      <md-radio-button data-ng-repeat="source in sourceCodeList" data-ng-value="'{{source.val}}'"
+                        class="md-align-top-left" flex>
+                        {{ source.name }}
+                      </md-radio-button>
+                    </md-radio-group>
+                  </md-input-container>
+                </div>
+              </md-content>
+              <md-content class="md-padding">
+                <md-input-container>
+                  <label>GIT URL</label>
+                  <input type="text" name="codePath" id="codePath" data-ng-model="app.sourceCode.path" md-no-asterisk
+                    autofocus />
+                  <div ng-messages="appForm.codePaths.$error">
+                    <div ng-message="required">
+                      To use the Code feature in Teem Ops you first need to
+                      Authorise your GIT provider in Code Build.
+                      See <a href="https://console.aws.amazon.com/codesuite/codebuild/project/new">
+                        Code Build - Add New Project</a>
+                    </div>
+                  </div>
+                </md-input-container>
+              </md-content>
+              <md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex ng-click="stepper(5);">
+                Previous
+              </md-button>
+              <md-button type="submit" class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex>
+                Finish
+              </md-button>
+            </div>
 
-		</div>
-	</md-content>
-</md-tab>
-		</md-tabs>
-	</form>
+          </div>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </form>
 </div>
 <div class="md-whiteframe-z2 add-app-summary-container p-0" data-ng-class="{ 'fixed' : $mdMedia('gt-sm')}">
 
-	<md-content class="message-container m-xs-bottom" layout="row" layout-padding layout-align="left center"
-		data-ng-controller="MessageCtrl" data-ng-show="message.content">
-		<div data-ng-include="'views/_partials/messages.html'"></div>
-	</md-content>
-	<md-divider></md-divider>
-	<div layout-padding layout="column" class="p-0-top-bottom">
-		<md-list class="condensed">
-			<md-list-item class="md-2-line" layout="column">
-				<label class="md-text-light">{{ displayName }} Name</label>
-				<span>{{ app.name || 'not specified' }}</span>
-			</md-list-item>
-			<md-divider></md-divider>
-			<md-list-item class="md-2-line" layout="column">
-				<label class="md-text-light">{{ displayName }} Stack</label>
-				<span data-ng-bind-html="app.appProviderSummary || 'not specified'"></span>
-			</md-list-item>
-			<md-divider></md-divider>
-			<md-list-item class="md-2-line" layout="column">
-				<label class="md-text-light">AWS Account ID</label>
-				<span layout="row" data-ng-bind="getAWSAccountID()">
-					<span>
-			</md-list-item>
-			<md-divider></md-divider>
-			<md-list-item class="md-2-line" layout="column">
-				<label class="md-text-light">Disk Size</label>
-				<span layout="row">
-					{{ app.configData.cloud.diskSize || 'not specified' }}
-					<span data-ng-show="app.configData.cloud.diskSize"> GB</span>
-					<span>
-			</md-list-item>
-			<md-divider></md-divider>
-			<md-list-item class="md-2-line" layout="column">
-				<label class="md-text-light">Integrations</label>
-				<span layout="row">
-					Sumo logic
+  <md-content class="message-container m-xs-bottom" layout="row" layout-padding layout-align="left center"
+    data-ng-controller="MessageCtrl" data-ng-show="message.content">
+    <div data-ng-include="'views/_partials/messages.html'"></div>
+  </md-content>
+  <md-divider></md-divider>
+  <div layout-padding layout="column" class="p-0-top-bottom">
+    <md-list class="condensed">
+      <md-list-item class="md-2-line" layout="column">
+        <label class="md-text-light">{{ displayName }} Name</label>
+        <span>{{ app.name || 'not specified' }}</span>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-2-line" layout="column">
+        <label class="md-text-light">{{ displayName }} Stack</label>
+        <span data-ng-bind-html="app.appProviderSummary || 'not specified'"></span>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-2-line" layout="column">
+        <label class="md-text-light">AWS Account ID</label>
+        <span layout="row" data-ng-bind="getAWSAccountID()">
+          <span>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-2-line" layout="column">
+        <label class="md-text-light">Disk Size</label>
+        <span layout="row">
+          {{ app.configData.cloud.diskSize || 'not specified' }}
+          <span data-ng-show="app.configData.cloud.diskSize"> GB</span>
+          <span>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item class="md-2-line" layout="column">
+        <label class="md-text-light">Integrations</label>
+        <span layout="row">
+          Sumo logic
 
-					<span>
-			</md-list-item>
+          <span>
+      </md-list-item>
 
-		</md-list>
-	</div>
+    </md-list>
+  </div>
 
 </div>

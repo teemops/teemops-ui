@@ -9,242 +9,255 @@
  */
 angular.module('teemOpsApp')
   .controller('AddAppCtrl', ['$scope', '$rootScope', '$timeout', '$state', '$filter',
-      'AppService', 'UserService', 'MessageService', 'UserCloudProviderService',
+    'AppService', 'UserService', 'MessageService', 'UserCloudProviderService',
     function ($scope, $rootScope, $timeout, $state, $filter,
       AppService, UserService, MessageService, UserCloudProviderService) {
 
-    var self = this;
-    var awsCloudProviderId = 1; //TODO read from DB
-    //used for Autoscaling min and maximum defaults.
-    $scope.minASG=1;
-    $scope.minASGMax=5;
-    $scope.maxASG=10;
+      var self = this;
+      var awsCloudProviderId = 1; //TODO read from DB
+      //used for Autoscaling min and maximum defaults.
+      $scope.minASG = 1;
+      $scope.minASGMax = 5;
+      $scope.maxASG = 10;
       /*
         Selected tab
       */
-    $scope.selectedTab=0;
-    
-    /* Reference data */
-    $scope.displayName = AppService.displayName;
+      $scope.selectedTab = 0;
 
-    $scope.appUrlSuffix = '';//'.' + $rootScope.currentUser.username + '.teemops.com';
-    $scope.appProviderList = [];
-    $scope.cloudProviderList = [];
-    $scope.dbList = [];
-    $scope.sourceCodeList = [];
+      /* Reference data */
+      $scope.displayName = AppService.displayName;
 
-    //when this changes later it will need to use AppService
-    $scope.platformList = [
-      {
-        id: 1,
-        name: 'Servers (Amazon EC2)',
-        description: 'Use Servers for standard workloads including Autoscaling, single servers and initial cloud migrations.'
-      },
-      {
-        id: 2,
-        name: 'Containers (Amazon ECS)',
-        description: 'Containers are launched into an ECS environment configured by Teem Ops in your AWS Account.'
-      },
-      {
-        id: 3,
-        name: 'Serverless (AWS Lambda)',
-        description: 'You can launch your own serverless apps. These require a code base developed using the Serverless Framework - See https://serverless.com'
-      } 
-    ];
+      $scope.appUrlSuffix = ''; //'.' + $rootScope.currentUser.username + '.teemops.com';
+      $scope.appProviderList = [];
+      $scope.cloudProviderList = [];
+      $scope.dbList = [];
+      $scope.sourceCodeList = [];
 
-    $scope.formSubmitted = false;
-    $scope.processing = false;
-    $scope.error = null;
-    $scope.app = {
-      appid: null,
-    	name: null,
-      appdomain: null,
-      appurl: null,
-      status: 0,
-      cloud: null,
-      region: null,
-      appProviderId: null,
-      userCloudProviderId: null,
-    	database: null,
-    	caching: null,
-    	sourceCode: {
-    		source: null,
-    		authenticated: null,
-    		path: null
-      },
-      asg: {
-        enabled: false,
-        groupsize: 1,
-        groupmax: 3,
-        loadbalancer: false
-      },
-      platformId: 1
-    };
-
-    self.init = function(){
-      AppService.getAppProviders()
-        .then(function(results){
-          $scope.appProviderList = results;
-        });
-
-      AppService.getCloudProviders()
-        .then(function(results){
-          $scope.cloudProviderList = results;
-          self.initDefaultCloudProvider(); //Default to AWS
-        });
-
-      UserService.getUserByID($rootScope.currentUser.userid)
-        .then(function(result){
-          $scope.cloudProviders = result.cloudProviders;
-        });
-
-      $scope.dbList = AppService.getDBList();
-      $scope.sourceCodeList = AppService.getSourceCodeList();
-
-      self.initWatches();
-    };
-    
-    $scope.stepper= function(tab){
-      $scope.selectedTab=tab;
-    };
-
-    $scope.submit = function(form){
-      $scope.formSubmitted = true;
-      var isValid=form.$valid;
-      if(isValid) {
-        $scope.processing = true;
-
-        if(!$scope.app.userCloudProviderId && $scope.app.awsAccountId) {
-
-          var onSuccess = function(result){
-            $scope.app.userCloudProviderId = result.id;
-            self.addApp();
-          };
-
-          self.createNewCloudProviderAccount(onSuccess);
+      //when this changes later it will need to use AppService
+      $scope.platformList = [{
+          id: 1,
+          name: 'Servers (EC2, Droplets, Azure & GCP VMs)',
+          description: 'Use Servers for standard workloads including Autoscaling, single servers and initial cloud migrations.'
+        },
+        {
+          id: 2,
+          name: 'Containers (Kubernetes, ECS, AKS, GCP, Digital Ocean)',
+          description: 'Containers are launched into an ECS environment configured by Teem Ops in your AWS Account.'
+        },
+        {
+          id: 3,
+          name: 'Serverless (AWS Lambda, Azure Functions, Google Functions)',
+          description: 'You can launch your own serverless apps. These require a code base developed using the Serverless Framework - See https://serverless.com'
+        }, {
+          id: 4,
+          name: 'Javascript App (Amazon S3, DO Spaces, CDN, CloudFlare)',
+          description: 'Launch Vue, Bootstrap, React, Angular and other static html sites.'
         }
-        else {
-          self.addApp();
-        }
-    	}else{
-        console.log("Form isn't valid");
-        var invalid = [];
-        var thisForm=$scope.appForm;
-        angular.forEach(thisForm, function(value, key){
-          if(typeof value==='object' && value.hasOwnProperty('$modelValue') && value.$invalid)
-            console.log("This item invalid: " + key + value.$dirty);
-        });
-        
-        
-      }
-    };
+      ];
 
-    self.addApp = function(){
-      AppService.addApp($scope.app)
-        .then(function(result){
-
-          if(result.appid){
-            //$state.go('apps.list');
-            $state.go('apps.detail', {
-              id: result.appid
-            });
-          }
-
-        })
-        .catch(function(result){
-          if(result.error === 'duplicate'){
-            MessageService.setMessage('error', 'An app with this name or url already exists. Please choose another name or url.');
-          }
-        })
-        .finally(function(){
-          $scope.processing = false;
-        });
-    };
-
-    self.createNewCloudProviderAccount = function(onSuccess){
-      var data = {
-        userId: $rootScope.currentUser.userid,
-        cloudProviderId: awsCloudProviderId,
-        awsAccountId: $scope.app.awsAccountId,
-        isDefault: true
+      $scope.formSubmitted = false;
+      $scope.processing = false;
+      $scope.error = null;
+      $scope.app = {
+        appid: null,
+        name: null,
+        appdomain: null,
+        appurl: null,
+        status: 0,
+        cloud: null,
+        region: null,
+        appProviderId: null,
+        userCloudProviderId: null,
+        database: null,
+        caching: null,
+        sourceCode: {
+          source: null,
+          authenticated: null,
+          path: null
+        },
+        asg: {
+          enabled: false,
+          groupsize: 1,
+          groupmax: 3,
+          loadbalancer: false
+        },
+        platformId: 1
       };
 
-      UserCloudProviderService.addCloudProviderAccount(data)
-        .then(function(result){
-          onSuccess(result);
-        })
-        .catch(function(result){
-          //TODO
-        });
-    };
+      self.init = function () {
+        AppService.getAppProviders()
+          .then(function (results) {
+            $scope.appProviderList = results;
+          });
 
-    $scope.toggle = function (item, list) {
-      var idx = list.indexOf(item);
-      if (idx > -1) {
-        list.splice(idx, 1);
-      }
-      else {
-        list.push(item);
-      }
-    };
+        AppService.getCloudProviders()
+          .then(function (results) {
+            $scope.cloudProviderList = results;
+            self.initDefaultCloudProvider(); //Default to AWS
+          });
 
-    $scope.exists = function (item, list) {
-      return list.indexOf(item) > -1;
-    };
+        UserService.getUserByID($rootScope.currentUser.userid)
+          .then(function (result) {
+            $scope.cloudProviders = result.cloudProviders;
+          });
 
-    $scope.getAWSAccountID = function(){
-      if($scope.app.awsAccountId) {
-        return app.awsAccountId;
-      }
-      else if ($scope.app.userCloudProviderId) {
-        return $filter('filter')($scope.cloudProviders, { id: $scope.app.userCloudProviderId })[0].awsAccountId;
-      }
+        $scope.dbList = AppService.getDBList();
+        $scope.sourceCodeList = AppService.getSourceCodeList();
 
-      return 'not specified';
-    };
+        self.initWatches();
+      };
 
-    self.initWatches = function() {
+      $scope.stepper = function (tab) {
+        $scope.selectedTab = tab;
+      };
 
-      $scope.$watch(function() { return $scope.app.appdomain; }, function(newVal, oldVal){
-        if(newVal !== oldVal){
-          $scope.app.appurl = (newVal ? newVal : '') + $scope.appUrlSuffix;
-        }
-      }, true);
+      $scope.submit = function (form) {
+        $scope.formSubmitted = true;
+        var isValid = form.$valid;
+        if (isValid) {
+          $scope.processing = true;
 
-      $scope.$watch(function() { return $scope.app.appProviderId; }, function(newVal, oldVal){
-        if(newVal !== oldVal){
-          var ap = $filter('filter')($scope.appProviderList, { id : newVal })[0];
+          if (!$scope.app.userCloudProviderId && $scope.app.awsAccountId) {
 
-          if(ap) {
-            $scope.app.appProviderSummary = AppService.formatAppProviderSummary(ap.name, ap.os, ap.description);
+            var onSuccess = function (result) {
+              $scope.app.userCloudProviderId = result.id;
+              self.addApp();
+            };
+
+            self.createNewCloudProviderAccount(onSuccess);
+          } else {
+            self.addApp();
           }
+        } else {
+          console.log("Form isn't valid");
+          var invalid = [];
+          var thisForm = $scope.appForm;
+          angular.forEach(thisForm, function (value, key) {
+            if (typeof value === 'object' && value.hasOwnProperty('$modelValue') && value.$invalid)
+              console.log("This item invalid: " + key + value.$dirty);
+          });
+
+
         }
-      }, true);
+      };
 
-      $scope.$watch(function() { return $scope.app.cloud; }, function(newVal, oldVal){
-        if(newVal !== oldVal){
-          self.setCloudProviderDesc(newVal);
+      self.addApp = function () {
+        AppService.addApp($scope.app)
+          .then(function (result) {
+
+            if (result.appid) {
+              //$state.go('apps.list');
+              $state.go('apps.detail', {
+                id: result.appid
+              });
+            }
+
+          })
+          .catch(function (result) {
+            if (result.error === 'duplicate') {
+              MessageService.setMessage('error', 'An app with this name or url already exists. Please choose another name or url.');
+            }
+          })
+          .finally(function () {
+            $scope.processing = false;
+          });
+      };
+
+      self.createNewCloudProviderAccount = function (onSuccess) {
+        var data = {
+          userId: $rootScope.currentUser.userid,
+          cloudProviderId: awsCloudProviderId,
+          awsAccountId: $scope.app.awsAccountId,
+          isDefault: true
+        };
+
+        UserCloudProviderService.addCloudProviderAccount(data)
+          .then(function (result) {
+            onSuccess(result);
+          })
+          .catch(function (result) {
+            //TODO
+          });
+      };
+
+      $scope.toggle = function (item, list) {
+        var idx = list.indexOf(item);
+        if (idx > -1) {
+          list.splice(idx, 1);
+        } else {
+          list.push(item);
         }
-      }, true);
+      };
 
-      /*$scope.$watch(function() { return $scope.app.configData.databases; }, function(newVal, oldVal){
-        if(newVal !== oldVal){
-          $scope.dbListDesc = AppService.formatAppDBList($scope.dbList, newVal);
+      $scope.exists = function (item, list) {
+        return list.indexOf(item) > -1;
+      };
+
+      $scope.getAWSAccountID = function () {
+        if ($scope.app.awsAccountId) {
+          return app.awsAccountId;
+        } else if ($scope.app.userCloudProviderId) {
+          return $filter('filter')($scope.cloudProviders, {
+            id: $scope.app.userCloudProviderId
+          })[0].awsAccountId;
         }
-      }, true);*/
 
-    };
+        return 'not specified';
+      };
 
-    self.initDefaultCloudProvider = function(){
-      $scope.app.cloud = 1;
-      self.setCloudProviderDesc(1);
-    };
+      self.initWatches = function () {
 
-    self.setCloudProviderDesc = function(cloudProviderId){
-      var selectedCloud = $filter('filter')($scope.cloudProviderList, { id : cloudProviderId })[0];
-      $scope.app.cloudProviderDesc = selectedCloud.description;
-    };
+        $scope.$watch(function () {
+          return $scope.app.appdomain;
+        }, function (newVal, oldVal) {
+          if (newVal !== oldVal) {
+            $scope.app.appurl = (newVal ? newVal : '') + $scope.appUrlSuffix;
+          }
+        }, true);
 
-    self.init();
+        $scope.$watch(function () {
+          return $scope.app.appProviderId;
+        }, function (newVal, oldVal) {
+          if (newVal !== oldVal) {
+            var ap = $filter('filter')($scope.appProviderList, {
+              id: newVal
+            })[0];
 
-  }]);
+            if (ap) {
+              $scope.app.appProviderSummary = AppService.formatAppProviderSummary(ap.name, ap.os, ap.description);
+            }
+          }
+        }, true);
+
+        $scope.$watch(function () {
+          return $scope.app.cloud;
+        }, function (newVal, oldVal) {
+          if (newVal !== oldVal) {
+            self.setCloudProviderDesc(newVal);
+          }
+        }, true);
+
+        /*$scope.$watch(function() { return $scope.app.configData.databases; }, function(newVal, oldVal){
+          if(newVal !== oldVal){
+            $scope.dbListDesc = AppService.formatAppDBList($scope.dbList, newVal);
+          }
+        }, true);*/
+
+      };
+
+      self.initDefaultCloudProvider = function () {
+        $scope.app.cloud = 1;
+        self.setCloudProviderDesc(1);
+      };
+
+      self.setCloudProviderDesc = function (cloudProviderId) {
+        var selectedCloud = $filter('filter')($scope.cloudProviderList, {
+          id: cloudProviderId
+        })[0];
+        $scope.app.cloudProviderDesc = selectedCloud.description;
+      };
+
+      self.init();
+
+    }
+  ]);
