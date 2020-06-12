@@ -47,6 +47,12 @@ angular
       parent: 'public',
       controller: 'RegisterCtrl'
     })
+    .state('reset', {
+      url: '/reset',
+      templateUrl: 'views/register/reset.html',
+      parent: 'public',
+      controller: 'ResetCtrl'
+    })
     .state('login', {
       url: '/login?redirect',
       templateUrl: 'views/login/main.html',

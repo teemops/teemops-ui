@@ -1,0 +1,86 @@
+<div layout-padding md-padding class="margin-top-20">
+  <div flex-offset-gt-sm="35" flex-gt-sm="30">
+    <div md-whiteframe="2" class="login-container">
+      <div class="logo-container">
+        <img src="images/logo.png" alt="Teem Ops logo">
+      </div>
+      <div layout-padding>
+        <h1 ng-if="state=='reset'">
+          <span class="md-display-1"><strong>Reset Teemops password</strong></span><br />
+        </h1>
+        <h1 ng-if="state=='code'">
+          <span class="md-display-1"><strong>Now enter code and new password</strong></span><br />
+        </h1>
+        <form ng-if="state=='reset'" name="resetForm" ng-submit="reset(resetForm.$valid)" role="form" novalidate>
+          <div ng-if="state=='reset'">
+            <md-input-container class="md-block">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" data-ng-model="user.email" required md-no-asterisk
+                autofocus />
+              <div ng-messages="resetForm.email.$error">
+                <div ng-message="required">Please enter an email address</div>
+                <div ng-message="email">Please enter a valid email address</div>
+              </div>
+            </md-input-container>
+          </div>
+
+          <div ng-if="state!='completed'">
+            <div layout="row" layout-align="center center" layout-fill>
+              <md-button type="submit" class="md-raised md-primary" flex-gt-xs="60">Reset</md-button>
+            </div>
+          </div>
+
+          <div ng-if="state=='completed'">
+            Password was reset succesfully, please login.
+          </div>
+
+
+        </form>
+
+        <form ng-if="state=='code'" name="codeForm" ng-submit="changePassword(codeForm.$valid)" role="form" novalidate>
+          <div ng-if="state=='code'">
+            <md-input-container class="md-block">
+              <label for="code">Reset Code</label>
+              <input type="text" name="code" id="code" maxlength="6" minlength="6" data-ng-model="reset.code"
+                md-no-asterisk />
+              <div ng-messages="codeForm.code.$error">
+                <div ng-message="code">Please enter a valid code</div>
+              </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+              <label for="code">Password</label>
+              <input type="password" name="password" id="password" maxlength="25" minlength="8"
+                data-ng-model="reset.password" md-no-asterisk />
+              <div ng-messages="codeForm.password.$error">
+                <div ng-message="code">Please enter a valid password</div>
+              </div>
+            </md-input-container>
+          </div>
+
+          <div ng-if="state!='completed'">
+            <div layout="row" layout-align="center center" layout-fill>
+              <md-button type="submit" class="md-raised md-primary" flex-gt-xs="60">Change Password</md-button>
+            </div>
+          </div>
+
+
+
+
+        </form>
+
+        <div ng-if="state=='completed'">
+          Password was reset succesfully, please login.
+        </div>
+
+        <p class="text-align-center">
+          Don't have an account?
+          <a ui-sref="register" class="md-ink-ripple" aria-label="Register">Register here</a>
+        </p>
+        <p class="text-align-center">
+          Login
+          <a ui-sref="login" class="md-ink-ripple" aria-label="Reset">Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
