@@ -10,6 +10,7 @@ install:
   - bower install
 before_script:
   - 'grunt build'
+before_deploy: zip -r teemops-ui.zip dist/
 deploy:
   provider: releases
   api_key: '$GITHUB_API_KEY'
