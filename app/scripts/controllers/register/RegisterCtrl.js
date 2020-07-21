@@ -30,17 +30,18 @@ angular.module('teemOpsApp')
       email: false
     };
 
-    $scope.register = function(valid) {
+    $scope.register = function (valid) {
 
-        if(valid) {
-          UserService.create($scope.user)
-            .then(function (response) {
-              $scope.result.status = response.status;
-            })
-            .catch(function(){
-                MessageService.setMessage('error', 'A problem occurred during registration. Please try again.');
-            });
-        }
+      if (valid) {
+        UserService.create($scope.user)
+          .then(function (response) {
+            $scope.result.status = response.status;
+          })
+          .catch(function (err) {
+            console.log(err)
+            MessageService.setMessage('error', 'A problem occurred during registration. Please try again.');
+          });
+      }
     };
 
   });

@@ -1,0 +1,74 @@
+<md-content class="layout-padding">
+    <div class="md-padding">
+        <div class="layout-padding">
+            <div md-whiteframe="2" class="md-whiteframe-2dp p-0" data-ng-show="!Authorised">
+                <md-toolbar class="md-menu-toolbar p-sm-left p-xs-right" layout="row" layout-align="center center">
+                    <span class="md-title" flex="50">Unlock SSH Keys with your password</span>
+                    <span class="md-caption text-align-right" flex="50">
+                        Before you can download SSH keys please enter your password.
+                    </span>
+                </md-toolbar>
+                <div>
+                    <md-input-container class="md-block m-sm-right m-md-top" flex-gt-xs="80">
+                        <label for="name">Enter password</label>
+                        <input type="password" name="password" id="password" data-ng-model="password" required
+                            maxlength="255" md-no-asterisk />
+                        <div class="hint">Before you can download your SSH key enter your password (Your Password is not
+                            stored in your browser and only used for downloading and unencrypting the keys)</div>
+                        <div ng-messages="sshForm.password.$error" class="m-sm-top">
+                            <div ng-message="required">Please fill in an AWS Launch Config name</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-button aria-label="SSH Key" class="md-raised md-primary" flex-gt-xs="60"
+                        data-ng-click="authoriseSSH(password)">
+                        <ng-md-icon icon="lock_open"></ng-md-icon>
+                        <span>Authorise</span>
+
+                    </md-button>
+
+                </div>
+            </div>
+            <md-divider></md-divider>
+            <div md-whiteframe="2" class="md-whiteframe-2dp p-0" data-ng-show="Authorised">
+                <md-list class="app-list">
+                    <md-subheader class="md-primary">
+                        <md-list-item layout="row" class="m-0 p-sm-left-right" flex>
+                            <div flex="35" class="p-0-left">Name</div>
+                            <div flex="15">Account</div>
+                            <div flex="20">Region</div>
+                            <div flex="15" layout="row">
+                                <span flex="50" class="m-xs-right"></span>
+                            </div>
+                            <div flex="20" class="p-0-right"></div>
+                        </md-list-item>
+                    </md-subheader>
+                    <md-progress-linear md-mode="indeterminate" data-ng-show="loading"></md-progress-linear>
+                    <div class="md-list-body">
+                        <md-list-item ng-repeat="key in keys" layout="row" ng-click="downloadKey(key.path)" flex>
+                            <div flex="35" class="p-0-left">
+                                <span>{{ key.item }}</span>
+                            </div>
+                            <div flex="15" layout="row" class="no-wrap">
+                                <span data-ng-class="app.statusInfo.textCssClass" class="p-xxs-top-bottom p-xs-right"
+                                    flex>{{
+                                    key.account }}</span>
+                            </div>
+                            <div flex="20">{{key.region}}</div>
+                            <div flex="15">&nbsp;</div>
+                            <div flex="20" class="p-0-right">
+                                <md-button aria-label="SSH Key" data-ng-click="downloadKey(key)">
+                                    <ng-md-icon icon="get_app"></ng-md-icon>
+                                    <span>Download</span>
+                                </md-button>
+
+
+
+                            </div>
+                        </md-list-item>
+                    </div>
+                </md-list>
+            </div>
+        </div>
+    </div>
+</md-content>

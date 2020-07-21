@@ -1,0 +1,47 @@
+<md-content class="md-padding">
+    <div layout="column" layout-padding flex-gt-sm="70" flex>
+        <div md-whiteframe="2" class="m-md-bottom">
+
+            <div flex-gt-sm="80">
+                <md-input-container class="md-block">
+                    <label>{{ displayName }} Name</label>
+                    <input type="text" name="name" id="name" data-ng-model="app.name" required maxlength="255"
+                        md-no-asterisk autofocus />
+                    <div ng-messages="appForm.name.$error">
+                        <div ng-message="required">Please fill in a {{ displayName }} name</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+                <span>Cloud Account & Disk Space</span>
+                <span flex></span>
+                <span class="md-caption">(required)</span>
+            </md-toolbar>
+            <md-divider></md-divider>
+            <md-content class="md-padding form-container">
+                <div data-ng-include="'views/app/forms/cloud-form.html'"></div>
+            </md-content>
+            <md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+                <span>{{ displayName }} Environment</span>
+                <span flex></span>
+                <span class="md-caption">(required)</span>
+            </md-toolbar>
+            <md-divider></md-divider>
+            <div data-ng-include="'views/app/forms/info-form.html'"></div>
+
+            <md-content class="md-padding form-container">
+
+                <md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex ng-click="stepper(2);">
+                    Next
+                </md-button>
+                <md-button type="submit" class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex>
+                    Finish
+                </md-button>
+                <div data-ng-show="appForm.$invalid && formSubmitted" ng-messages="appForm.name.$error">
+                    <div ng-message="required"><b>App was not added, some invalid details.</b></div>
+                </div>
+            </md-content>
+
+        </div>
+    </div>
+</md-content>

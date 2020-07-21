@@ -35,24 +35,52 @@ angular.module('teemOpsApp')
 
       //when this changes later it will need to use AppService
       $scope.platformList = [{
-          id: 1,
-          name: 'Servers (EC2, Droplets, Azure & GCP VMs)',
-          description: 'Use Servers for standard workloads including Autoscaling, single servers and initial cloud migrations.'
-        },
-        {
-          id: 2,
-          name: 'Containers (Kubernetes, ECS, AKS, GCP, Digital Ocean)',
-          description: 'Containers are launched into an ECS environment configured by Teem Ops in your AWS Account.'
-        },
-        {
-          id: 3,
-          name: 'Serverless (AWS Lambda, Azure Functions, Google Functions)',
-          description: 'You can launch your own serverless apps. These require a code base developed using the Serverless Framework - See https://serverless.com'
-        }, {
-          id: 4,
-          name: 'Javascript App (Amazon S3, DO Spaces, CDN, CloudFlare)',
-          description: 'Launch Vue, Bootstrap, React, Angular and other static html sites.'
-        }
+        id: 1,
+        name: 'EC2',
+        enabled: true,
+        tabs: [
+          'code',
+          'scaling',
+          'environment'
+        ],
+        description: 'Use Servers for standard workloads including Autoscaling, single servers and initial cloud migrations.'
+      },
+      {
+        id: 2,
+        enabled: false,
+        tabs: [
+          'code',
+          'scaling',
+          'environment'
+        ],
+        name: 'Containers',
+        description: 'Containers are launched into an ECS environment configured by Teem Ops in your AWS Account.'
+      },
+      {
+        id: 3,
+        enabled: false,
+        tabs: [
+          'code'
+        ],
+        name: 'Serverless',
+        description: 'You can launch your own serverless apps. These require a code base developed using the Serverless Framework - See https://serverless.com'
+      }, {
+        id: 4,
+        enabled: false,
+        tabs: [
+          'code'
+        ],
+        name: 'Javascript App (Amazon S3, CloudFront)',
+        description: 'Launch Vue, Bootstrap, React, Angular and other static html sites.'
+      }, {
+        id: 5,
+        enabled: true,
+        tabs: [
+          'template'
+        ],
+        name: 'Custom CloudFormation',
+        description: 'Launch Your own CloudFormation template from source or cut and paste'
+      }
       ];
 
       $scope.formSubmitted = false;
@@ -82,6 +110,16 @@ angular.module('teemOpsApp')
           loadbalancer: false
         },
         platformId: 1
+      };
+
+      $scope.checkTabDisplayed = function (tabName) {
+        const tabs = $scope.platformList.map(function (platform) {
+          if (platform.id === $scope.app.platformId) {
+            return platform.tabs;
+          }
+        });
+        return tabs.length ? true : false;
+
       };
 
       self.init = function () {

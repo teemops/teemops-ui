@@ -82,11 +82,12 @@
 					-->
 			</form>
 		</md-tab>
-		<md-tab   label="{{ displayName }} Scaling">
+		<md-tab label="{{ displayName }} Scaling">
 			<div data-ng-include="'views/app/detail-partials/scaling.html'" flex-gt-sm="80" flex></div>
-			<div data-ng-show="app.hasALB" data-ng-include="'views/app/detail-partials/scaling-aws-config.html'" flex-gt-sm="80" flex></div>
+			<div data-ng-show="app.hasALB" data-ng-include="'views/app/detail-partials/scaling-aws-config.html'"
+				flex-gt-sm="80" flex></div>
 		</md-tab>
-		
+
 		<md-tab label="{{ displayName }} Infrastructure">
 			<md-content class="app-setup-content md-padding">
 				<md-content layout="column" flex-gt-sm="80" class="layout-padding">
@@ -121,11 +122,23 @@
 								</div>
 
 								<md-list>
+									<md-list-item data-ng-show="app.connectType=='ssh'">
+
+										<span>
+											<md-button aria-label="SSH Key" data-ng-click="downloadKey()">
+												<ng-md-icon icon="lock_open"></ng-md-icon>
+												<a ui-sref="account" class="md-accent text-underline">View SSH Keys
+													in My Account</a>
+
+											</md-button>
+										</span>
+										<md-divider></md-divider>
+									</md-list-item>
 									<md-list-item class="p-sm-left p-sm-right">
 										<label flex="50" flex-gt-sm="30" class="md-text-light">Connect</label>
 										<div layout="column" data-ng-show="app.connectType" class="m-xs-bottom">
-											<span data-ng-show="app.connectType=='ssh'">ssh -i
-												~/.ssh/teemops_{{app.userID}}
+											<span data-ng-show="app.connectType=='ssh'" style="font-size:0.8em">ssh -i
+												{{getSSHLink()}}
 												{{ app.connectUser || 'ec2-user' }}@{{ app.infrastructure.PublicDnsName || app.infrastructure.PrivateIpAddress }}</span>
 											<span data-ng-show="app.connectType=='rdp'">
 												Connect via RDP to:
@@ -143,6 +156,7 @@
 										<span data-ng-show="!app.connectType">Not available</span>
 										<md-divider></md-divider>
 									</md-list-item>
+
 									<md-list-item>
 										<label flex="50" flex-gt-sm="30" class="md-text-light">Private IP Address /
 											DNS</label>

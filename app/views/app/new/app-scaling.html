@@ -1,0 +1,62 @@
+<md-content class="md-padding">
+    <div layout="column" layout-padding flex-gt-sm="70" flex>
+        <div md-whiteframe="2" class="m-md-bottom">
+            <md-toolbar class="md-menu-toolbar" layout="row" layout-align="space-around center" layout-padding>
+                <span>Scaling and Load Balancers</span>
+                <span flex></span>
+                <span class="md-caption">(optional - available soon)</span>
+            </md-toolbar>
+            <md-divider></md-divider>
+            <md-content class="md-padding">
+                <div class="check-container">
+                    <label>Choose these options to make your app scale</label>
+                    <md-input-container layout="row">
+                        <md-checkbox name="isautoscaling" id="isautoscaling" data-ng-model="app.asg.enabled">
+                            Autoscaling
+                        </md-checkbox>
+                        <md-checkbox data-ng-disabled="!app.asg.enabled" name="isasgloadbalancer" id="isasgloadbalancer"
+                            data-ng-model="app.asg.loadbalancer">
+                            Load Balancer
+                        </md-checkbox>
+                    </md-input-container>
+                </div>
+            </md-content>
+
+
+            <md-divider></md-divider>
+            <md-content class="md-padding">
+                <md-input-container>
+                    <label>Minimum</label>
+                    <input type="text" name="groupMin" id="groupMin" data-ng-model="app.asg.groupsize"
+                        ng-required="app.asg.enabled" maxlength="1" md-no-asterisk autofocus
+                        data-ng-disabled="!app.asg.enabled" min="{{minASG}}" max="{{minASGMax}}" />
+                    <div ng-messages="appForm.groupMin.$error">
+                        <div ng-message="required">Please provide a default number of servers for your
+                            auto
+                            scaling group.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container>
+                    <label>Maximum</label>
+                    <input type="text" name="groupMax" id="groupMax" data-ng-model="app.asg.groupmax"
+                        ng-required="app.asg.enabled" maxlength="2" md-no-asterisk autofocus
+                        data-ng-disabled="!app.asg.enabled" min="{{app.asg.groupsize}}" max="{{maxASG}}" />
+                    <div ng-messages="appForm.groupMax.$error">
+                        <div ng-message="required">Please provide a maximum number of servers your app
+                            can scale to.</div>
+                    </div>
+                </md-input-container>
+            </md-content>
+            <md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex ng-click="stepper(1);">
+                Previous
+            </md-button>
+            <!-- <md-button class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex
+                          ng-click="stepper(4);">
+                          Next
+                      </md-button> -->
+            <md-button type="submit" class="md-primary md-raised p-0" flex-xs="50" flex-sm="30" flex>
+                Finish
+            </md-button>
+        </div>
+    </div>
+</md-content>

@@ -19,7 +19,7 @@ angular.module('teemOpsApp')
         $http.put(ENV.apiEndpoint + '/users', user)
           .then(function (response) {
 
-            if (response.data && response.data.userid > 0) {
+            if (response.data && response.data.userId > 0) {
               deferred.resolve({ status: 'success' });
             }
             else {
@@ -140,6 +140,70 @@ angular.module('teemOpsApp')
           });
 
         return deferred.promise;
-      }
+      },
+
+      getKeys: function () {
+        var deferred = $q.defer();
+
+        $http.get(ENV.apiEndpoint + '/users/keys')
+          .then(function (response) {
+
+            if (response.data) {
+              var keys = response.data.data;
+              deferred.resolve(keys);
+            }
+          })
+          .catch(function () {
+            deferred.reject({ status: 'error' });
+          });
+
+        return deferred.promise;
+      },
+      /**
+       * Authorises user to have access to SSH keys if they are the master account holder
+       * 
+       * @param {*} password 
+       * @returns true or false if failed based on api call status field returned
+       */
+      authoriseSSHKeys: function (email, password) {
+        var deferred = $q.defer();
+        var params = {
+          email: email,
+          password: password
+        };
+        $http.post(ENV.apiEndpoint + '/users/login', params)
+          .then(function (response) {
+
+            if (response.data) {
+              deferred.resolve(response.data.status);
+            }
+          })
+          .catch(function () {
+            deferred.reject({ status: 'error' });
+          });
+
+        return deferred.promise;
+      },
+      getKey: function (key) {
+        var deferred = $q.defer();
+        var params = {
+          awsAccountId: key.account,
+          region: key.region
+        };
+
+        $http.post(ENV.apiEndpoint + '/users/key', params)
+          .then(function (response) {
+
+            if (response.data) {
+
+              deferred.resolve(response.data);
+            }
+          })
+          .catch(function () {
+            deferred.reject({ status: 'error' });
+          });
+
+        return deferred.promise;
+      },
     };
   });
