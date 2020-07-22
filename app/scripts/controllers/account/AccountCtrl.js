@@ -64,7 +64,7 @@ angular.module('teemOpsApp')
               var a = document.createElement('a');
               a.href = fileURL;
               a.target = '_blank';
-              a.download = `${key.account}-${key.region}-teemops-${$rootScope.currentUser.userid}.pem`;
+              a.download = key.account + "-" + key.region + "-teemops-" + $rootScope.currentUser.userid + ".pem";
               document.body.appendChild(a); //create the link "a"
               a.click(); //click the link "a"
               document.body.removeChild(a); //remove the link "a"

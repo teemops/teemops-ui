@@ -459,7 +459,8 @@ angular.module('teemOpsApp')
       };
 
       $scope.getSSHLink = function () {
-        return `~/.ssh/${$scope.app.displayAWSAccountId}-${$scope.app.region}-teemops-${$scope.app.userID}.pem`;
+        return "~/.ssh/" + $scope.app.displayAWSAccountId + "-" + $scope.app.region + "-teemops-" + $scope.app.userID + ".pem"
+        //return `~/.ssh/${$scope.app.displayAWSAccountId}-${$scope.app.region}-teemops-${$scope.app.userID}.pem`;
 
       };
 
