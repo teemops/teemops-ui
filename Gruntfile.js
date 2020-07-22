@@ -75,15 +75,15 @@ module.exports = function (grunt) {
         // Modrewrite rule, connect.static(path) for each path in target's base
         middleware: function (connect, options) {
           var optBase = (typeof options.base === 'string') ? [options.base] : options.base,
-              middleware = [require('connect-modrewrite')(['!(\\..+)$ / [L]'])]
-                .concat(optBase.map(function (path) {
-                  if (path.indexOf('rewrite|') === -1) {
-                    return serveStatic(path);
-                  } else {
-                    path = path.replace(/\\/g, '/').split('|');
-                    return  connect().use(path[1], serveStatic(path[2]));
-                  }
-                }));
+            middleware = [require('connect-modrewrite')(['!(\\..+)$ / [L]'])]
+              .concat(optBase.map(function (path) {
+                if (path.indexOf('rewrite|') === -1) {
+                  return serveStatic(path);
+                } else {
+                  path = path.replace(/\\/g, '/').split('|');
+                  return connect().use(path[1], serveStatic(path[2]));
+                }
+              }));
 
           return middleware;
         }
@@ -183,23 +183,23 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        ignorePath:  /\.\.\//
+        ignorePath: /\.\.\//
       },
       test: {
         devDependencies: true,
         src: '<%= karma.unit.configFile %>',
-        ignorePath:  /\.\.\//,
-        fileTypes:{
+        ignorePath: /\.\.\//,
+        fileTypes: {
           js: {
             block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-              detect: {
-                js: /'(.*\.js)'/gi
-              },
-              replace: {
-                js: '\'{{filePath}}\','
-              }
+            detect: {
+              js: /'(.*\.js)'/gi
+            },
+            replace: {
+              js: '\'{{filePath}}\','
             }
           }
+        }
       },
       sass: {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -501,7 +501,7 @@ module.exports = function (grunt) {
     'copy:dist',
     //'cdnify',
     'cssmin',
-    'uglify',
+    // 'uglify',
     'filerev',
     'usemin',
     'htmlmin'
