@@ -464,7 +464,7 @@ angular.module('teemOpsApp')
       };
 
       $scope.getSSHIp = function () {
-        return `{{ app.connectUser || 'ec2-user' }}@{{ app.infrastructure.PublicDnsName || app.infrastructure.PrivateIpAddress }}`;
+        return (app.connectUser != undefined ? app.connectUser : 'ec2-user') + '@' + (app.infrastructure.PublicDnsName != undefined ? app.infrastructure.PublicDnsName : app.infrastructure.PrivateIpAddress)
       };
 
       self.init();
