@@ -89,7 +89,7 @@ angular.module('teemOpsApp')
                 position: 'top right',
                 locals: {
                   status: 'success',
-                  message: `SSH Keys have been unlocked`
+                  message: 'SSH Keys have been unlocked'
                 },
                 controller: 'ToastCtrl',
                 templateUrl: 'views/_partials/toast.html'
@@ -101,7 +101,7 @@ angular.module('teemOpsApp')
                   position: 'top right',
                   locals: {
                     status: 'error',
-                    message: `Password was incorrect`
+                    message: 'Password was incorrect'
                   },
                   controller: 'ToastCtrl',
                   templateUrl: 'views/_partials/toast.html'
