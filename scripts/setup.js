@@ -50,7 +50,11 @@ var args = {
 };
 
 function help() {
-    console.log('node setup.js <source_config_path> <dest_config_path>')
+    console.log(
+        `
+node setup.js <source_config_path> <dest_config_path>
+`
+    )
 }
 
 const update_config = async function (source_item, dest_item, source, dest) {

@@ -6,6 +6,7 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "^4.13.3",
+    "grunt-cli": "^1.1.0",
     "gzippo": "^0.2.0",
     "morgan": "^1.6.1"
   },
@@ -24,7 +25,7 @@
     "grunt-contrib-htmlmin": "^3.1.0",
     "grunt-contrib-imagemin": "^3.1.0",
     "grunt-contrib-jshint": "^2.1.0",
-    "grunt-contrib-uglify": "^5.0.0",
+    "grunt-contrib-uglify": "^4.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-filerev": "^2.3.1",
     "grunt-google-cdn": "^0.4.3",

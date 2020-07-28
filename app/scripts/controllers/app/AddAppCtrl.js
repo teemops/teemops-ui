@@ -113,7 +113,7 @@ angular.module('teemOpsApp')
       };
 
       $scope.checkTabDisplayed = function (tabName) {
-        const tabs = $scope.platformList.map(function (platform) {
+        var tabs = $scope.platformList.map(function (platform) {
           if (platform.id === $scope.app.platformId) {
             return platform.tabs;
           }

@@ -216,8 +216,7 @@ angular.module('teemOpsApp')
       self.showConfirmCredentialDialog = function (section, $event) {
         var confirm = $mdDialog.confirm()
           .title('Confirm Change')
-          .textContent('Changing the AWS Credential will remove all data for this ' +
-            $filter('lowercase')($scope.displayName) + '. Continue?')
+          .textContent('Changing the AWS Credential will remove all data for this ' + $filter('lowercase')($scope.displayName) + '. Continue?')
           .ariaLabel('Confirm Change')
           .targetEvent($event)
           .ok('Yes, change this AWS Credential')
@@ -233,8 +232,7 @@ angular.module('teemOpsApp')
       self.showConfirmInfoDialog = function (section, $event) {
         var confirm = $mdDialog.confirm()
           .title('Confirm Change')
-          .textContent('Changing the ' + $scope.displayName + ' Stack will remove all data for this ' +
-            $filter('lowercase')($scope.displayName) + '. Continue?')
+          .textContent('Changing the ' + $scope.displayName + ' Stack will remove all data for this ' + $filter('lowercase')($scope.displayName) + '. Continue?')
           .ariaLabel('Confirm Change')
           .targetEvent($event)
           .ok('Yes, change this ' + $scope.displayName + ' Stack')
@@ -464,7 +462,9 @@ angular.module('teemOpsApp')
       };
 
       $scope.getSSHIp = function () {
-        return (app.connectUser != undefined ? app.connectUser : 'ec2-user') + '@' + (app.infrastructure.PublicDnsName != undefined ? app.infrastructure.PublicDnsName : app.infrastructure.PrivateIpAddress)
+        // var connectUser = ()
+        return (app.connectUser ? app.connectUser : 'ec2-user') + '@' + (app.infrastructure.PublicDnsName ? app.infrastructure.PublicDnsName : app.infrastructure.PrivateIpAddress)
+
       };
 
       self.init();
