@@ -3,13 +3,23 @@
 <div flex-gt-xs="60" flex-xs="90">
   <md-input-container class="md-block disk-size-input-container">
     <label>Disk Size</label>
-    <input id="diskSize" name="diskSize" data-ng-model="app.configData.cloud.diskSize"
-      flex="nogrow" type="number" min="30" max="16000" required>
+    <input id="diskSize" name="diskSize" data-ng-model="app.configData.cloud.diskSize" flex="nogrow" type="number"
+      min="30" max="16000" required>
     <span class="suffix">&nbsp;GB</span>
     <div class="hint">Enter a disk size of between 30 and 16000 GB</div>
     <div ng-messages="appForm.diskSize.$error" class="ng-messages-custom">
       <div ng-message="max">Disk Size should be between 30 and 16000 GB</div>
       <div ng-message="min">Disk Size should be between 30 and 16000 GB</div>
     </div>
+  </md-input-container>
+  <md-input-container>
+    <label>Public IP Address?</label>
+    <md-select id="selectPublicIP" name="selectPublicIP" data-ng-model="app.configData.cloud.publicIP" type="string"
+      class="m-0-bottom" md-no-asterisk>
+      <md-option ng-repeat="option in publicIPOptions" ng-value="{{option.id }}">
+        {{ option.label }}
+      </md-option>
+    </md-select>
+
   </md-input-container>
 </div>

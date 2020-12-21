@@ -39,5 +39,5 @@ git tag v0.1
 git push origin v0.1
 ```
 
-Copyright 2015 - 2019 Teem Cloud Ops, Inc
+Copyright 2015 - 2020 Ben Fellows, All Rights Reserved
 

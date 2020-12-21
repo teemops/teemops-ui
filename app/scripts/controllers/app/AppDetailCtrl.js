@@ -50,7 +50,23 @@ angular.module('teemOpsApp')
           enabled: false
         }
       };
-
+      $scope.publicIPOptions = [
+        {
+          id: 1,
+          label: 'No Public IP',
+          name: 'private'
+        },
+        {
+          id: 2,
+          label: 'Public IP',
+          name: 'public'
+        },
+        {
+          id: 3,
+          label: 'Static/Elastic IP',
+          name: 'elastic'
+        }
+      ];
       $scope.app = {};
       $scope.alb = {
         subnets: [],
@@ -62,6 +78,10 @@ angular.module('teemOpsApp')
       $scope.subnetsContent = 'TODO: This is a Subnet Content stuff yaya';
       $scope.processing = false;
 
+      $scope.getPublicIPOption = function () {
+        return $filter('filter')($scope.publicIPOptions, { id: $scope.app.configData.cloud.publicIP })[0];
+      };
+
       $scope.getApp = function (init) {
         AppService.getApp($stateParams.id)
           .then(function (result) {
@@ -70,6 +90,7 @@ angular.module('teemOpsApp')
 
               $scope.app = result;
               $scope.app.cloudProvider = $filter('filter')($scope.cloudProviderList, { id: result.cloudProviderId })[0];
+              $scope.app.configData.cloud.publicIP = (result.configData.cloud.publicIP || 1)
 
               $scope.pageTitle = $scope.app.name;
               $scope.app.displayAWSAccountId = $scope.app.awsAccountId;

@@ -3,9 +3,9 @@
     <label for="selectAccountId">Select AWS Account Id</label>
     <md-select id="selectAccountId" name="selectAccountId" data-ng-model="app.userCloudProviderId" class="m-0-bottom"
       ng-required="cloudProviders && cloudProviders.length > 0" md-no-asterisk>
-        <md-option ng-repeat="cloudProvider in cloudProviders" ng-value="{{ cloudProvider.id }}">
+      <md-option ng-repeat="cloudProvider in cloudProviders" ng-value="{{ cloudProvider.id }}">
         {{ cloudProvider.awsAccountId }} <span data-ng-show="cloudProvider.name">({{ cloudProvider.name }})<span>
-        <span data-ng-show="cloudProvider.isDefault"> - default</span>
+            <span data-ng-show="cloudProvider.isDefault"> - default</span>
       </md-option>
     </md-select>
     <div ng-messages="form.selectAccountId.$error" class="ng-messages-custom">
@@ -14,8 +14,7 @@
   </md-input-container>
   <md-button class="md-icon-button m-sm-top m-0-left-right" data-ng-click="app.userCloudProviderId = null;
     form.selectAccountId.$setDirty(); form.selectAccountId.$validate();"
-    data-ng-show="cloudProviders && cloudProviders.length > 0"
-    data-ng-disabled="!app.userCloudProviderId">
+    data-ng-show="cloudProviders && cloudProviders.length > 0" data-ng-disabled="!app.userCloudProviderId">
     <ng-md-icon icon="close"></ng-md-icon>
   </md-button>
 </div>
@@ -23,7 +22,7 @@
   <md-input-container flex="100">
     <label for="awsAccountId">Enter AWS Account Id</label>
     <input type="text" name="awsAccountId" id="awsAccountId" data-ng-model="app.awsAccountId" md-no-asterisk
-    ng-pattern="/^[0-9]{1,15}$/" maxlength="15" ng-required="!cloudProviders || cloudProviders.length === 0" />
+      ng-pattern="/^[0-9]{1,15}$/" maxlength="15" ng-required="!cloudProviders || cloudProviders.length === 0" />
     <div ng-messages="form.awsAccountId.$error" class="ng-messages-custom">
       <div ng-message="pattern">AWS Account Id must be a number</div>
       <div ng-message="required">Please enter your AWS Account Id</div>
@@ -32,7 +31,8 @@
   <ng-md-icon icon="info" size="20" class="md-accent m-md-top m-0-left-right">
     <md-tooltip md-direction="right">
       <span data-ng-show="tooltipText">{{ tooltipText }}</span>
-      <span data-ng-show="!tooltipText">You need to link your <strong>TeemOps</strong> Account with an <strong>AWS</strong> Account</span>
+      <span data-ng-show="!tooltipText">You need to link your <strong>TeemOps</strong> Account with an
+        <strong>AWS</strong> Account</span>
     </md-tooltip>
   </ng-md-icon>
 </div>

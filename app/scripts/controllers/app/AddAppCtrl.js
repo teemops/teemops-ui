@@ -83,6 +83,24 @@ angular.module('teemOpsApp')
       }
       ];
 
+      $scope.publicIPOptions = [
+        {
+          id: 1,
+          label: 'No Public IP',
+          name: 'private'
+        },
+        {
+          id: 2,
+          label: 'Public IP',
+          name: 'public'
+        },
+        {
+          id: 3,
+          label: 'Static/Elastic IP',
+          name: 'elastic'
+        }
+      ];
+
       $scope.formSubmitted = false;
       $scope.processing = false;
       $scope.error = null;
