@@ -48,7 +48,7 @@ angular.module('teemOpsApp')
 
         $scope.getApps();
 
-        CredentialService.getAllByUserId($rootScope.currentUser.userid)
+        CredentialService.getUserCreds()
           .then(function(result){
             $scope.credentials = result;
           });

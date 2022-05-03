@@ -147,7 +147,7 @@ angular.module('teemOpsApp')
 
         if(newVal && newVal !== oldVal) {
 
-          CredentialService.getAllByUserId($scope.currentUser.userid)
+          CredentialService.getUserCreds()
             .then(function(result){
               var filteredCreds=$filter('filter')(result, { userCloudProviderId: newVal });
               $scope.accountCredentials = filteredCreds;

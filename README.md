@@ -22,6 +22,7 @@ Feel free to update this Readme with any useful information.
 * gem install compass (if compass not already installed locally)
 * npm install
 * bower install
+* npm install -g grunt-cli
 
 ### To run ###
 * Dev Mode:

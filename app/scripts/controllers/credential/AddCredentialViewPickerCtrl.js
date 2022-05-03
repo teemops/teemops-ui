@@ -20,7 +20,7 @@ angular.module('teemOpsApp')
       self.initState = function(){
         if($state.current.name === 'credentials.new') {
 
-          CredentialService.getAllByUserId($rootScope.currentUser.userid)
+          CredentialService.getUserCreds()
             .then(function (results) {
 
               if(results && results.length > 1){

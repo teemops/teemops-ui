@@ -80,13 +80,14 @@ angular.module('teemOpsApp')
 
       self.getAllCredentials = function(){
 
-        CredentialService.getAllByUserId($rootScope.currentUser.userid)
+        CredentialService.getUserCreds()
           .then(function(result){
             $scope.credentials = result;
           })
           .catch(function(result){
             if(result.status === 'error'){
               //Handle error
+              console.log('Error with listing AWS accounts');
             }
             else {
               $scope.credentials = [];

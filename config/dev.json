@@ -1,8 +1,8 @@
 {
     "name": "development",
     "apiEndpoint": "http://localhost:8080/api",
-    "cloudapiEndpoint": "http://localhost:8080/api",
-    "subscribeEndpoint": "http://localhost:8080",
+    "cloudapiEndpoint": "https://localhost:8080/api",
+    "subscribeEndpoint": "https://localhost:8080",
     "useSampleData": false,
     "deleteButtonsEnabled": true,
     "httpTimeout": 15000,

@@ -132,6 +132,42 @@ angular.module('teemOpsApp')
             });
 
           return deferred.promise;
+        },
+
+        getUserCreds: function(userCloudProviderId=null){
+          var deferred = $q.defer();
+
+          $http.get(ENV.apiEndpoint + '/credentials')
+            .then(function(response){
+              var returnData = [];
+
+              if(response.data) {
+                console.log(response.data);
+                var credentials = response.data.result;
+
+                if(userCloudProviderId) {
+                  credentials = $filter('filter')(credentials, { user_cloud_provider_id : userCloudProviderId }); //jshint ignore:line
+                }
+
+                for(var i=0;i<credentials.length;i++){
+
+                  returnData.push({
+                    id: credentials[i].id,
+                    userCloudProviderId: credentials[i].user_cloud_provider_id, //jshint ignore:line
+                    displayAWSAccountId: credentials[i].aws_account_id, //jshint ignore:line
+                    authData: JSON.parse(credentials[i].auth_data) // jshint ignore:line
+                  });
+                }
+              }
+
+              deferred.resolve(returnData);
+              
+            })
+            .catch(function() {
+              deferred.reject({ status: 'error' });
+            });
+
+          return deferred.promise;
         }
       };
   }]);

@@ -69,7 +69,7 @@ angular.module('teemOpsApp')
 
       self.getAllAWSConfigs = function(){
 
-        UserCloudConfigService.getAllByUserId($rootScope.currentUser.userid)
+        UserCloudConfigService.getUserCreds($rootScope.currentUser.userid)
           .then(function(result){
             $scope.awsConfigs = result;
           })

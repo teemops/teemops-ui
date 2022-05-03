@@ -1,40 +1,64 @@
 <md-content layout="row" layout-fill data-ng-controller="SideNavCtrl">
-<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
-      md-component-id="left" aria-label="Show Menu"
-      md-is-locked-open="$mdMedia('gt-sm')">
+  <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" aria-label="Show Menu"
+    md-is-locked-open="$mdMedia('gt-sm')">
 
-      <a ui-sref="/" class="logo-container">
-        <span class="logo"></span>
-      </a>
+    <a ui-sref="/" class="logo-container">
+      <span class="logo"></span>
+    </a>
 
-      <md-list class="sidenav-menu">
-        <md-list-item ui-sref-active="active">
-            <a ui-sref="dashboard" class="md-button md-ink-ripple" layout="space-around center">
-              <ng-md-icon icon="dashboard"></ng-md-icon>
-              <span>Dashboard</span>
-            </a>
-        </md-list-item>
-        <md-divider></md-divider>
-        <md-list-item ui-sref-active="active">
-            <a ui-sref="apps.list" class="md-button md-ink-ripple" layout="space-around center">
-                <ng-md-icon icon="apps"></ng-md-icon>
-                <span>My {{ appDisplayName }}s</span>
-            </a>
-        </md-list-item>
-        <md-list-item ui-sref-active="active">
-            <a ui-sref="apps.new" class="md-button md-ink-ripple" layout="space-around center">
-              <ng-md-icon icon="create"></ng-md-icon>
-              <span>Create an {{ appDisplayName }}</span>
-            </a>
-        </md-list-item>
-        <!-- <md-list-item ui-sref-active="active">
-            <a ui-sref="opsbot" class="md-button md-ink-ripple" layout="space-around center">
-                <ng-md-icon icon="security"></ng-md-icon>
-                <span>Ops Bot</span>
-            </a>
-        </md-list-item> -->
-        <md-divider></md-divider>
-        <!-- <md-list-item ui-sref-active="active">
+    <md-list class="sidenav-menu">
+      <md-list-item ui-sref-active="active">
+        <a ui-sref="dashboard" class="md-button md-ink-ripple" layout="space-around center">
+          <ng-md-icon icon="dashboard"></ng-md-icon>
+          <span>Dashboard</span>
+        </a>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item ui-sref-active="active">
+        <a ui-sref="apps.list" class="md-button md-ink-ripple" layout="space-around center">
+          <ng-md-icon icon="apps"></ng-md-icon>
+          <span>My {{ appDisplayName }}s</span>
+        </a>
+      </md-list-item>
+      <md-list-item ui-sref-active="active">
+        <a ui-sref="apps.new" class="md-button md-ink-ripple" layout="space-around center">
+          <ng-md-icon icon="create"></ng-md-icon>
+          <span>Create an {{ appDisplayName }}</span>
+        </a>
+      </md-list-item>
+      <md-list-item ui-sref-active="active">
+        <a ui-sref="apps.new" class="md-button md-ink-ripple" layout="space-around center">
+          <ng-md-icon icon="create"></ng-md-icon>
+          <span>Databases</span>
+        </a>
+      </md-list-item>
+      <md-list-item ui-sref-active="active">
+        <a ui-sref="apps.new" class="md-button md-ink-ripple" layout="space-around center">
+          <ng-md-icon icon="create"></ng-md-icon>
+          <span>Security</span>
+        </a>
+      </md-list-item>
+      <md-list-item ui-sref-active="active">
+        <a ui-sref="apps.new" class="md-button md-ink-ripple" layout="space-around center">
+          <ng-md-icon icon="create"></ng-md-icon>
+          <span>Backups</span>
+        </a>
+      </md-list-item>
+      <md-list-item ui-sref-active="active">
+        <a ui-sref="apps.new" class="md-button md-ink-ripple" layout="space-around center">
+          <ng-md-icon icon="create"></ng-md-icon>
+          <span>Monitoring</span>
+        </a>
+      </md-list-item>
+      <md-divider></md-divider>
+      <md-list-item ui-sref-active="active">
+        <a ui-sref="opsbot" class="md-button md-ink-ripple" layout="space-around center">
+          <ng-md-icon icon="security"></ng-md-icon>
+          <span>Ops Bot</span>
+        </a>
+      </md-list-item>
+      <md-divider></md-divider>
+      <!-- <md-list-item ui-sref-active="active">
             <a ui-sref="vpc" class="md-button md-ink-ripple" layout="space-around center">
               <ng-md-icon icon="cloud_circle"></ng-md-icon>
               <span>Networking</span>
@@ -42,67 +66,68 @@
             
         </md-list-item>
         <md-divider></md-divider> -->
-        <md-list-item ui-sref-active="active">
-            <a ui-sref="credentials" class="md-button md-ink-ripple" layout="space-around center">
-              <ng-md-icon icon="supervisor_account"></ng-md-icon>
-              <span>AWS Accounts</span>
-            </a>
-        </md-list-item>
-        <md-list-item ui-sref-active="active">
-            <a ui-sref="awsconfigs" class="md-button md-ink-ripple" layout="space-around center">
-              <ng-md-icon icon="cloud"></ng-md-icon>
-              <span style="line-height: 18px;">AWS Launch Configs</span>
-            </a>
-        </md-list-item>
-      </md-list>
-</md-sidenav>
-<div role="main" layout="column" class="flex layout-column">
-  <md-toolbar data-ng-controller="NavCtrl" layout="row" class="md-whiteframe-z1 site-toolbar md-padding p-0-top-bottom"
-    layout-align="space-around center">
-    <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Toggle Menu" data-ng-click="toggleNav()" hide-gt-sm>
-      <ng-md-icon icon="menu"></ng-md-icon>
-    </md-button>
-    <div ncy-breadcrumb></div>
-    <span flex="" class="flex"></span>
-    <md-menu-bar data-ng-class="{ 'xs' : $mdMedia('xs'), 'sm' : $mdMedia('sm'), 'gt-sm' : $mdMedia('gt-sm') }">
-      <md-menu flex layout-fill>
-        <button aria-label="Open user account menu" class="user-button md-button md-ink-ripple md-default-theme" md-menu-origin
-          ng-click="$mdOpenMenu()" layout-align="space-around center">
-          <ng-md-icon icon="person"></ng-md-icon>
-          <span>{{ currentUser.email }}</span>
-          <ng-md-icon size="16" icon="expand_more"></ng-md-icon>
-        </button>
-        <md-menu-content width="3" md-menu-align-target>
-          <md-menu-item>
-            <a ui-sref="account" class="md-button" aria-label="My Account">
-              <ng-md-icon icon="account_circle"></ng-md-icon>
-              <span>My Account</span>
-            </a>
-          </md-menu-item>
-          <md-menu-item>
-            <md-button aria-label="Sign Out" data-ng-click="logout()">
-              <ng-md-icon icon="logout"></ng-md-icon>
-              <span>Sign Out</span>
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-    </md-menu-bar>
-    <!--<md-button class="md-accent md-raised p-xs-left-right" layout="row" layout-align="end center" data-ng-click="showHelp()">
+      <md-list-item ui-sref-active="active">
+        <a ui-sref="credentials" class="md-button md-ink-ripple" layout="space-around center">
+          <ng-md-icon icon="supervisor_account"></ng-md-icon>
+          <span>AWS Accounts</span>
+        </a>
+      </md-list-item>
+      <md-list-item ui-sref-active="active">
+        <a ui-sref="awsconfigs" class="md-button md-ink-ripple" layout="space-around center">
+          <ng-md-icon icon="cloud"></ng-md-icon>
+          <span style="line-height: 18px;">AWS Launch Configs</span>
+        </a>
+      </md-list-item>
+    </md-list>
+  </md-sidenav>
+  <div role="main" layout="column" class="flex layout-column">
+    <md-toolbar data-ng-controller="NavCtrl" layout="row"
+      class="md-whiteframe-z1 site-toolbar md-padding p-0-top-bottom" layout-align="space-around center">
+      <md-button class="md-icon-button md-button md-ink-ripple" aria-label="Toggle Menu" data-ng-click="toggleNav()"
+        hide-gt-sm>
+        <ng-md-icon icon="menu"></ng-md-icon>
+      </md-button>
+      <div ncy-breadcrumb></div>
+      <span flex="" class="flex"></span>
+      <md-menu-bar data-ng-class="{ 'xs' : $mdMedia('xs'), 'sm' : $mdMedia('sm'), 'gt-sm' : $mdMedia('gt-sm') }">
+        <md-menu flex layout-fill>
+          <button aria-label="Open user account menu" class="user-button md-button md-ink-ripple md-default-theme"
+            md-menu-origin ng-click="$mdOpenMenu()" layout-align="space-around center">
+            <ng-md-icon icon="person"></ng-md-icon>
+            <span>{{ currentUser.email }}</span>
+            <ng-md-icon size="16" icon="expand_more"></ng-md-icon>
+          </button>
+          <md-menu-content width="3" md-menu-align-target>
+            <md-menu-item>
+              <a ui-sref="account" class="md-button" aria-label="My Account">
+                <ng-md-icon icon="account_circle"></ng-md-icon>
+                <span>My Account</span>
+              </a>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button aria-label="Sign Out" data-ng-click="logout()">
+                <ng-md-icon icon="logout"></ng-md-icon>
+                <span>Sign Out</span>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </md-menu-bar>
+      <!--<md-button class="md-accent md-raised p-xs-left-right" layout="row" layout-align="end center" data-ng-click="showHelp()">
       <ng-md-icon icon="help" size="20"></ng-md-icon>
       <span flex>Help</span>
     </md-button>-->
-  </md-toolbar>
+    </md-toolbar>
 
-  <md-subheader class="page-title md-no-sticky" id="top" data-ng-show="pageTitle != ''">
-  	<md-toolbar class="md-accent md-hue-2" layout-padding>
-  		<div layout-padding layout="row" layout-align="start center">
-  			{{ pageTitle }}
-        <span flex></span>
-  		</div>
-  	</md-toolbar>
-  </md-subheader>
+    <md-subheader class="page-title md-no-sticky" id="top" data-ng-show="pageTitle != ''">
+      <md-toolbar class="md-accent md-hue-2" layout-padding>
+        <div layout-padding layout="row" layout-align="start center">
+          {{ pageTitle }}
+          <span flex></span>
+        </div>
+      </md-toolbar>
+    </md-subheader>
 
-  <md-content ui-view="" id="view"></md-content>
-</div>
+    <md-content ui-view="" id="view"></md-content>
+  </div>
 </md-content>
